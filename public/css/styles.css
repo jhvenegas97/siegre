@@ -1,0 +1,134 @@
+.bg-light {
+    background-color: #0CBCCC !important;
+}
+
+.navbar-brand {
+    margin-right: 0rem!important;
+}
+
+.btn-new {
+    border-radius: 1rem!important;
+    color: #fff!important;
+    background-color: #0CBCCC !important;
+    border-color: #0CBCCC !important;
+}
+
+.btn-primary {
+    font-weight: 700 !important;
+}
+
+body {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.demo {
+    background-color: rgb(168, 200, 245)
+}
+
+.pagination-outer {
+    text-align: center
+}
+
+.pagination {
+    background-color: #fff;
+    border-radius: 25px !important;
+    overflow: hidden;
+    border: none !important
+}
+
+a:focus,
+a:active {
+    outline: none !important;
+    box-shadow: none !important
+}
+
+.fa {
+    font-size: 11px;
+    vertical-align: middle !important;
+    color: black
+}
+
+.pagination li.active .fa {
+    color: #fff !important
+}
+
+.pagination li a.page-link {
+    color: #505050;
+    background-color: transparent;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 17px 25px;
+    border: none;
+    transition: all 0.3s ease 0s
+}
+
+.fa-home {
+    transform: scale(1.4, 1.4)
+}
+
+.pagination li:last-child a.page-link {
+    border: none
+}
+
+.pagination li.active a.page-link,
+.pagination li a.page-link:hover,
+.pagination li.active a.page-link:hover {
+    background-color: transparent
+}
+
+.pagination li a.page-link:after {
+    content: '';
+    background-color: #0CBCCC !important;
+    height: 100%;
+    width: 100%;
+    transform: scaleY(0);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: all 0.3s
+}
+
+.pagination li.active a.page-link:after,
+.pagination li a.page-link:hover:after,
+.pagination li.active a.page-link:hover:after {
+    transform: scaleY(1);
+    border-radius: 25px !important
+}
+
+.size-menu-navigation li a {
+    font-size: 15px !important;
+}
+
+.menu-nav {
+    font-weight: 800;
+    color: #0CBCCC;
+}
+
+.shadow-personalized {
+    -webkit-filter: drop-shadow(2px 2px 2px #222);
+    filter: drop-shadow(2px 2px 2px #222);
+}
+
+
+/*@media (max-width: 767px) {
+    .pagination li a.page-link {
+        padding: 11px 8px !important
+    }
+    .fa {
+        font-size: 9px !important
+    }
+    li a {
+        font-size: 12px !important
+    }
+    .page-item+.page-item {
+        padding-left: 0 !important
+    }
+}*/
+
+.carousel-caption {
+    bottom: auto !important;
+}
