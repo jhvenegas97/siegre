@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\IdentificationController;
+use App\Models\Identification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,10 +51,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'documento' => ['required', 'string','exists:identifications'],
         ]);
     }
 
@@ -68,6 +72,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'state'=> '1',
+            'identification_id' => $data['documento'],
         ]);
     }
 }

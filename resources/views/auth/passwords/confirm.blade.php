@@ -1,22 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.layoutInit')
+@section('title','Confirmar Contraseña')
 
 @section('content')
+    <br>
+    <br>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 col-lg-6 col-xl-5">
             <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
+                <div class="card-header text-center">{{ __('Confirmar Contraseña') }}</div>
 
-                <div class="card-body">
-                    {{ __('Please confirm your password before continuing.') }}
+                <div class="card-body text-center">
+                    {{ __('Por favor confirma tu contraseña antes de continuar.') }}
 
                     <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <div class="row mb-3 flex-column">
+                            <label for="password" class="col-12 col-form-label text-md-start">{{ __('Contraseña') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-12">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
@@ -28,14 +31,14 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Confirm Password') }}
+                            <div class="col-12 flex-column">
+                                <button type="submit" class="btn btn-primary btn-new">
+                                    {{ __('Confirmar Contraseña') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Olvidó su contraseña?') }}
                                     </a>
                                 @endif
                             </div>

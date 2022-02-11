@@ -132,3 +132,7 @@ a:active {
 .carousel-caption {
     bottom: auto !important;
 }
+
+.img-circle{
+    border-radius: 150px;
+}

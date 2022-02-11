@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'state',
+        'avatar',
+        'external_id',
+        'program_id',
+        'identification_id',
     ];
 
     /**
@@ -41,4 +46,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function identification()
+    {
+        return $this->belongsTo("App\Models\Identification", "identification_id");
+    }
+    public function program()
+    {
+        return $this->belongsTo("App\Models\Program", "program_id");
+    }
 }

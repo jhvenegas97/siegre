@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
@@ -37,8 +37,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 1.2rem;">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="/init">
-                <img src="images/logo-header.png" alt="Logo">
+            <a class="navbar-brand" href="/">
+                <img src="{{asset('images/logo-header.png')}}" alt="Logo">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
                     @else
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i class="fa fa-user-plus"></i>{{ __('Cerrar sesión') }}</a>
+                                                     document.getElementById('logout-form').submit();"><i class="fa fa-user-plus"></i> {{ __('Cerrar sesión') }}</a>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

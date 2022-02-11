@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Auth::routes();
+})->name('welcome');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -29,10 +28,27 @@ Route::get('/login/google/callback', [App\Http\Controllers\Auth\LoginController:
 Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
 Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
 
-Route::get('/init', function () {
-    return view('init');
-});
-
 Route::get('/admin', function () {
     return view('admin.admin');
 });
+
+
+
+Route::group(['midldleware'=>'guest'],function(){
+    Route::post('/checkIdentificationPost',[Controllers\Auth\LoginController::class, 'checkID']);
+    Route::get('/checkIdentification', function (){
+        return view('auth.checkIdentification');
+    })->name('checkIdentification');
+});
+
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('/programs',[Controllers\ProgramController::class, 'index'])->name('programIndex');
+    Route::post('/program/store',[Controllers\ProgramController::class, 'store'])->name('programStore');
+
+
+    Route::get('/administrador-listausuario','AdministradorListaUsuarioController@getListaUsuarios');
+    Route::get('/administrador-listapublicacion','AdministradorListaPublicacionController@getListaPublicaciones');
+    Route::get('/feed','ClienteFeedController@getListaPublicaciones');
+});
+
+Auth::routes();
