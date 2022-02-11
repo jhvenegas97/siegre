@@ -7,15 +7,19 @@ Es un sistema de información web creado para el beneficio de todos los egresado
 ## What did you find on SIEGRE
 
 <strong>Capacitaciones</strong>
+<br>
 Encontraras notificacione de las capacitaciones que se pueden presentar momentaniamente y que pueden ser de gran interes e innovacion para los egresados del programa Licenciatura en Informatica.
 
 <strong>Ofertas laborales</strong>
+<br>
 Se subiran al sistema de informacion web todas las vacantes que requieran las instituciones, emprasas u organizaciones relacionadas con el perfil ocupacional de un licenciado en informatica. Adicionalmente si eres egresado particual y estas registrado en el sistema puedes solicitar una vacante para tu institucion, empresa u organizacion.
 
 <strong>Entretenimiento</strong>
+<br>
 Se puede visualisar todos los articulos de la revista runin del programa, eventos academicos entre otros aspectos de interes.
 
 <strong>Reconocimiento al mérito</strong>
+<br>
 periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose.
 
 ## License
