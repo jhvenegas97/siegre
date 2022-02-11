@@ -2,25 +2,25 @@
 
 ## About SIEGRE
 
-Es un sistema de información web creado para el beneficio de todos los egresados no titulados y graduados del programa Licenciatura en Informática de la Universidad de Nariño.
+It is a web information system created for the benefit of all undergraduate graduates and graduates of the Computer Science Degree program at the University of Nariño.
 
 ## What did you find on SIEGRE
 
-<strong>Capacitaciones</strong>
+<strong>Trainings</strong>
 <br>
-Encontraras notificacione de las capacitaciones que se pueden presentar momentaniamente y que pueden ser de gran interes e innovacion para los egresados del programa Licenciatura en Informatica.
+You will find notification of the training that can be presented momentarily and that can be of great interest and innovation for the graduates of the Bachelor of Computer Science program.
 
-<strong>Ofertas laborales</strong>
+<strong>Job offers</strong>
 <br>
-Se subiran al sistema de informacion web todas las vacantes que requieran las instituciones, emprasas u organizaciones relacionadas con el perfil ocupacional de un licenciado en informatica. Adicionalmente si eres egresado particual y estas registrado en el sistema puedes solicitar una vacante para tu institucion, empresa u organizacion.
+All vacancies required by institutions, companies or organizations related to the occupational profile of a computer science graduate will be uploaded to the web information system. Additionally, if you are a particular graduate and you are registered in the system, you can request a vacancy for your institution, company or organization.
 
-<strong>Entretenimiento</strong>
+<strong>Entertainment</strong>
 <br>
-Se puede visualisar todos los articulos de la revista runin del programa, eventos academicos entre otros aspectos de interes.
+You can view all the articles of the magazine runnin of the program, academic events among other aspects of interest.
 
-<strong>Reconocimiento al mérito</strong>
+<strong>Merit Recognition</strong>
 <br>
-periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose.
+Periodically, graduates who have academic experience and continuous training will be highlighted, with the aim of motivating others to continue training.
 
 ## License
 
