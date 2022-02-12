@@ -39,8 +39,8 @@ return [
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION','tls'),
-            'username' => env('MAIL_USERNAME','jonathan.9129@gmail.com'),
-            'password' => env('MAIL_PASSWORD','Tdwo9L.27#'),
+            'username' => env('MAIL_USERNAME','harveyproyectos@gmail.com'),
+            'password' => env('MAIL_PASSWORD','P@@ssw0rd'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -100,8 +100,8 @@ return [
     ],
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'jonathan.9129@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Jonathan Venegas'),
+        'address' => env('MAIL_FROM_ADDRESS', 'harveyproyectos@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Harvey Proyectos'),
     ],
 
     /*
