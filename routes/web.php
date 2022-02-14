@@ -32,7 +32,10 @@ Route::get('/admin', function () {
     return view('admin.admin');
 });
 
-
+Route::get('/program', [Controllers\ProgramController::class, 'index']);
+Route::post('/add-update-program', [Controllers\ProgramController::class, 'store']);
+Route::post('/edit-program', [Controllers\ProgramController::class, 'edit']);
+Route::post('/delete-program', [Controllers\ProgramController::class, 'destroy']);
 
 Route::group(['midldleware'=>'guest'],function(){
     Route::post('/checkIdentificationPost',[Controllers\Auth\LoginController::class, 'checkID']);
@@ -42,8 +45,8 @@ Route::group(['midldleware'=>'guest'],function(){
 });
 
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/programs',[Controllers\ProgramController::class, 'index'])->name('programIndex');
-    Route::post('/program/store',[Controllers\ProgramController::class, 'store'])->name('programStore');
+    /*Route::get('/programs',[Controllers\ProgramController::class, 'index'])->name('programIndex');
+    Route::post('/program/store',[Controllers\ProgramController::class, 'store'])->name('programStore');*/
 
 
     Route::get('/administrador-listausuario','AdministradorListaUsuarioController@getListaUsuarios');

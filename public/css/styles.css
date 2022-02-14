@@ -13,6 +13,22 @@
     border-color: #0CBCCC !important;
 }
 
+.btn-new-success-sweet-alert {
+    border-radius: 1rem!important;
+    color: #fff!important;
+    background-color: #0CBCCC !important;
+    border-color: #0CBCCC !important;
+    margin-left: 5px !important;
+}
+
+.btn-new-danger-sweet-alert {
+    border-radius: 1rem!important;
+    color: #fff!important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    margin-right: 5px !important;
+}
+
 .btn-primary {
     font-weight: 700 !important;
 }
