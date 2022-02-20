@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/369e4418c7.js" crossorigin="anonymous"></script>
 
     <script>
         $(document).ready(function() {
@@ -51,25 +51,25 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{{ route('login') }}"><i class="fa fa-user-plus"></i> {{ __('Iniciar sesión') }}</a>
+                                <a class="nav-link" aria-current="page" href="{{ route('login') }}"><i class="fa fa-user-plus fa-sm"></i> {{ __('Iniciar sesión') }}</a>
                             </li>
 
                         @endif
                     @else
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i class="fa fa-user-plus"></i> {{ __('Cerrar sesión') }}</a>
+                                                     document.getElementById('logout-form').submit();"><i class="fa fa-user-plus fa-sm"></i> {{ __('Cerrar sesión') }}</a>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     @endguest
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-file"></i> Manual de Usuario</a>
+                        <a class="nav-link" href="#"><i class="fa fa-file fa-sm"></i> Manual de Usuario</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-users"></i> Acerca de</a>
+                        <a class="nav-link" href="#"><i class="fa fa-users fa-sm"></i> Acerca de</a>
                     </li>
                 </ul>
             </div>
@@ -93,15 +93,15 @@
     <div class="col-md-4 col-sm-12 d-flex justify-content-center justify-content-md-end justify-content-lg-end justify-content-xl-end ">
         <ul class="nav list-unstyled " style=" font-size: 3rem; padding-right: 30px; padding-left: 30px; ">
             <li class="ms-3 ">
-                <a class="nav-item " target="_blank " href="https://www.facebook.com/groups/81959732158/ " style="color: #05555C; "><i class="fa fa-facebook "></i></a>
+                <a class="nav-item " target="_blank " href="https://www.facebook.com/groups/81959732158/ " style="color: #05555C; "><i class="fa fa-facebook fa-1x"></i></a>
             </li>
 
             <li class="ms-3 ">
-                <a class="nav-item " target="_blank " href="https://www.youtube.com/playlist?list=PLlubJrAflG-ZRf1JPZacaUapk7PH4fGBz " style="color: #05555C; "><i class="fa fa-youtube "></i></a>
+                <a class="nav-item " target="_blank " href="https://www.youtube.com/playlist?list=PLlubJrAflG-ZRf1JPZacaUapk7PH4fGBz " style="color: #05555C; "><i class="fa fa-youtube fa-1x"></i></a>
             </li>
 
             <li class="ms-3 ">
-                <a class="nav-item " target="_blank " href="https://twitter.com/licinfoudenar " style="color: #05555C; "><i class="fa fa-twitter "></i></a>
+                <a class="nav-item " target="_blank " href="https://twitter.com/licinfoudenar " style="color: #05555C; "><i class="fa fa-twitter fa-1x"></i></a>
             </li>
         </ul>
     </div>

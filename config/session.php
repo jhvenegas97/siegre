@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'encrypt' => false,
+    'encrypt' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,8 @@ return [
     |
     */
 
-    'connection' => env('SESSION_CONNECTION', null),
+//    'connection' => env('SESSION_CONNECTION', null),
+    'connection' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------

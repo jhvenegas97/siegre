@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Program;
+use App\Models\Faculty;
 use Illuminate\Database\Seeder;
 
-class ProgramSeeder extends Seeder
+class FacultySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,14 +14,13 @@ class ProgramSeeder extends Seeder
      */
     public function run()
     {
-        $csvFile = fopen(base_path("database/data/programas.csv"), "r");
+        $csvFile = fopen(base_path("database/data/facultades.csv"), "r");
 
         $firstline = true;
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
             if (!$firstline) {
-                Program::create([
-                    "name_program" => $data['0'],
-                    "faculty_id" => $data['1']
+                Faculty::create([
+                    "name_faculty" => $data['0'],
                 ]);
             }
             $firstline = false;

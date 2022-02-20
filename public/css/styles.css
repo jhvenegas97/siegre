@@ -152,3 +152,29 @@ a:active {
 .img-circle{
     border-radius: 150px;
 }
+
+
+/*Cards Admin Panel*/
+.grey-bg {
+    background-color: #F5F7FA;
+}
+
+.card-panel{
+    text-decoration: none;
+}
+
+.card-panel:link {
+    color: #0CBCCC !important;
+}
+
+.card-panel:visited {
+    color: #0CBCCC !important;
+}
+
+.card-panel:hover {
+    color: #13c6d6 !important;
+}
+
+.card-panel:active {
+    color: #0CBCCC !important;
+}

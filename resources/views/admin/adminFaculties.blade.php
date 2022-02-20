@@ -1,4 +1,4 @@
-@section('title', 'Administrador Programas')
+@section('title', 'Administrador Facultades')
 @extends('layouts.layoutAdmin')
 @section('content')
     <script>
@@ -21,12 +21,12 @@
 
      <div class="container-fluid">
         <center>
-            <h3 class="mb-4">Lista de Programas</h3>
+            <h3 class="mb-4">Lista de Facultades</h3>
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
                 <div class="col-12 d-flex justify-content-center justify-content-md-start">
-                    <button id="addNewProgram" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#programCreate">Crear Programa</button>
+                    <button id="addNewFaculty" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear Facultad</button>
                 </div>
             </div>
 
@@ -40,7 +40,6 @@
                  <tr>
                      <th scope="col" class="align-middle text-center">No</th>
                      <th scope="col" class="align-middle text-center">Nombre</th>
-                     <th scope="col" class="align-middle text-center">Facultad</th>
 
                      <th scope="col">Acciones</th>
                  </tr>
@@ -56,7 +55,7 @@
 
 
 
-     <div class="modal" id="ajax-program-model" tabindex="-1" aria-hidden="true">
+     <div class="modal" id="ajax-faculty-model" tabindex="-1" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered">
              <div class="modal-content">
                  <div class="modal-header">
@@ -65,33 +64,19 @@
                  <div class="modal-body">
                      <div class="row d-flex justify-content-center">
                          <div class="col-12  d-flex justify-content-center">
-                             <h5 class="modal-title" id="ajaxProgramModel">Crear Programa</h5>
+                             <h5 class="modal-title" id="ajaxFacultyModel">Crear Facultad</h5>
                          </div>
                      </div>
 
                      <div class="d-grid gap-2 ps-4 pe-4 mt-2">
-                         <form method="POST" action="javascript:void(0)" id="addEditProgramForm" name="addEditProgramForm">
+                         <form method="POST" action="javascript:void(0)" id="addEditFacultyForm" name="addEditFacultyForm">
                              @csrf
                              <input type="hidden" name="id" id="id">
                              <div class="mb-3">
-                                 <input id="name_programID" type="text" class="form-control" name="name_program" value="" required autocomplete="name_program" autofocus placeholder="Nombre del Programa">
+                                 <input id="name_facultyID" type="text" class="form-control" name="name_faculty" value="" required autocomplete="name_faculty" autofocus placeholder="Nombre de la Facultad">
                                  <span style="display: none;" class="invalid-feedback" id="name_error_span" role="alert">
                                         <strong id="name_error"></strong>
                                  </span>
-                             </div>
-
-                             <div class="mb-3">
-                                 <select id="inputStateFaculty" class="form-control">
-                                     <option data-id="">Elegir</option>
-                                     @foreach($faculties as $faculty)
-                                         <option data-id="{{$faculty->id}}">{{$faculty->name_faculty}}</option>
-                                     @endforeach
-                                 </select>
-
-{{--                                 <input id="name_facultyID" type="text" class="form-control" name="faculty" value="" required autocomplete="faculty" autofocus placeholder="Facultad">--}}
-{{--                                 <span style="display: none;" class="invalid-feedback" id="faculty_error_span" role="alert">--}}
-{{--                                        <strong id="faculty_error"></strong>--}}
-{{--                                 </span>--}}
                              </div>
 
                              <div class="d-grid gap-2">
@@ -100,7 +85,7 @@
                                      <div class="d-grid gap-2 m-2">
                                          <a href="" style="text-decoration: none">
                                              <div class="d-grid gap-2 pt-2">
-                                                 <button type="submit" id="btn-save" value="addNewProgram" class="btn btn-primary btn-new">Guardar</button>
+                                                 <button type="submit" id="btn-save" value="addNewFaculty" class="btn btn-primary btn-new">Guardar</button>
                                              </div>
                                          </a>
                                      </div>
@@ -361,10 +346,9 @@
             $('#datatable-ajax-crud').DataTable({
                                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('program') }}",
+                ajax: "{{ url('faculty') }}",
                 columns: [
                     {data: 'id', name: 'id', 'visible': false},
-                    { data: 'name_program', name: 'name_program' },
                     { data: 'name_faculty', name: 'name_faculty' },
                     {data: 'action', name: 'action', orderable: false},
                 ],
@@ -372,12 +356,12 @@
                 language:spanishLanguage,
             });
 
-            $('#addNewProgram').click(function (e) {
+            $('#addNewFaculty').click(function (e) {
                 e.preventDefault();
                 cleanErrors();
-                $('#addEditProgramForm').trigger("reset");
-                $('#ajaxProgramModel').html("Crear programa");
-                $('#ajax-program-model').modal('show');
+                $('#addEditFacultyForm').trigger("reset");
+                $('#ajaxFacultyModel').html("Crear facultad");
+                $('#ajax-faculty-model').modal('show');
             });
 
             $('body').on('click', '.edit', function (e) {
@@ -387,15 +371,14 @@
                 // ajax
                 $.ajax({
                     type:"POST",
-                    url: "{{ url('edit-program') }}",
+                    url: "{{ url('edit-faculty') }}",
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
-                        $('#ajaxProgramModel').html("Editar Programa");
-                        $('#ajax-program-model').modal('show');
+                        $('#ajaxFacultyModel').html("Editar Facultad");
+                        $('#ajax-faculty-model').modal('show');
                         $('#id').val(res.id);
-                        $('#name_programID').val(res.name_program);
-                        $('#inputStateFaculty option[data-id="'+res.faculty_id+'"]').attr('selected','selected');
+                        $('#name_facultyID').val(res.name_faculty);
                     }
                 });
             });
@@ -415,18 +398,18 @@
                     text: "Estos cambios no se pueden revertir!",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Si, borrar el programa!',
+                    confirmButtonText: 'Si, borrar la facultad!',
                     cancelButtonText: 'No, cancelar!',
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        //Swal.fire('Programa eliminado con éxito!', '', 'success')
+                        //Swal.fire('Facultad eliminada con éxito!', '', 'success')
                         var id = $(this).data('id');
 
                         // ajax
                         $.ajax({
                             type:"POST",
-                            url: "{{ url('delete-program') }}",
+                            url: "{{ url('delete-faculty') }}",
                             data: { id: id },
                             dataType: 'json',
                             success: function(res){
@@ -444,8 +427,7 @@
             $('body').on('click', '#btn-save', function (e) {
                 e.preventDefault();
                 var id = $("#id").val();
-                var name_program = $("#name_programID").val();
-                var faculty_id = $('#inputStateFaculty option:selected').attr('data-id');
+                var name_faculty = $("#name_facultyID").val();
 
                 cleanErrors();
 
@@ -455,33 +437,31 @@
                 // ajax
                 $.ajax({
                     type:"POST",
-                    url: "{{ url('add-update-program') }}",
+                    url: "{{ url('add-update-faculty') }}",
                     data: {
                         id:id,
-                        name_program:name_program,
-                        faculty_id:faculty_id,
+                        name_faculty:name_faculty,
                     },
                     dataType: 'json',
                     success: function(response){
                         console.log(response);
-                        $("#ajax-program-model").modal('hide');
+                        $("#ajax-faculty-model").modal('hide');
                         var oTable = $('#datatable-ajax-crud').dataTable();
                         oTable.fnDraw(false);
                         Toast.fire({
                             icon: 'success',
-                            title: 'El programa fue creado con éxito'
+                            title: 'La facultad fue creada con éxito'
                         })
                         $("#btn-save").html('Guardar');
                         $("#btn-save"). attr("disabled", false);
                     },
                     error: function(response){
+                        console.log(response);
                         $("#btn-save").html('Guardar');
                         $("#btn-save"). attr("disabled", false);
                         $("#name_error_span").show();
-                        $("#faculty_error_span").show();
                         try{
-                            $("#name_error").text(response.responseJSON.errors.name_program);
-                            $("#faculty_error").text(response.responseJSON.errors.faculty_id);
+                            $("#name_error").text(response.responseJSON.errors.name_faculty);
                         }
                         catch (exp){
                         }
@@ -496,7 +476,7 @@
                             })
                             swalWithBootstrapButtonsError.fire(
                                 'Cancelled',
-                                response.responseJSON.errorInfo[2],
+                                response.responseJSON.message,
                                 'error'
                             )
                         }
