@@ -149,17 +149,18 @@ a:active {
     bottom: auto !important;
 }
 
-.img-circle{
+.img-circle {
     border-radius: 150px;
 }
 
 
 /*Cards Admin Panel*/
+
 .grey-bg {
     background-color: #F5F7FA;
 }
 
-.card-panel{
+.card-panel {
     text-decoration: none;
 }
 
@@ -177,4 +178,12 @@ a:active {
 
 .card-panel:active {
     color: #0CBCCC !important;
+}
+
+
+/*About Cards*/
+
+.card-mod {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

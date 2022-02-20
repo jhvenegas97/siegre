@@ -8,9 +8,9 @@
             <div class="d-flex carousel-item active align-items-center">
                 <img src="{{asset('images/Egresados.png')}}" class="d-block w-100" alt="egresados">
                 <div class="carousel-caption d-none d-md-block text-start">
-                    <h1>Bienvenidos a SIEGRES</h1>
+                    <h1>Bienvenidos a SIEGRE</h1>
                     <h3>Sistema de Información Web para Egresados</h3>
-                    <h4>Para conocer más información haga click <a href="">aquí</a></h4>
+                    <h4>Para conocer más información registrese <a href="{{route('login')}}">aquí</a></h4>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <strong>¿Qué es SIEGRES?</strong>
+                        <h3 class="mb-0"><strong><span class="badge bg-secondary btn-new">¿Qué es SIEGRE?</span></strong></h3>
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -46,7 +46,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                        <strong>¿Qué encontraras en SIEGRES?</strong>
+                        <h3 class="mb-0"><strong><span class="badge bg-secondary btn-new">¿Qué encontraras en SIEGRE?</span></strong></h3>
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">

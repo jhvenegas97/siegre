@@ -75,11 +75,11 @@
                         </form>
                     @endguest
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-file fa-sm"></i> Manual de Usuario</a>
+                        <a class="nav-link" target="_blank" href="{{asset('files/manualUsuario.pdf')}}"><i class="fa fa-file fa-sm"></i> Manual de Usuario</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-users fa-sm"></i> Acerca de</a>
+                        <a class="nav-link" href="{{route('about')}}"><i class="fa fa-users fa-sm"></i> Acerca de</a>
                     </li>
                 </ul>
             </div>
