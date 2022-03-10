@@ -1,4 +1,4 @@
-<p align="center"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/jhvenegas97/backendSiegre/main/public/images/logo-header.png" width="400"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/jhvenegas97/backendSiegre/bf0f3f6eeb85466f3cd48bd12a13e400650ca431/public/images/logo_header.svg" width="400"></a></p>
 
 ## About SIEGRE
 
