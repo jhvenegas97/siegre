@@ -36,10 +36,10 @@
                                     <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center">
-                                                <i class="fa-solid fa-users fa-4x"></i>
+                                                <i class="fa-solid fa-users fa-3x"></i>
                                             </div>
                                             <div class="media-body text-left ms-3">
-                                                <h3 class="danger">Usuarios</h3>
+                                                <h4 class="danger">Usuarios</h4>
                                                 <span>Descripción corta</span>
                                             </div>
                                         </div>
@@ -55,10 +55,10 @@
                                     <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center">
-                                                <i class="fa-solid fa-laptop-code fa-4x"></i>
+                                                <i class="fa-solid fa-laptop-code fa-3x"></i>
                                             </div>
                                             <div class="media-body text-left ms-3">
-                                                <h3 class="success">Publicaciones</h3>
+                                                <h4 class="success">Publicaciones</h4>
                                                 <span>Descripción corta</span>
                                             </div>
                                         </div>
@@ -74,10 +74,10 @@
                                     <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center align-bottom">
-                                                <i class="fa-solid fa-graduation-cap fa-4x"></i>
+                                                <i class="fa-solid fa-graduation-cap fa-3x"></i>
                                             </div>
                                             <div class="media-body text-right ms-3">
-                                                <h3>Programas</h3>
+                                                <h4>Programas</h4>
                                                 <span>Descripción corta</span>
                                             </div>
                                         </div>
@@ -93,10 +93,10 @@
                                     <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center">
-                                                <i class="fa-solid fa-building-columns fa-4x"></i>
+                                                <i class="fa-solid fa-building-columns fa-3x"></i>
                                             </div>
                                             <div class="media-body text-right ms-3">
-                                                <h3>Facultades</h3>
+                                                <h4>Facultades</h4>
                                                 <span>Descripción corta</span>
                                             </div>
                                         </div>

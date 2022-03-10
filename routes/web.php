@@ -34,12 +34,18 @@ Route::group(['midldleware'=>'guest'],function(){
     Route::get('/checkIdentification', function (){
         return view('auth.checkIdentification');
     })->name('checkIdentification');
+
+    Route::get('/about',function(){return view('about');})->name('about');
 });
 
 Route::group(['middleware'=>'auth'],function(){
     Route::get('/user', [Controllers\UserController::class, 'index'])->name('user');
-    Route::get('/publish', [Controllers\PublishController::class, 'index'])->name('publish');
+    Route::post('/add-update-user', [Controllers\UserController::class, 'store'])->name('store-user');
+    Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->name('edit-user');
+    Route::post('/delete-user', [Controllers\UserController::class, 'destroy']);
 
+    Route::get('/publish', [Controllers\PublishController::class, 'index'])->name('publish');
+    
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store']);
     Route::post('/edit-program', [Controllers\ProgramController::class, 'edit']);

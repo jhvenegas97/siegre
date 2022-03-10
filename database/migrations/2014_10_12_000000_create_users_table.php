@@ -17,10 +17,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('identification_id')->nullable()->unique();
             $table->foreign('identification_id')->references('documento')->on('identifications');
-            $table->unsignedBigInteger('program_id')->nullable()->unique();
-            $table->foreign('program_id')->references('id')->on('programs');
+            $table->unsignedBigInteger('program_id')->nullable();
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('direction')->nullable();
+            $table->string('fileName')->nullable();
+            $table->string('path')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('state')->nullable();

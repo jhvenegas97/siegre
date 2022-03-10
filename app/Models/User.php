@@ -26,6 +26,9 @@ class User extends Authenticatable
         'external_id',
         'program_id',
         'identification_id',
+        'direction',
+        'fileName',
+        'path',
     ];
 
     /**
