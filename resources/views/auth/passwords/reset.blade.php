@@ -13,12 +13,6 @@
                     <div class="card-body me-2 ms-2">
                         <form method="POST" action="{{ route('password.update') }}">
                             @csrf
-                            @if (session('status'))
-                                <div class="alert alert-ssuccess">
-                                {{session('status')}}
-                                </div>
-                            @endif
-
                             <input type="hidden" name="token" value="{{ $token }}">
 
                             <div class="row mb-3 flex-column">

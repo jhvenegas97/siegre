@@ -56,6 +56,16 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/edit-faculty', [Controllers\FacultyController::class, 'edit']);
     Route::post('/delete-faculty', [Controllers\FacultyController::class, 'destroy']);
 
+    Route::get('/academic', [Controllers\AcademicController::class, 'index'])->name('academic');
+    Route::post('/add-update-academic', [Controllers\AcademicController::class, 'store']);
+    Route::post('/edit-academic', [Controllers\AcademicController::class, 'edit']);
+    Route::post('/delete-academic', [Controllers\AcademicController::class, 'destroy']);
+
+    Route::get('/academic-level', [Controllers\AcademicLevelController::class, 'index'])->name('academic-level');
+    Route::post('/add-update-academic-level', [Controllers\AcademicLevelController::class, 'store']);
+    Route::post('/edit-academic-level', [Controllers\AcademicLevelController::class, 'edit']);
+    Route::post('/delete-academic-level', [Controllers\AcademicLevelController::class, 'destroy']);
+
     Route::get('/admin', function () {
         return view('admin.admin');
     });

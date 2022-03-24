@@ -89,7 +89,7 @@ class UserController extends Controller
         $where = array('id' => $request->id);
         $user  = User::where($where)->first();
 
-        return view('admin.adminUsersEdit')->with('user', $user,)->with('programs', DB::select('select * from programs'));
+        return view('admin.adminUsersEdit')->with('user', $user,)->with('programs', DB::select('select * from programs'))->with('academicLevels', DB::select('select * from academic_levels'));
     }
 
     public function destroy(Request $request)

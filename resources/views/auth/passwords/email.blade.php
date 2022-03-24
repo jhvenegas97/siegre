@@ -13,6 +13,11 @@
                     <div class="card-body me-2 ms-2">
                         <form method="POST" action="{{ route('password.email') }}">
                             @csrf
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                {{session('status')}}
+                                </div>
+                            @endif
 
                             <div class="row mb-3 flex-column">
                                 <label for="email" class="col-12 col-form-label text-md-star">{{ __('E-Mail') }}</label>
