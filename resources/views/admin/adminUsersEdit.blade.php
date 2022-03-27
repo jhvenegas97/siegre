@@ -208,6 +208,7 @@
                                             <th scope="col" class="align-middle text-center">Nombre</th>
                                             <th scope="col" class="align-middle text-center">Fecha Inicio</th>
                                             <th scope="col" class="align-middle text-center">Fecha Fin</th>
+                                            <th scope="col" class="align-middle text-center">Documento Soporte</th>
 
                                             <th scope="col">Acciones</th>
                                         </tr>
@@ -260,8 +261,9 @@
                 <div class="d-grid gap-2 ps-4 pe-4 mt-2">
                     <form method="POST" action="javascript:void(0)" id="addEditAcademicForm" name="addEditAcademicForm">
                         @csrf
-                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id" id="id-numeric">
                         <div class="mb-3">
+                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Nivel Académico') }}</label>
                             <select id="inputStateAcademicLevel" class="form-control">
                                 <option data-id="">Elegir Nivel Académico</option>
                                 @foreach($academicLevels as $academicLevel)
@@ -271,24 +273,32 @@
                         </div>
 
                         <div class="mb-3">
-                            <input id="name_academicID" type="text" class="form-control" name="name_academic" value="" required autocomplete="name_academic" autofocus placeholder="Nombre del Título Académico">
+                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Nombre Título Académico') }}</label>
+                            <input id="name_academicID" type="text" class="form-control" name="title" value="" required autocomplete="name_academic" autofocus placeholder="Ingrese el Nombre del Título">
                             <span style="display: none;" class="invalid-feedback" id="name_error_span" role="alert">
                                 <strong id="name_error"></strong>
                             </span>
                         </div>
 
                         <div class="mb-3">
-                            <input id="init_date_academicID" type="date" class="form-control" name="init_date_academic" value="" required autocomplete="init_date_academic" autofocus>
+                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Fecha de Inicio') }}</label>
+                            <input id="init_date_academicID" type="date" class="form-control" name="init_date" value="" required autocomplete="init_date_academic" autofocus>
                             <span style="display: none;" class="invalid-feedback" id="init_date_error_span" role="alert">
                                 <strong id="init_date_error"></strong>
                             </span>
                         </div>
 
                         <div class="mb-3">
-                            <input id="end_date_academicID" type="date" class="form-control" name="end_date_academic" value="" required autocomplete="end_date_academic" autofocus>
+                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Fecha Finalización') }}</label>
+                            <input id="end_date_academicID" type="date" class="form-control" name="end_date" value="" required autocomplete="end_date_academic" autofocus>
                             <span style="display: none;" class="invalid-feedback" id="end_date_error_span" role="alert">
                                 <strong id="end_date_error"></strong>
                             </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Documento Soporte') }}</label>
+                            <input class="form-control form-control-sm" id="titleFileSm" name="file" type="file" accept=".pdf" value="null">
                         </div>
 
                         <div class="d-grid gap-2">
@@ -312,395 +322,499 @@
 
 
 <script type="text/javascript">
-        function cleanErrors(){
-            $("#name_error_span").hide();
-            $("#name_error").text("");
-            $("#init_date_error_span").hide();
-            $("#init_date_error").text("");
-            $("#end_date_error_span").hide();
-            $("#end_date_error").text("");
-        }
+    function cleanErrors() {
+        $("#name_error_span").hide();
+        $("#name_error").text("");
+        $("#init_date_error_span").hide();
+        $("#init_date_error").text("");
+        $("#end_date_error_span").hide();
+        $("#end_date_error").text("");
+    }
 
-        $(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var spanishLanguage = {
+            "processing": "Procesando..."
+            , "lengthMenu": "Mostrar _MENU_ registros"
+            , "zeroRecords": "No se encontraron resultados"
+            , "emptyTable": "Ningún dato disponible en esta tabla"
+            , "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros"
+            , "infoFiltered": "(filtrado de un total de _MAX_ registros)"
+            , "search": "Buscar:"
+            , "infoThousands": ","
+            , "loadingRecords": "Cargando..."
+            , "paginate": {
+                "first": "Primero"
+                , "last": "Último"
+                , "next": "Siguiente"
+                , "previous": "Anterior"
+            }
+            , "aria": {
+                "sortAscending": ": Activar para ordenar la columna de manera ascendente"
+                , "sortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+            , "buttons": {
+                "copy": "Copiar"
+                , "colvis": "Visibilidad"
+                , "collection": "Colección"
+                , "colvisRestore": "Restaurar visibilidad"
+                , "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape."
+                , "copySuccess": {
+                    "1": "Copiada 1 fila al portapapeles"
+                    , "_": "Copiadas %ds fila al portapapeles"
                 }
-            });
-
-            var spanishLanguage = {
-                "processing": "Procesando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "search": "Buscar:",
-                "infoThousands": ",",
-                "loadingRecords": "Cargando...",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                },
-                "aria": {
-                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "buttons": {
-                    "copy": "Copiar",
-                    "colvis": "Visibilidad",
-                    "collection": "Colección",
-                    "colvisRestore": "Restaurar visibilidad",
-                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-                    "copySuccess": {
-                        "1": "Copiada 1 fila al portapapeles",
-                        "_": "Copiadas %ds fila al portapapeles"
-                    },
-                    "copyTitle": "Copiar al portapapeles",
-                    "csv": "CSV",
-                    "excel": "Excel",
-                    "pageLength": {
-                        "-1": "Mostrar todas las filas",
-                        "_": "Mostrar %d filas"
-                    },
-                    "pdf": "PDF",
-                    "print": "Imprimir",
-                    "renameState": "Cambiar nombre",
-                    "updateState": "Actualizar"
-                },
-                "autoFill": {
-                    "cancel": "Cancelar",
-                    "fill": "Rellene todas las celdas con <i>%d<\/i>",
-                    "fillHorizontal": "Rellenar celdas horizontalmente",
-                    "fillVertical": "Rellenar celdas verticalmentemente"
-                },
-                "decimal": ",",
-                "searchBuilder": {
-                    "add": "Añadir condición",
-                    "button": {
-                        "0": "Constructor de búsqueda",
-                        "_": "Constructor de búsqueda (%d)"
-                    },
-                    "clearAll": "Borrar todo",
-                    "condition": "Condición",
-                    "conditions": {
-                        "date": {
-                            "after": "Despues",
-                            "before": "Antes",
-                            "between": "Entre",
-                            "empty": "Vacío",
-                            "equals": "Igual a",
-                            "notBetween": "No entre",
-                            "notEmpty": "No Vacio",
-                            "not": "Diferente de"
-                        },
-                        "number": {
-                            "between": "Entre",
-                            "empty": "Vacio",
-                            "equals": "Igual a",
-                            "gt": "Mayor a",
-                            "gte": "Mayor o igual a",
-                            "lt": "Menor que",
-                            "lte": "Menor o igual que",
-                            "notBetween": "No entre",
-                            "notEmpty": "No vacío",
-                            "not": "Diferente de"
-                        },
-                        "string": {
-                            "contains": "Contiene",
-                            "empty": "Vacío",
-                            "endsWith": "Termina en",
-                            "equals": "Igual a",
-                            "notEmpty": "No Vacio",
-                            "startsWith": "Empieza con",
-                            "not": "Diferente de",
-                            "notContains": "No Contiene",
-                            "notStarts": "No empieza con",
-                            "notEnds": "No termina con"
-                        },
-                        "array": {
-                            "not": "Diferente de",
-                            "equals": "Igual",
-                            "empty": "Vacío",
-                            "contains": "Contiene",
-                            "notEmpty": "No Vacío",
-                            "without": "Sin"
-                        }
-                    },
-                    "data": "Data",
-                    "deleteTitle": "Eliminar regla de filtrado",
-                    "leftTitle": "Criterios anulados",
-                    "logicAnd": "Y",
-                    "logicOr": "O",
-                    "rightTitle": "Criterios de sangría",
-                    "title": {
-                        "0": "Constructor de búsqueda",
-                        "_": "Constructor de búsqueda (%d)"
-                    },
-                    "value": "Valor"
-                },
-                "searchPanes": {
-                    "clearMessage": "Borrar todo",
-                    "collapse": {
-                        "0": "Paneles de búsqueda",
-                        "_": "Paneles de búsqueda (%d)"
-                    },
-                    "count": "{total}",
-                    "countFiltered": "{shown} ({total})",
-                    "emptyPanes": "Sin paneles de búsqueda",
-                    "loadMessage": "Cargando paneles de búsqueda",
-                    "title": "Filtros Activos - %d",
-                    "showMessage": "Mostrar Todo",
-                    "collapseMessage": "Colapsar Todo"
-                },
-                "select": {
-                    "cells": {
-                        "1": "1 celda seleccionada",
-                        "_": "%d celdas seleccionadas"
-                    },
-                    "columns": {
-                        "1": "1 columna seleccionada",
-                        "_": "%d columnas seleccionadas"
-                    },
-                    "rows": {
-                        "1": "1 fila seleccionada",
-                        "_": "%d filas seleccionadas"
-                    }
-                },
-                "thousands": ".",
-                "datetime": {
-                    "previous": "Anterior",
-                    "next": "Proximo",
-                    "hours": "Horas",
-                    "minutes": "Minutos",
-                    "seconds": "Segundos",
-                    "unknown": "-",
-                    "amPm": [
-                        "AM",
-                        "PM"
-                    ],
-                    "months": {
-                        "0": "Enero",
-                        "1": "Febrero",
-                        "10": "Noviembre",
-                        "11": "Diciembre",
-                        "2": "Marzo",
-                        "3": "Abril",
-                        "4": "Mayo",
-                        "5": "Junio",
-                        "6": "Julio",
-                        "7": "Agosto",
-                        "8": "Septiembre",
-                        "9": "Octubre"
-                    },
-                    "weekdays": [
-                        "Dom",
-                        "Lun",
-                        "Mar",
-                        "Mie",
-                        "Jue",
-                        "Vie",
-                        "Sab"
-                    ]
-                },
-                "editor": {
-                    "close": "Cerrar",
-                    "create": {
-                        "button": "Nuevo",
-                        "title": "Crear Nuevo Registro",
-                        "submit": "Crear"
-                    },
-                    "edit": {
-                        "button": "Editar",
-                        "title": "Editar Registro",
-                        "submit": "Actualizar"
-                    },
-                    "remove": {
-                        "button": "Eliminar",
-                        "title": "Eliminar Registro",
-                        "submit": "Eliminar",
-                        "confirm": {
-                            "_": "¿Está seguro que desea eliminar %d filas?",
-                            "1": "¿Está seguro que desea eliminar 1 fila?"
-                        }
-                    },
-                    "error": {
-                        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-                    },
-                    "multi": {
-                        "title": "Múltiples Valores",
-                        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-                        "restore": "Deshacer Cambios",
-                        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-                    }
-                },
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                "stateRestore": {
-                    "creationModal": {
-                        "button": "Crear",
-                        "name": "Nombre:",
-                        "order": "Clasificación",
-                        "paging": "Paginación",
-                        "search": "Busqueda",
-                        "select": "Seleccionar"
-                    },
-                    "emptyError": "El nombre no puede estar vacio",
-                    "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-                    "removeError": "Error al eliminar el registro",
-                    "removeJoiner": "y",
-                    "removeSubmit": "Eliminar",
-                    "renameButton": "Cambiar Nombre",
-                    "renameLabel": "Nuevo nombre para %s"
+                , "copyTitle": "Copiar al portapapeles"
+                , "csv": "CSV"
+                , "excel": "Excel"
+                , "pageLength": {
+                    "-1": "Mostrar todas las filas"
+                    , "_": "Mostrar %d filas"
                 }
-            };
-
-            $('#datatable-ajax-crud').DataTable({
-                                processing: true,
-                serverSide: true,
-                ajax: "{{ url('academic') }}",
-                columns: [
-                    {data: 'id', name: 'id', 'visible': false},
-                    { data: 'name_academic_level', name: 'name_academic_level' },
-                    { data: 'title', name: 'title' },
-                    { data: 'init_date', name: 'init_date' },
-                    { data: 'end_date', name: 'end_date' },
-                    {data: 'action', name: 'action', orderable: false},
-                ],
-                order: [[0, 'desc']],
-                language:spanishLanguage,
-            });
-
-            $('#addNewAcademic').click(function (e) {
-                e.preventDefault();
-                cleanErrors();
-                $('#addEditAcademicForm').trigger("reset");
-                $('#ajaxAcademicModel').html("Crear Título Académico");
-                $('#ajax-academic-model').modal('show');
-            });
-
-            $('body').on('click', '.edit', function (e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                cleanErrors();
-                // ajax
-                $.ajax({
-                    type:"POST",
-                    url: "{{ url('edit-academic-level') }}",
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(res){
-                        $('#ajaxAcademicLevelModel').html("Editar Nivel Académico");
-                        $('#ajax-academic-level-model').modal('show');
-                        $('#id').val(res.id);
-                        $('#name_academicLevelID').val(res.name_academic_level);
+                , "pdf": "PDF"
+                , "print": "Imprimir"
+                , "renameState": "Cambiar nombre"
+                , "updateState": "Actualizar"
+            }
+            , "autoFill": {
+                "cancel": "Cancelar"
+                , "fill": "Rellene todas las celdas con <i>%d<\/i>"
+                , "fillHorizontal": "Rellenar celdas horizontalmente"
+                , "fillVertical": "Rellenar celdas verticalmentemente"
+            }
+            , "decimal": ","
+            , "searchBuilder": {
+                "add": "Añadir condición"
+                , "button": {
+                    "0": "Constructor de búsqueda"
+                    , "_": "Constructor de búsqueda (%d)"
+                }
+                , "clearAll": "Borrar todo"
+                , "condition": "Condición"
+                , "conditions": {
+                    "date": {
+                        "after": "Despues"
+                        , "before": "Antes"
+                        , "between": "Entre"
+                        , "empty": "Vacío"
+                        , "equals": "Igual a"
+                        , "notBetween": "No entre"
+                        , "notEmpty": "No Vacio"
+                        , "not": "Diferente de"
                     }
-                });
-            });
-            $('body').on('click', '.delete', function (e) {
-                e.preventDefault();
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                        cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                    },
-                    buttonsStyling: false
-                })
-
-                swalWithBootstrapButtons.fire({
-                    title: 'Estas seguro?',
-                    text: "Estos cambios no se pueden revertir!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, borrar nivel académico!',
-                    cancelButtonText: 'No, cancelar!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        //Swal.fire('Facultad eliminada con éxito!', '', 'success')
-                        var id = $(this).data('id');
-
-                        // ajax
-                        $.ajax({
-                            type:"POST",
-                            url: "{{ url('delete-academic-level') }}",
-                            data: { id: id },
-                            dataType: 'json',
-                            success: function(res){
-                                var oTable = $('#datatable-ajax-crud').dataTable();
-                                oTable.fnDraw(false);
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Borrado completado'
-                                })
-                            }
-                        });
+                    , "number": {
+                        "between": "Entre"
+                        , "empty": "Vacio"
+                        , "equals": "Igual a"
+                        , "gt": "Mayor a"
+                        , "gte": "Mayor o igual a"
+                        , "lt": "Menor que"
+                        , "lte": "Menor o igual que"
+                        , "notBetween": "No entre"
+                        , "notEmpty": "No vacío"
+                        , "not": "Diferente de"
                     }
-                })
-            });
-            $('body').on('click', '#btn-save', function (e) {
-                e.preventDefault();
-                var id = $("#id").val();
-                var name_academic_level = $("#name_academicLevelID").val();
+                    , "string": {
+                        "contains": "Contiene"
+                        , "empty": "Vacío"
+                        , "endsWith": "Termina en"
+                        , "equals": "Igual a"
+                        , "notEmpty": "No Vacio"
+                        , "startsWith": "Empieza con"
+                        , "not": "Diferente de"
+                        , "notContains": "No Contiene"
+                        , "notStarts": "No empieza con"
+                        , "notEnds": "No termina con"
+                    }
+                    , "array": {
+                        "not": "Diferente de"
+                        , "equals": "Igual"
+                        , "empty": "Vacío"
+                        , "contains": "Contiene"
+                        , "notEmpty": "No Vacío"
+                        , "without": "Sin"
+                    }
+                }
+                , "data": "Data"
+                , "deleteTitle": "Eliminar regla de filtrado"
+                , "leftTitle": "Criterios anulados"
+                , "logicAnd": "Y"
+                , "logicOr": "O"
+                , "rightTitle": "Criterios de sangría"
+                , "title": {
+                    "0": "Constructor de búsqueda"
+                    , "_": "Constructor de búsqueda (%d)"
+                }
+                , "value": "Valor"
+            }
+            , "searchPanes": {
+                "clearMessage": "Borrar todo"
+                , "collapse": {
+                    "0": "Paneles de búsqueda"
+                    , "_": "Paneles de búsqueda (%d)"
+                }
+                , "count": "{total}"
+                , "countFiltered": "{shown} ({total})"
+                , "emptyPanes": "Sin paneles de búsqueda"
+                , "loadMessage": "Cargando paneles de búsqueda"
+                , "title": "Filtros Activos - %d"
+                , "showMessage": "Mostrar Todo"
+                , "collapseMessage": "Colapsar Todo"
+            }
+            , "select": {
+                "cells": {
+                    "1": "1 celda seleccionada"
+                    , "_": "%d celdas seleccionadas"
+                }
+                , "columns": {
+                    "1": "1 columna seleccionada"
+                    , "_": "%d columnas seleccionadas"
+                }
+                , "rows": {
+                    "1": "1 fila seleccionada"
+                    , "_": "%d filas seleccionadas"
+                }
+            }
+            , "thousands": "."
+            , "datetime": {
+                "previous": "Anterior"
+                , "next": "Proximo"
+                , "hours": "Horas"
+                , "minutes": "Minutos"
+                , "seconds": "Segundos"
+                , "unknown": "-"
+                , "amPm": [
+                    "AM"
+                    , "PM"
+                ]
+                , "months": {
+                    "0": "Enero"
+                    , "1": "Febrero"
+                    , "10": "Noviembre"
+                    , "11": "Diciembre"
+                    , "2": "Marzo"
+                    , "3": "Abril"
+                    , "4": "Mayo"
+                    , "5": "Junio"
+                    , "6": "Julio"
+                    , "7": "Agosto"
+                    , "8": "Septiembre"
+                    , "9": "Octubre"
+                }
+                , "weekdays": [
+                    "Dom"
+                    , "Lun"
+                    , "Mar"
+                    , "Mie"
+                    , "Jue"
+                    , "Vie"
+                    , "Sab"
+                ]
+            }
+            , "editor": {
+                "close": "Cerrar"
+                , "create": {
+                    "button": "Nuevo"
+                    , "title": "Crear Nuevo Registro"
+                    , "submit": "Crear"
+                }
+                , "edit": {
+                    "button": "Editar"
+                    , "title": "Editar Registro"
+                    , "submit": "Actualizar"
+                }
+                , "remove": {
+                    "button": "Eliminar"
+                    , "title": "Eliminar Registro"
+                    , "submit": "Eliminar"
+                    , "confirm": {
+                        "_": "¿Está seguro que desea eliminar %d filas?"
+                        , "1": "¿Está seguro que desea eliminar 1 fila?"
+                    }
+                }
+                , "error": {
+                    "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
+                }
+                , "multi": {
+                    "title": "Múltiples Valores"
+                    , "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales."
+                    , "restore": "Deshacer Cambios"
+                    , "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
+                }
+            }
+            , "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+            , "stateRestore": {
+                "creationModal": {
+                    "button": "Crear"
+                    , "name": "Nombre:"
+                    , "order": "Clasificación"
+                    , "paging": "Paginación"
+                    , "search": "Busqueda"
+                    , "select": "Seleccionar"
+                }
+                , "emptyError": "El nombre no puede estar vacio"
+                , "removeConfirm": "¿Seguro que quiere eliminar este %s?"
+                , "removeError": "Error al eliminar el registro"
+                , "removeJoiner": "y"
+                , "removeSubmit": "Eliminar"
+                , "renameButton": "Cambiar Nombre"
+                , "renameLabel": "Nuevo nombre para %s"
+            }
+        };
 
-                cleanErrors();
-
-                $("#btn-save").html('Por favor espera...');
-                $("#btn-save"). attr("disabled", true);
-
-                // ajax
-                $.ajax({
-                    type:"POST",
-                    url: "{{ url('add-update-academic-level') }}",
-                    data: {
-                        id:id,
-                        name_academic_level:name_academic_level,
-                    },
-                    dataType: 'json',
-                    success: function(response){
-                        console.log(response);
-                        $("#ajax-academic-level-model").modal('hide');
-                        var oTable = $('#datatable-ajax-crud').dataTable();
-                        oTable.fnDraw(false);
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'El nivel académico fue creado con éxito'
-                        })
-                        $("#btn-save").html('Guardar');
-                        $("#btn-save"). attr("disabled", false);
-                    },
-                    error: function(response){
-                        console.log(response);
-                        $("#btn-save").html('Guardar');
-                        $("#btn-save"). attr("disabled", false);
-                        $("#name_error_span").show();
-                        try{
-                            $("#name_error").text(response.responseJSON.errors.name_academic_level);
-                        }
-                        catch (exp){
-                        }
-                        if(response.status == 500){
-                            console.log(response);
-                            const swalWithBootstrapButtonsError = Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                                },
-                                buttonsStyling: false
-                            })
-                            swalWithBootstrapButtonsError.fire(
-                                'Cancelled',
-                                response.responseJSON.message,
-                                'error'
-                            )
+        $('#datatable-ajax-crud').DataTable({
+            processing: true
+            , serverSide: true
+            , ajax: {
+                url:"{{ url('academic') }}",
+                data: {
+                    id: $("#userData").find('input[name="id"]').val()
+                }
+            }
+            , columns: [{
+                    data: 'id'
+                    , name: 'id'
+                    , 'visible': false
+                }
+                , {
+                    data: 'name_academic_level'
+                    , name: 'name_academic_level'
+                }
+                , {
+                    data: 'title'
+                    , name: 'title'
+                }
+                , {
+                    data: 'init_date'
+                    , name: 'init_date'
+                }
+                , {
+                    data: 'end_date'
+                    , name: 'end_date'
+                }
+                , {
+                    data: 'fileName'
+                    , name: 'fileName'
+                    , fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
+                        if (oData.fileName) {
+                            $(nTd).html("<a target='_blank' href='/uploads/academics/" + oData.fileName + "'>" + "<i class='fa-solid fa-file-pdf fa-2x'>" + "</i>" + "</a>");
                         }
                     }
-                });
+                }
+                , {
+                    data: 'action'
+                    , name: 'action'
+                    , orderable: false
+                }
+            , ]
+            , order: [
+                [0, 'desc']
+            ]
+            , language: spanishLanguage
+        , });
+
+        $('#addNewAcademic').click(function(e) {
+            e.preventDefault();
+            cleanErrors();
+            $('#addEditAcademicForm').trigger("reset");
+            $('#inputStateAcademicLevel').find('option').attr("selected",false) ;
+            $('#ajaxAcademicModel').html("Crear Título Académico");
+            $('#ajax-academic-model').modal('show');
+        });
+
+        $('body').on('click', '.edit', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            cleanErrors();
+            // ajax
+            $.ajax({
+                type: "POST"
+                , url: "{{ url('edit-academic') }}"
+                , data: {
+                    id: id
+                }
+                , dataType: 'json'
+                , success: function(res) {
+                    console.log(res);
+                    $('#ajaxAcademicModel').html("Editar Nivel Académico");
+                    $('#id-numeric').val(res.id);
+                    $('#name_academicID').val(res.title);
+                    $('#inputStateAcademicLevel option[data-id="' + res.academic_level_id + '"]').attr('selected', 'selected');
+                    $('#init_date_academicID').val(res.init_date);
+                    $('#end_date_academicID').val(res.end_date);
+                    $('#ajax-academic-model').modal('show');
+                }
             });
         });
-    </script>
+        $('body').on('click', '.delete', function(e) {
+            e.preventDefault();
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success btn-new-success-sweet-alert'
+                    , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                }
+                , buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Estas seguro?'
+                , text: "Estos cambios no se pueden revertir!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonText: 'Si, borrar nivel académico!'
+                , cancelButtonText: 'No, cancelar!'
+                , reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Swal.fire('Facultad eliminada con éxito!', '', 'success')
+                    var id = $(this).data('id');
+
+                    // ajax
+                    $.ajax({
+                        type: "POST"
+                        , url: "{{ url('delete-academic') }}"
+                        , data: {
+                            id: id
+                        }
+                        , dataType: 'json'
+                        , success: function(res) {
+                            var oTable = $('#datatable-ajax-crud').dataTable();
+                            oTable.fnDraw(false);
+                            Toast.fire({
+                                icon: 'success'
+                                , title: 'Borrado completado'
+                            })
+                        }
+                    });
+                }
+            })
+        });
+        /*$('body').on('click', '#btn-save', function(e) {
+            e.preventDefault();
+            var id = $("#id").val();
+            var name_academic_level = $("#name_academicLevelID").val();
+
+            cleanErrors();
+
+            $("#btn-save").html('Por favor espera...');
+            $("#btn-save").attr("disabled", true);
+
+            // ajax
+            $.ajax({
+                type: "POST"
+                , url: "{{ url('add-update-academic-level') }}"
+                , data: {
+                    id: id
+                    , name_academic_level: name_academic_level
+                , }
+                , dataType: 'json'
+                , success: function(response) {
+                    console.log(response);
+                    $("#ajax-academic-level-model").modal('hide');
+                    var oTable = $('#datatable-ajax-crud').dataTable();
+                    oTable.fnDraw(false);
+                    Toast.fire({
+                        icon: 'success'
+                        , title: 'El nivel académico fue creado con éxito'
+                    })
+                    $("#btn-save").html('Guardar');
+                    $("#btn-save").attr("disabled", false);
+                }
+                , error: function(response) {
+                    console.log(response);
+                    $("#btn-save").html('Guardar');
+                    $("#btn-save").attr("disabled", false);
+                    $("#name_error_span").show();
+                    try {
+                        $("#name_error").text(response.responseJSON.errors.name_academic_level);
+                    } catch (exp) {}
+                    if (response.status == 500) {
+                        console.log(response);
+                        const swalWithBootstrapButtonsError = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-success btn-new-success-sweet-alert'
+                                , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                            }
+                            , buttonsStyling: false
+                        })
+                        swalWithBootstrapButtonsError.fire(
+                            'Cancelled'
+                            , response.responseJSON.message
+                            , 'error'
+                        )
+                    }
+                }
+            });
+        });*/
+
+        $('#addEditAcademicForm').submit(function(e) {
+            e.preventDefault();
+            cleanErrors();
+            let formData = new FormData(this);
+            var data = $('#titleFileSm').value;
+            formData.append('academic_level_id', $('#inputStateAcademicLevel option:selected').attr('data-id'));
+            formData.append('user_id', $("#userData").find('input[name="id"]').val());
+            $.ajax({
+                type: 'POST'
+                , url: "{{ url('add-update-academic') }}"
+                , cache: false
+                , dataType: false
+                , processData: false
+                , contentType: false
+                , data: formData
+                , success: (response) => {
+                    $('#addEditAcademicForm').trigger("reset");
+                    $('#ajax-academic-model').modal('hide');
+                    var oTable = $('#datatable-ajax-crud').dataTable();
+                    oTable.fnDraw(false);
+                    if (response) {
+                        Toast.fire({
+                            icon: 'success'
+                            , title: 'Datos guardados con éxito'
+                        })
+                    }
+                }
+                , error: function(response) {
+                    console.log(response);
+                    $("#name_error_span").show();
+                    $("#email_error_span").show();
+                    $("#identification_id_error_span").show();
+                    $("#direction_error_span").show();
+
+                    try {
+                        $("#name_error").text(response.responseJSON.errors.name);
+                        $("#email_error").text(response.responseJSON.errors.email);
+                        $("#identification_id_error").text(response.responseJSON.errors.identification_id);
+                        $("#direction_error").text(response.responseJSON.errors.direction);
+                    } catch (exp) {}
+                    if (response.status == 500) {
+                        //console.log(response);
+                        const swalWithBootstrapButtonsError = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-success btn-new-success-sweet-alert'
+                                , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                            }
+                            , buttonsStyling: false
+                        })
+                        swalWithBootstrapButtonsError.fire(
+                            'Cancelled'
+                            , response.responseJSON.errorInfo[2]
+                            , 'error'
+                        )
+                    }
+                }
+            });
+        });
+
+
+    });
+
+</script>
 
 
 
@@ -721,150 +835,6 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        });
-        
-
-        $('#addNewProgram').click(function(e) {
-            e.preventDefault();
-            cleanErrors();
-            $('#addEditProgramForm').trigger("reset");
-            $('#ajaxProgramModel').html("Crear programa");
-            $('#ajax-program-model').modal('show');
-        });
-
-        $('body').on('click', '.edit', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            cleanErrors();
-            // ajax
-            $.ajax({
-                type: "POST"
-                , url: "{{ url('edit-program') }}"
-                , data: {
-                    id: id
-                }
-                , dataType: 'json'
-                , success: function(res) {
-                    $('#ajaxProgramModel').html("Editar Programa");
-                    $('#ajax-program-model').modal('show');
-                    $('#id').val(res.id);
-                    $('#name_programID').val(res.name_program);
-                    $('#inputState option[data-id="' + res.faculty_id + '"]').attr('selected', 'selected');
-                }
-            });
-        });
-        $('body').on('click', '.delete', function(e) {
-            e.preventDefault();
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success btn-new-success-sweet-alert'
-                    , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                }
-                , buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Estas seguro?'
-                , text: "Estos cambios no se pueden revertir!"
-                , icon: 'warning'
-                , showCancelButton: true
-                , confirmButtonText: 'Si, borrar el programa!'
-                , cancelButtonText: 'No, cancelar!'
-                , reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Swal.fire('Programa eliminado con éxito!', '', 'success')
-                    var id = $(this).data('id');
-
-                    // ajax
-                    $.ajax({
-                        type: "POST"
-                        , url: "{{ url('delete-program') }}"
-                        , data: {
-                            id: id
-                        }
-                        , dataType: 'json'
-                        , success: function(res) {
-                            var oTable = $('#datatable-ajax-crud').dataTable();
-                            oTable.fnDraw(false);
-                            Toast.fire({
-                                icon: 'success'
-                                , title: 'Borrado completado'
-                            })
-                        }
-                    });
-                }
-            })
-        });
-        $('body').on('click', '#btn-save', function(e) {
-            e.preventDefault();
-            var id = $("#id").val();
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var document = $("#document").val();
-            var state = $('#inputState option:selected').attr('data-id');
-            var program = $('#inputProgram option:selected').attr('data-id');
-            var direction = $("#directionAutocomplete").val();
-            var file = $('#avatarFileSm').val();
-
-            //cleanErrors();
-
-            $("#btn-save").html('Por favor espera...');
-            $("#btn-save").attr("disabled", true);
-
-            // ajax
-            $.ajax({
-                type: "POST"
-                , url: "{{ url('add-update-user') }}"
-                , data: {
-                    id: id
-                    , name: name
-                    , email: email
-                    , identification_id: document
-                    , state: state
-                    , program_id: program
-                    , direction: direction
-                , }
-                , dataType: 'json'
-                , success: function(response) {
-                    console.log(response);
-                    $("#ajax-program-model").modal('hide');
-                    var oTable = $('#datatable-ajax-crud').dataTable();
-                    oTable.fnDraw(false);
-                    Toast.fire({
-                        icon: 'success'
-                        , title: 'El programa fue creado con éxito'
-                    })
-                    $("#btn-save").html('Guardar');
-                    $("#btn-save").attr("disabled", false);
-                }
-                , error: function(response) {
-                    $("#btn-save").html('Guardar');
-                    $("#btn-save").attr("disabled", false);
-                    $("#name_error_span").show();
-                    $("#faculty_error_span").show();
-                    try {
-                        $("#name_error").text(response.responseJSON.errors.name_program);
-                        $("#faculty_error").text(response.responseJSON.errors.faculty_id);
-                    } catch (exp) {}
-                    if (response.status == 500) {
-                        console.log(response);
-                        const swalWithBootstrapButtonsError = Swal.mixin({
-                            customClass: {
-                                confirmButton: 'btn btn-success btn-new-success-sweet-alert'
-                                , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                            }
-                            , buttonsStyling: false
-                        })
-                        swalWithBootstrapButtonsError.fire(
-                            'Cancelled'
-                            , response.responseJSON.errorInfo[2]
-                            , 'error'
-                        )
-                    }
-                }
-            });
         });
 
         $('#userData').submit(function(e) {

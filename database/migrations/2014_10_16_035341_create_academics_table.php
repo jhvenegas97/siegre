@@ -17,9 +17,13 @@ class CreateAcademicsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('academic_level_id')->nullable();
             $table->foreign('academic_level_id')->references('id')->on('academic_levels');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
-            $table->dateTime('init_date')->nullable(false);
-            $table->dateTime('end_date')->nullable();
+            $table->date('init_date')->nullable(false);
+            $table->date('end_date')->nullable();
+            $table->string('fileName')->nullable();
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }
