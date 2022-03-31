@@ -14,7 +14,7 @@ class AcademicController extends Controller
         /*$data['programs'] = Program::orderBy('id','desc')->paginate(5);
         return view('admin.adminPrograms',$data);*/
         if (request()->ajax()) {
-            return datatables()->of(DB::select("select a.id,name_academic_level,title,init_date,end_date,fileName from academics a inner join academic_levels ac on ac.id = a.academic_level_id where user_id=".$request->id))
+            return datatables()->of(DB::select("select a.id,name_academic_level,title_academic,init_date_academic,end_date_academic,fileName_academic from academics a inner join academic_levels ac on ac.id = a.academic_level_id where user_id=".$request->id))
                 ->addColumn('action', 'admin.academicAction')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -28,18 +28,18 @@ class AcademicController extends Controller
         $request->validate([
             'academic_level_id' => 'required',
             'user_id' => 'required',
-            'title' => 'required|max:255',
-            'init_date' => 'required',
-            'file' => 'required_without:id|max:2048|mimes:pdf',
+            'title_academic' => 'required|max:255',
+            'init_date_academic' => 'required',
+            'file_academic' => 'required_without:id|max:2048|mimes:pdf',
         ]);
 
         try {
             $academicId = $request->id;
-            if ($request->has('file')) {
-                $pdfPath = $request->file('file');
+            if ($request->has('file_academic')) {
+                $pdfPath = $request->file('file_academic');
                 $pdfName = $pdfPath->getClientOriginalName();
-                $name = time().'.'.request()->file->getClientOriginalExtension();
-                $path = $request->file->move(public_path('uploads\academics'), $pdfName);
+                $name = time().'.'.request()->file_academic->getClientOriginalExtension();
+                $path = $request->file_academic->move(public_path('uploads\academics'), $pdfName);
                 
                 $academic   =   Academic::updateOrCreate(
                     [
@@ -48,11 +48,11 @@ class AcademicController extends Controller
                     [
                         'academic_level_id' => $request->academic_level_id,
                         'user_id' => $request->user_id,
-                        'title' => $request->title,
-                        'init_date' => $request->init_date,
-                        'end_date' => $request->end_date,
-                        'fileName'=> $pdfName,
-                        'path'=>$path,
+                        'title_academic' => $request->title_academic,
+                        'init_date_academic' => $request->init_date_academic,
+                        'end_date_academic' => $request->end_date_academic,
+                        'fileName_academic'=> $pdfName,
+                        'path_academic'=>$path,
                     ]
                 );
                 return Response()->json($academic);
@@ -65,9 +65,9 @@ class AcademicController extends Controller
                     [
                         'academic_level_id' => $request->academic_level_id,
                         'user_id' => $request->user_id,
-                        'title' => $request->title,
-                        'init_date' => $request->init_date,
-                        'end_date' => $request->end_date,
+                        'title_academic' => $request->title_academic,
+                        'init_date_academic' => $request->init_date_academic,
+                        'end_date_academic' => $request->end_date_academic,
                     ]
                 );
             }

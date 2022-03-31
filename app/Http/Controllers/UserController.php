@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Identification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
@@ -16,7 +17,7 @@ class UserController extends Controller
         /*$data['programs'] = Program::orderBy('id','desc')->paginate(5);
         return view('admin.adminPrograms',$data);*/
         if (request()->ajax()) {
-            return datatables()->of(DB::select('select u.id,name,email,state,i.documento from users u inner join identifications i on u.identification_id = i.documento where u.id !="' . Auth::user()->id . '"'))
+            return datatables()->of(DB::select('select u.id,name,email,state,i.documento from users u inner join identifications i on u.identification_id = i.id where u.id !="' . Auth::user()->id . '"'))
                 ->addColumn('action', 'admin.programAction')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -54,7 +55,7 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
-                        'identification_id' => $request->identification_id,
+                        'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
                         'state' => $request->state,
                         'program_id' => $request->program_id,
                         'direction' => $request->direction,
@@ -70,7 +71,7 @@ class UserController extends Controller
                 [
                     'name' => $request->name,
                     'email' => $request->email,
-                    'identification_id' => $request->identification_id,
+                    'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
                     'state' => $request->state,
                     'program_id' => $request->program_id,
                     'direction' => $request->direction,
@@ -89,7 +90,7 @@ class UserController extends Controller
         $where = array('id' => $request->id);
         $user  = User::where($where)->first();
 
-        return view('admin.adminUsersEdit')->with('user', $user,)->with('programs', DB::select('select * from programs'))->with('academicLevels', DB::select('select * from academic_levels'));
+        return view('admin.adminUsersEdit')->with('user', $user,)->with('programs', DB::select('select * from programs'))->with('academicLevels', DB::select('select * from academic_levels'))->with('workTypes', DB::select('select * from work_types'));
     }
 
     public function destroy(Request $request)

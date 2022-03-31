@@ -118,7 +118,27 @@
                                             <i class="fa-solid fa-book-open-reader fa-3x"></i>
                                         </div>
                                         <div class="media-body text-left ms-3">
-                                            <h4 class="danger">Niveles Académicos</h4>
+                                            <h4 class="danger">Niv. Académicos</h4>
+                                            <span>Descripción corta</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('work-type')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-book-open-reader fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Tipos de Trabajo</h4>
                                             <span>Descripción corta</span>
                                         </div>
                                     </div>

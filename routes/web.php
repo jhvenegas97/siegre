@@ -44,8 +44,6 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->name('edit-user');
     Route::post('/delete-user', [Controllers\UserController::class, 'destroy']);
 
-    Route::get('/publish', [Controllers\PublishController::class, 'index'])->name('publish');
-    
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store']);
     Route::post('/edit-program', [Controllers\ProgramController::class, 'edit']);
@@ -66,6 +64,18 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/edit-academic-level', [Controllers\AcademicLevelController::class, 'edit']);
     Route::post('/delete-academic-level', [Controllers\AcademicLevelController::class, 'destroy']);
 
+    Route::get('/work', [Controllers\WorkController::class, 'index'])->name('work');
+    Route::post('/add-update-work', [Controllers\WorkController::class, 'store']);
+    Route::post('/edit-work', [Controllers\WorkController::class, 'edit']);
+    Route::post('/delete-work', [Controllers\WorkController::class, 'destroy']);
+
+    Route::get('/work-type', [Controllers\WorkTypeController::class, 'index'])->name('work-type');
+    Route::post('/add-update-work-type', [Controllers\WorkTypeController::class, 'store']);
+    Route::post('/edit-work-type', [Controllers\WorkTypeController::class, 'edit']);
+    Route::post('/delete-work-type', [Controllers\WorkTypeController::class, 'destroy']);
+
+    Route::get('/publish', [Controllers\PublicationController::class, 'getListaPublicaciones'])->name('publish');
+
     Route::get('/admin', function () {
         return view('admin.admin');
     });
@@ -73,7 +83,6 @@ Route::group(['middleware'=>'auth'],function(){
 
     Route::get('/administrador-listausuario','AdministradorListaUsuarioController@getListaUsuarios');
     Route::get('/administrador-listapublicacion','AdministradorListaPublicacionController@getListaPublicaciones');
-    Route::get('/feed','ClienteFeedController@getListaPublicaciones');
 });
 
 Auth::routes();

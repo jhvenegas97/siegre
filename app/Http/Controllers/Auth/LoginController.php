@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp;
 
 class LoginController extends Controller
 {
@@ -54,19 +55,17 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         $user = Socialite::driver('google')->stateless()->user();
-        $userExists = User::where('email','=',$user->user['email'])->exists();
-        if($userExists){
-            $userOnDatabase = User::find(User::where('email','=',$user->user['email'])->first()->id);
+        $userExists = User::where('email', '=', $user->user['email'])->exists();
+        if ($userExists) {
+            $userOnDatabase = User::find(User::where('email', '=', $user->user['email'])->first()->id);
             Auth::login($userOnDatabase);
-            if(Auth::check()){
+            if (Auth::check()) {
                 return redirect()->route('home');
             }
-        }
-        else{
+        } else {
             session(['dataUser' => $user]);
             return view('auth.checkIdentification');
         }
-
     }
 
     // Facebook login
@@ -82,29 +81,32 @@ class LoginController extends Controller
         #TODO: verificar cómo regresa los datos Facebook
     }
 
-    public function checkID(Request $request){
-        if (session()->has('dataUser')){
+    public function checkID(Request $request)
+    {
+        /*$client = new GuzzleHttp\Client();
+        $res = $client->request('POST', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado');
+        dd($res);*/
+
+        if (session()->has('dataUser')) {
             $userExists = Identification::where('documento', '=', $request->identificationField)->exists();
-            if($userExists) {
+            if ($userExists) {
                 User::create([
                     'name' => session('dataUser')->user['name'],
                     'email' => session('dataUser')->user['email'],
                     'avatar' => session('dataUser')->user['picture'],
-                    'state'=> '1',
+                    'state' => '1',
                     'password' => Hash::make('password'),
                     'external_id' => session('dataUser')->user['id'],
-                    'identification_id' => $request->identificationField,
+                    'identification_id' => Identification::select('id')->where('documento',$request->identificationField)->first()->id,
                 ]);
-                $user = User::find(User::where('email','=',session('dataUser')->user['email'])->first()->id);
+                $user = User::find(User::where('email', '=', session('dataUser')->user['email'])->first()->id);
                 Auth::login($user);
-                if(Auth::check()){
+                if (Auth::check()) {
                     return redirect()->route('home');
                 }
-            }
-            else{
+            } else {
                 return view('auth.userNotAllowed');
             }
         }
-
     }
 }

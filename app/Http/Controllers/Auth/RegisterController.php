@@ -73,7 +73,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'state'=> '1',
-            'identification_id' => $data['documento'],
+            'identification_id' => Identification::select('id')->where('documento', $data['documento'])->first()->id,
         ]);
     }
 }
