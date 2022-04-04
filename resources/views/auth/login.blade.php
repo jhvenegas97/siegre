@@ -10,7 +10,7 @@
                 <div class="row">
 
                     <div class="col-12 d-flex justify-content-center p-3">
-                        <img src="{{asset('images/admin.png')}}" width="200" height="200" class="img-responsive" alt="">
+                        <img src="{{asset('images/admin.svg')}}" width="200" height="200" class="img-responsive" alt="">
                     </div>
 
                     <div class="col-12 d-flex justify-content-center">
@@ -21,7 +21,7 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center p-3">
-                        <img src="{{asset('images/docente.png')}}" width="200" height="200" class="img-responsive" alt="">
+                        <img src="{{asset('images/gestor.svg')}}" width="200" height="200" class="img-responsive" alt="">
                     </div>
 
                     <div class="col-12 d-flex justify-content-center">
@@ -33,7 +33,7 @@
                 <div class="row">
 
                     <div class="col-12 d-flex justify-content-center p-3">
-                        <img src="{{asset('images/egresado.png')}}" width="200" height="200" class="img-responsive" alt="">
+                        <img src="{{asset('images/egresado.svg')}}" width="200" height="200" class="img-responsive" alt="">
                     </div>
 
                     <div class="col-12 d-flex justify-content-center">
@@ -51,7 +51,7 @@
                         <div class="modal-body">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-12  d-flex justify-content-center">
-                                    <img src="{{asset('images/admin.png')}}" width="80" height="80" class="img-responsive" alt="">
+                                    <img src="{{asset('images/admin.svg')}}" width="80" height="80" class="img-responsive" alt="">
                                 </div>
                                 <div class="col-12  d-flex justify-content-center">
                                     <h5 class="modal-title" id="exampleModalLabel">Administrador</h5>
@@ -133,7 +133,7 @@
                         <div class="modal-body">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-12  d-flex justify-content-center">
-                                    <img src="{{asset('images/docente.png')}}" width="80" height="80" class="img-responsive" alt="">
+                                    <img src="{{asset('images/gestor.svg')}}" width="80" height="80" class="img-responsive" alt="">
                                 </div>
                                 <div class="col-12  d-flex justify-content-center">
                                     <h5 class="modal-title" id="exampleModalLabel">Gestor</h5>
@@ -215,7 +215,7 @@
                         <div class="modal-body">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-12  d-flex justify-content-center">
-                                    <img src="{{asset('images/egresado.png')}}" width="80" height="80" class="img-responsive" alt="">
+                                    <img src="{{asset('images/egresado.svg')}}" width="80" height="80" class="img-responsive" alt="">
                                 </div>
                                 <div class="col-12  d-flex justify-content-center">
                                     <h5 class="modal-title" id="exampleModalLabel">Egresado</h5>

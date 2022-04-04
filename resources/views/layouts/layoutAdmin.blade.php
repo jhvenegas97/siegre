@@ -102,7 +102,7 @@
                             @if(Auth::user()->avatar!=null)
                                 <img src="{{Auth::user()->avatar}}" width="70" height="70" class="img-responsive img-circle" alt="">
                             @else
-                                <img src="{{asset('images/admin.png')}}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                <img src="{{asset('images/admin.svg')}}" width="70" height="70" class="img-responsive img-circle" alt="">
                             @endif
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center">
