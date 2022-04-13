@@ -731,7 +731,7 @@
             $('#ajax-academic-model').modal('show');
         });
 
-        $('body').on('click', '.edit', function(e) {
+        $('body').on('click', '.editAcademic', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             cleanErrors();
@@ -755,7 +755,7 @@
                 }
             });
         });
-        $('body').on('click', '.delete', function(e) {
+        $('body').on('click', '.deleteAcademic', function(e) {
             e.preventDefault();
 
             const swalWithBootstrapButtons = Swal.mixin({
@@ -1226,7 +1226,7 @@
             $('#ajax-work-model').modal('show');
         });
 
-        $('body').on('click', '.edit', function(e) {
+        $('body').on('click', '.editWork', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             cleanErrors();
@@ -1250,7 +1250,7 @@
                 }
             });
         });
-        $('body').on('click', '.delete', function(e) {
+        $('body').on('click', '.deleteWork', function(e) {
             e.preventDefault();
 
             const swalWithBootstrapButtons = Swal.mixin({
