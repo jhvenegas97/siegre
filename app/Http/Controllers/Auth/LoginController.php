@@ -83,9 +83,9 @@ class LoginController extends Controller
 
     public function checkID(Request $request)
     {
-        /*$client = new GuzzleHttp\Client();
+        $client = new GuzzleHttp\Client();
         $res = $client->request('POST', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado');
-        dd($res);*/
+        dd($res);
 
         if (session()->has('dataUser')) {
             $userExists = Identification::where('documento', '=', $request->identificationField)->exists();
