@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publication;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,9 +11,7 @@ class PublicationController extends Controller
 {
     public function index(Request $request)
     {
-        /*$data['programs'] = Program::orderBy('id','desc')->paginate(5);
-        return view('admin.adminPrograms',$data);*/
-        if (request()->ajax()) {
+        if ($request()->ajax()) {
             return datatables()->of(DB::select("select * from publications"))
                 ->addColumn('action', 'admin.academicAction')
                 ->rawColumns(['action'])
@@ -25,52 +24,56 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'academic_level_id' => 'required',
+            'title_publication' => 'required',
+            'text_publication' => 'required',
             'user_id' => 'required',
-            'title_academic' => 'required|max:255',
-            'init_date_academic' => 'required',
-            'file_academic' => 'required_without:id|max:2048|mimes:pdf',
+            'category_publication_id' => 'required',
+            'init_date_publication' => 'required',
+            'end_date_publication' => 'required',
+            //'file_publication' => 'required_without:id|max:10240|mimes:jpg,jpeg,png,gif',
         ]);
 
         try {
-            $academicId = $request->id;
-            if ($request->has('file_academic')) {
-                $pdfPath = $request->file('file_academic');
-                $pdfName = $pdfPath->getClientOriginalName();
-                $name = time().'.'.request()->file_academic->getClientOriginalExtension();
-                $path = $request->file_academic->move(public_path('uploads\academics'), $pdfName);
+            $publicationId = $request->id;
+            if ($request->has('file_publication')) {
+                $imagePath = $request->file('file_publication');
+                $imageName = $imagePath->getClientOriginalName();
+                $name = time().'.'.request()->file_publication->getClientOriginalExtension();
+                $path = $request->file_publication->move(public_path('uploads\publications'), $imageName);
                 
-                $academic   =   Academic::updateOrCreate(
+                $publication   =   Publication::updateOrCreate(
                     [
-                        'id' => $academicId
+                        'id' => $publicationId
                     ],
                     [
-                        'academic_level_id' => $request->academic_level_id,
+                        'title_publication' => $request->title_publication,
+                        'text_publication' => $request->text_publication,
                         'user_id' => $request->user_id,
-                        'title_academic' => $request->title_academic,
-                        'init_date_academic' => $request->init_date_academic,
-                        'end_date_academic' => $request->end_date_academic,
-                        'fileName_academic'=> $pdfName,
-                        'path_academic'=>$path,
+                        'category_publication_id' => $request->category_publication_id,
+                        'init_date_publication' => $request->init_date_publication,
+                        'end_date_publication' => $request->end_date_publication,
+                        'fileName_publication'=> $imageName,
+                        'path_publication'=>$path,
                     ]
                 );
-                return Response()->json($academic);
+                return Response()->json($publication);
             }
             else{
-                $academic   =   Academic::updateOrCreate(
+                $publication   =   Publication::updateOrCreate(
                     [
-                        'id' => $academicId
+                        'id' => $publicationId
                     ],
                     [
-                        'academic_level_id' => $request->academic_level_id,
+                        'title_publication' => $request->title_publication,
+                        'text_publication' => $request->text_publication,
                         'user_id' => $request->user_id,
-                        'title_academic' => $request->title_academic,
-                        'init_date_academic' => $request->init_date_academic,
-                        'end_date_academic' => $request->end_date_academic,
+                        'category_publication_id' => $request->category_publication_id,
+                        'init_date_publication' => $request->init_date_publication,
+                        'end_date_publication' => $request->end_date_publication,
                     ]
                 );
             }
-            return Response()->json($academic);
+            return Response()->json($publication);
         } catch (Exception $e) {
             return Response()->json($e, 500);
         }

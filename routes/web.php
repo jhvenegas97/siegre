@@ -74,15 +74,10 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/edit-work-type', [Controllers\WorkTypeController::class, 'edit']);
     Route::post('/delete-work-type', [Controllers\WorkTypeController::class, 'destroy']);
 
-    Route::get('/publication', [Controllers\WorkTypeController::class, 'index'])->name('publication');
-    Route::post('/add-update-publication', [Controllers\WorkTypeController::class, 'store']);
-    Route::post('/edit-publication', [Controllers\WorkTypeController::class, 'edit']);
-    Route::post('/delete-publication', [Controllers\WorkTypeController::class, 'destroy']);
-
-    Route::get('/publication', [Controllers\WorkTypeController::class, 'index'])->name('publication');
-    Route::post('/add-update-publication', [Controllers\WorkTypeController::class, 'store']);
-    Route::post('/edit-publication', [Controllers\WorkTypeController::class, 'edit']);
-    Route::post('/delete-publication', [Controllers\WorkTypeController::class, 'destroy']);
+    Route::get('/publication', [Controllers\PublicationController::class, 'index'])->name('publication');
+    Route::post('/add-update-publication', [Controllers\PublicationController::class, 'store']);
+    Route::post('/edit-publication', [Controllers\PublicationController::class, 'edit']);
+    Route::post('/delete-publication', [Controllers\PublicationController::class, 'destroy']);
 
     Route::get('/publish', [Controllers\PublicationController::class, 'getListaPublicaciones'])->name('publish');
 

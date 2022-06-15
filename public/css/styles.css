@@ -13,6 +13,13 @@
     border-color: #0CBCCC !important;
 }
 
+.btn-new:hover {
+    border-radius: 1rem!important;
+    color: #fff!important;
+    background-color: #0cbcccc7 !important;
+    border-color: #0cbcccc7 !important;
+}
+
 .btn-new-success-sweet-alert {
     border-radius: 1rem!important;
     color: #fff!important;
