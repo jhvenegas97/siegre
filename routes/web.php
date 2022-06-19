@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,13 @@ use App\Http\Controllers;
 */
 
 
-
-
 Route::group(['midldleware'=>'guest'],function(){
     Route::get('/', function () {
-        return view('welcome');
+        if(Auth::check()) {
+            return redirect('/home');
+        } else {
+            return view('welcome');
+        }
     })->name('welcome');
 
     // Google login
@@ -38,7 +41,12 @@ Route::group(['midldleware'=>'guest'],function(){
     Route::get('/about',function(){return view('about');})->name('about');
 });
 
+Auth::routes();
+
 Route::group(['middleware'=>'auth'],function(){
+    Route::resource('roles', Controllers\RoleController::class);
+    Route::resource('permissions', Controllers\PermissionController::class);
+
     Route::get('/user', [Controllers\UserController::class, 'index'])->name('user');
     Route::post('/add-update-user', [Controllers\UserController::class, 'store'])->name('store-user');
     Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->name('edit-user');
@@ -89,5 +97,3 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/administrador-listausuario','AdministradorListaUsuarioController@getListaUsuarios');
     Route::get('/administrador-listapublicacion','AdministradorListaPublicacionController@getListaPublicaciones');
 });
-
-Auth::routes();

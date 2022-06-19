@@ -58,7 +58,7 @@
                                             <i class="fa-solid fa-laptop-code fa-3x"></i>
                                         </div>
                                         <div class="media-body text-left ms-3">
-                                            <h4 class="success">Publicaciones</h4>
+                                            <h4 class="danger">Publicaciones</h4>
                                             <span>Descripción corta</span>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                             <i class="fa-solid fa-graduation-cap fa-3x"></i>
                                         </div>
                                         <div class="media-body text-right ms-3">
-                                            <h4>Programas</h4>
+                                            <h4 class="danger">Programas</h4>
                                             <span>Descripción corta</span>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                             <i class="fa-solid fa-building-columns fa-3x"></i>
                                         </div>
                                         <div class="media-body text-right ms-3">
-                                            <h4>Facultades</h4>
+                                            <h4 class="danger">Facultades</h4>
                                             <span>Descripción corta</span>
                                         </div>
                                     </div>
@@ -139,6 +139,46 @@
                                         </div>
                                         <div class="media-body text-left ms-3">
                                             <h4 class="danger">Tipos de Trabajo</h4>
+                                            <span>Descripción corta</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('roles.index')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-user-shield fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Roles</h4>
+                                            <span>Descripción corta</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('permissions.index')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-user-lock fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Permisos</h4>
                                             <span>Descripción corta</span>
                                         </div>
                                     </div>

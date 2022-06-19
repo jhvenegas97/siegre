@@ -39,7 +39,7 @@ class PublicationController extends Controller
                 $imagePath = $request->file('file_publication');
                 $imageName = $imagePath->getClientOriginalName();
                 $name = time().'.'.request()->file_publication->getClientOriginalExtension();
-                $path = $request->file_publication->move(public_path('uploads\publications'), $imageName);
+                $path = $request->file_publication->move(public_path('uploads/publications'), $imageName);
                 
                 $publication   =   Publication::updateOrCreate(
                     [

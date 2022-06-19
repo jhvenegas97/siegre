@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FacultySeeder::class);
         $this->call(ProgramSeeder::class);
         $this->call(AcademicLevelSeeder::class);
+        $this->call(RolesPermissionsSeeder::class);
     }
 }

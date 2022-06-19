@@ -56,7 +56,11 @@
                             <small class="text-muted">{{$publicacion->init_date_publication}}</small>
                         </div>
                         <div class="col-12 mt-2">
-                            <img src="{{$publicacion->user->avatar}}" width="35" height="35" class="img-responsive img-circle" alt="">
+                                @if(Auth::user()->avatar!=null)
+                                <img src="{{$publicacion->user->avatar}}" width="35" height="35" class="img-responsive img-circle" alt="">
+                                @else
+                                <img src="{{asset('images/admin.svg')}}" width="35" height="35" class="img-responsive img-circle" alt="">
+                                @endif
                             <small class="text-muted">{{$publicacion->user->name}}</small>
                         </div>
                     </div>
