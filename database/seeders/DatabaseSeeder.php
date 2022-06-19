@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProgramSeeder::class);
         $this->call(AcademicLevelSeeder::class);
         $this->call(RolesPermissionsSeeder::class);
+        $this->call(CategoryPublicationsSeeder::class);
     }
 }
