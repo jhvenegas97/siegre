@@ -110,7 +110,11 @@
                                                         @if($user->avatar!=null)
                                                         <img src="{{$user->avatar}}" width="70" height="70" class="img-responsive img-circle" alt="">
                                                         @else
-                                                        <img src="{{asset('uploads/'.$user->fileName)}}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                                            @if ($user->fileName != null)
+                                                                <img src="{{ asset('uploads/' . $user->fileName) }}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                                            @else
+                                                                <img src="{{ asset('images/admin.svg') }}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                                            @endif
                                                         @endif
                                                     </div>
                                                     <div class="mb-3">

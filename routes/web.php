@@ -29,16 +29,15 @@ Route::group(['midldleware'=>'guest'],function(){
     Route::get('/login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
     Route::get('/login/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
 
-    // Facebook login
-    Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
-    Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
-
     Route::post('/checkIdentificationPost',[Controllers\Auth\LoginController::class, 'checkID']);
     Route::get('/checkIdentification', function (){
         return view('auth.checkIdentification');
     })->name('checkIdentification');
 
     Route::get('/about',function(){return view('about');})->name('about');
+
+    Route::get('/list-curriculum', [Controllers\ListCurriculumController::class, 'index'])->name('list-curriculum');
+    Route::get('/curriculum', [Controllers\CurriculumController::class, 'index']);
 });
 
 Auth::routes();

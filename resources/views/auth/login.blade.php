@@ -64,11 +64,6 @@
                                         <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Google</button>
                                     </div>
                                 </a>
-                                <a href="{{route('login.facebook')}}" style="text-decoration: none">
-                                    <div class="d-grid gap-2 pt-2">
-                                        <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Facebook</button>
-                                    </div>
-                                </a>
                             </div>
                             <div class="d-grid gap-2 ps-4 pe-4">
                                 <form method="POST" action="{{route('login')}}">
@@ -146,11 +141,6 @@
                                         <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Google</button>
                                     </div>
                                 </a>
-                                <a href="{{route('login.facebook')}}" style="text-decoration: none">
-                                    <div class="d-grid gap-2 pt-2">
-                                        <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Facebook</button>
-                                    </div>
-                                </a>
                             </div>
                             <div class="d-grid gap-2 ps-4 pe-4">
                                 <form method="POST" action="{{route('login')}}">
@@ -226,11 +216,6 @@
                                 <a href="{{route('login.google')}}" style="text-decoration: none">
                                     <div class="d-grid gap-2 pt-2">
                                         <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Google</button>
-                                    </div>
-                                </a>
-                                <a href="{{route('login.facebook')}}" style="text-decoration: none">
-                                    <div class="d-grid gap-2 pt-2">
-                                        <button type="button" class="btn btn-primary btn-new">Iniciar sesión con Facebook</button>
                                     </div>
                                 </a>
                             </div>

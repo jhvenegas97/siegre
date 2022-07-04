@@ -68,24 +68,11 @@ class LoginController extends Controller
         }
     }
 
-    // Facebook login
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    // Facebook callback
-    public function handleFacebookCallback()
-    {
-        $user = Socialite::driver('facebook')->user();
-        #TODO: verificar cómo regresa los datos Facebook
-    }
-
     public function checkID(Request $request)
     {
-        /*$client = new GuzzleHttp\Client();
-        $res = $client->request('POST', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado');
-        dd($res);*/
+        $client = new GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado',['verify' => 'C:\xampp\apache\bin\curl-ca-bundle.crt']);
+        dd($res);
 
         if (session()->has('dataUser')) {
             $userExists = Identification::where('documento', '=', $request->identificationField)->exists();
