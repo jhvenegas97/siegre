@@ -39,6 +39,27 @@
     <title>SIEGRE - @yield('title')</title>
 </head>
 
+<style>
+    .fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:1%;
+  content: attr(data-count);
+  font-size:30%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+}
+.fa-stack{
+  width: 1.7rem;
+}
+</style>
+
 <body>
 
 <header>
@@ -57,6 +78,16 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item dropdown dropdown-notifications">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Notificaciones  <span class="fa-stack" data-count="0">
+                                <i class="fa fa-bell fa-stack-sm"></i>
+                              </span>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                          </ul>
+                    </li>
+
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
@@ -115,8 +146,7 @@
                 <div class="col-lg-10 d-flex align-items-center gap-2 justify-content-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start justify-content-md-center justify-content-sm-center justify-content-xs-center">
                     <a href="{{route('home')}}"><img class="shadow-personalized" src="{{asset('images/hogar.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
                     <a href="{{route('edit-user', ['id'=>Auth::user()->id])}}"><img class="shadow-personalized" src="{{asset('images/usuario1.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
-                    <a href="#"><img class="shadow-personalized" src="{{asset('images/entretenimientomenu.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
-                    <a href="#"><img class="shadow-personalized" src="{{asset('images/consulta.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
+                    <a href="{{route('feed')}}"><img class="shadow-personalized" src="{{asset('images/entretenimientomenu.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
                 </div>
             </div>
 

@@ -87,6 +87,7 @@ class AcademicController extends Controller
 
     public function destroy(Request $request)
     {
+        unlink(Academic::where('id',$request->id)->first()->path_academic);
         $academic = Academic::where('id', $request->id)->delete();
 
         return Response()->json($academic);

@@ -35,7 +35,12 @@
 
                                         <div class="card-body me-2 ms-2">
                                             <form id="userData" method="POST" action="{{ route('store-user') }}" enctype="multipart/form-data" onSubmit="return false;">
-
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="form-group form-check">
+                                                        {{ Form::checkbox('showCurriculum',$user->showCurriculum, $user->showCurriculum == 1 ? true : false, array('class' => 'form-check-input')) }}
+                                                        <label class="form-check-label" for="showCurriculum">Mostrar Hoja de Vida</label>
+                                                    </div>
+                                                </div>
                                                 <input type="hidden" name="id" id="id" value="{{$user->id}}">
                                                 <div class="row mb-3 flex-column">
                                                     <label for="name" class="col-12 col-form-label text-md-star">{{ __('Nombre') }}</label>
@@ -45,6 +50,32 @@
 
                                                         <span style="display: none;" class="invalid-feedback" id="name_error_span" role="alert">
                                                             <strong id="name_error"></strong>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3 flex-column">
+                                                    <label for="description" class="col-12 col-form-label text-md-star">{{ __('Descripción') }}</label>
+
+                                                    <div class="col-12">
+                                                        <input id="description" type="text" class="form-control" name="description" value="{{ $user->description }}" autocomplete="description" autofocus>
+
+                                                        <span style="display: none;" class="invalid-feedback" id="description_error_span" role="alert">
+                                                            <strong id="description_error"></strong>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3 flex-column">
+                                                    <label for="phone" class="col-12 col-form-label text-md-star">{{ __('Teléfono') }}</label>
+
+                                                    <div class="col-12">
+                                                        <input id="phone" type="text" class="form-control" name="phone" value="{{ $user->phone }}" autocomplete="phone" autofocus>
+
+                                                        <span style="display: none;" class="invalid-feedback" id="phone_error_span" role="alert">
+                                                            <strong id="phone_error"></strong>
                                                         </span>
 
                                                     </div>
@@ -126,10 +157,10 @@
                                                     <div class="form-group">
                                                         <label for="direction" class="col-12 col-form-label text-md-start">{{ __('Dirección') }}</label>
                                                         @if($user->direction!=null)
-                                                        <input id="directionAutocomplete" type="text" class="form-control" name="direction" value="{{$user->direction}}" required>
+                                                        <input id="directionAutocomplete" type="text" class="form-control" name="direction" value="{{$user->direction}}">
                                                         {{-- <input type="text" name="direction" id="directionAutocomplete" class="form-control" placeholder="Elegir dirección" value="{{$user->direction}}"> --}}
                                                         @else
-                                                        <input id="directionAutocomplete" type="text" class="form-control" name="direction" required>
+                                                        <input id="directionAutocomplete" type="text" class="form-control" name="direction">
                                                         {{-- <input type="text" name="direction" id="directionAutocomplete" class="form-control" placeholder="Elegir dirección"> --}}
                                                         @endif
                                                         <span style="display: none;" class="invalid-feedback" id="direction_error_span" role="alert">
@@ -139,7 +170,7 @@
 
                                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
                                                     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-                                                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB_YcsBPRa2i9bDIupg7wuCCRWlpEO1Ip8&libraries=places"></script>
+                                                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCiaHmECkGA_grBFw8c4i6srLRmBWbxAi4&libraries=places"></script>
                                                     <script>
                                                         $(document).ready(function() {
                                                             $("#latitudeArea").addClass("d-none");
@@ -730,6 +761,7 @@
             e.preventDefault();
             cleanErrors();
             $('#addEditAcademicForm').trigger("reset");
+            $('#id-numeric').val('');
             $('#inputStateAcademicLevel').find('option').attr("selected", false);
             $('#ajaxAcademicModel').html("Crear Título Académico");
             $('#ajax-academic-model').modal('show');
@@ -1225,6 +1257,7 @@
             e.preventDefault();
             cleanErrors();
             $('#addEditWorkForm').trigger("reset");
+            $('#id-numeric-work').val('');
             $('#inputStateWorkLevel').find('option').attr("selected", false);
             $('#ajaxWorkModel').html("Crear Experiencia Laboral");
             $('#ajax-work-model').modal('show');

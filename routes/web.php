@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,6 +44,10 @@ Route::group(['midldleware'=>'guest'],function(){
 Auth::routes();
 
 Route::group(['middleware'=>'auth'],function(){
+    /* Route::get('sendPublicationNotification', function () {
+        event(new App\Events\PublicationEvent('$request'));
+    }); */
+
     Route::resource('roles', Controllers\RoleController::class);
     Route::resource('permissions', Controllers\PermissionController::class);
 
@@ -81,12 +86,12 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/edit-work-type', [Controllers\WorkTypeController::class, 'edit']);
     Route::post('/delete-work-type', [Controllers\WorkTypeController::class, 'destroy']);
 
-    Route::get('/publication', [Controllers\PublicationController::class, 'index'])->name('publication');
-    Route::post('/add-update-publication', [Controllers\PublicationController::class, 'store']);
-    Route::post('/edit-publication', [Controllers\PublicationController::class, 'edit']);
-    Route::post('/delete-publication', [Controllers\PublicationController::class, 'destroy']);
+    Route::get('/feed', [Controllers\PublicationFeedController::class, 'index'])->name('feed');
+    Route::post('/add-update-publication', [Controllers\PublicationFeedController::class, 'store']);
+    Route::post('/edit-publication', [Controllers\PublicationFeedController::class, 'edit']);
+    Route::post('/delete-publication', [Controllers\PublicationFeedController::class, 'destroy']);
 
-    Route::get('/publish', [Controllers\PublicationController::class, 'getListaPublicaciones'])->name('publish');
+    Route::get('/publications', [Controllers\PublicationFeedController::class, 'indexAdmin'])->name('publications');
 
     Route::get('/admin', function () {
         return view('admin.admin');

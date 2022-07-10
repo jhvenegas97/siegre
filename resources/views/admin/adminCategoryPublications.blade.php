@@ -358,6 +358,7 @@
                 e.preventDefault();
                 cleanErrors();
                 $('#addEditCategoryPublicationForm').trigger("reset");
+                $('#id').val('');
                 $('#ajaxCategoryPublicationModel').html("Crear Categoría de Publicaciones");
                 $('#ajax-category-publication-model').modal('show');
             });

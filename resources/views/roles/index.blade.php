@@ -2,6 +2,35 @@
 @extends('layouts.layoutAdmin')
 
 @section('content')
+<script>
+    $(function() {
+        $(document).on("click", "#pagination a", function(e) {
+            e.preventDefault();
+            //get url and make final url for ajax 
+            var url = $(this).attr("href");
+            var append = url.indexOf("?") == -1 ? "?": "&";
+            var finalURL = url + append;
+
+            //set to current url
+            window.history.pushState({}, null, finalURL);
+
+            $.ajax({
+                url: finalURL,
+                type: 'GET',
+                success: function(data) {
+                    $("#pagination_data").html(data);
+                },
+                error: function(data) {
+
+                }
+            });
+
+            return false;
+        })
+
+    });
+</script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -33,37 +62,9 @@
     @endif
 
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col" class="align-middle text-center">No</th>
-                    <th scope="col" class="align-middle text-center">Nombre</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-
-            @foreach ($roles as $key => $role)
-            <tr>
-                <td>{{ ++$i }}</td>
-                <td>{{ $role->name }}</td>
-                <td>
-                    <a class="btn btn-info btn-new mb-2 fw-bold" href="{{ route('roles.show',$role->id) }}">Ver</a>
-                    @can('role-edit')
-                    <a class="btn btn-primary btn-new mb-2" href="{{ route('roles.edit',$role->id) }}">Editar</a>
-                    @endcan
-                    @can('role-delete')
-                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-new mb-2 fw-bold']) !!}
-                    {!! Form::close() !!}
-                    @endcan
-                </td>
-            </tr>
-            @endforeach
-        </table>
+    <div id="pagination_data">
+        @include('roles.rolesPagination', ['roles' => $roles])
     </div>
-
-    {!! $roles->render() !!}
 
 </div>
 

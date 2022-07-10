@@ -20,13 +20,16 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('program_id')->nullable();
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->string('name');
+            $table->string('description')->nullable();
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
             $table->string('direction')->nullable();
             $table->string('fileName')->nullable();
             $table->string('path')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('state')->nullable();
+            $table->boolean('showCurriculum')->nullable()->default(0);;
             $table->string('avatar')->nullable();
             $table->string('external_id')->nullable();
             $table->rememberToken();

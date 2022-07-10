@@ -29,13 +29,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|max:20',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
             'identification_id' => 'required',
             'state' => 'required',
             'program_id' => 'required',
-            'direction' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -55,6 +55,9 @@ class UserController extends Controller
                     [
                         'name' => $request->name,
                         'email' => $request->email,
+                        'description' => $request->description,
+                        'phone' => $request->phone,
+                        'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
                         'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
                         'state' => $request->state,
                         'program_id' => $request->program_id,
@@ -71,6 +74,9 @@ class UserController extends Controller
                 [
                     'name' => $request->name,
                     'email' => $request->email,
+                    'description' => $request->description,
+                    'phone' => $request->phone,
+                    'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
                     'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
                     'state' => $request->state,
                     'program_id' => $request->program_id,

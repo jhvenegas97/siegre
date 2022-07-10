@@ -22,7 +22,7 @@
             <div class="row d-flex justify-content-start flex-column flex-md-row">
                                 <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
                                     <div class="col-12 d-flex justify-content-center justify-content-md-start">
-                                        <button id="addNewAcademic" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear Título Académico</button>
+                                        <button id="addNewPublication" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear nueva Publicación</button>
                                     </div>
                                 </div>
 
@@ -35,8 +35,10 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th scope="col" class="align-middle text-center">No</th>
-                                            <th scope="col" class="align-middle text-center">Tipo</th>
                                             <th scope="col" class="align-middle text-center">Nombre</th>
+                                            <th scope="col" class="align-middle text-center">Categoría</th>
+                                            <th scope="col" class="align-middle text-center">Título Publicación</th>
+                                            <th scope="col" class="align-middle text-center">Texto Publicación</th>
                                             <th scope="col" class="align-middle text-center">Fecha Inicio</th>
                                             <th scope="col" class="align-middle text-center">Fecha Fin</th>
                                             <th scope="col" class="align-middle text-center">Documento Soporte</th>
@@ -55,7 +57,7 @@
     </div>
 </div>
 
-<div class="modal" id="ajax-academic-model" tabindex="-1" aria-hidden="true">
+<div class="modal" id="ajax-publication-model" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,51 +66,72 @@
             <div class="modal-body">
                 <div class="row d-flex justify-content-center">
                     <div class="col-12  d-flex justify-content-center">
-                        <h5 class="modal-title" id="ajaxAcademicModel">Crear Título Académico</h5>
+                        <h5 class="modal-title" id="ajaxPublicationModel">Crear Nueva Publicación</h5>
                     </div>
                 </div>
 
                 <div class="d-grid gap-2 ps-4 pe-4 mt-2">
-                    <form method="POST" action="javascript:void(0)" id="addEditAcademicForm" name="addEditAcademicForm">
+                    <form method="POST" action="javascript:void(0)" id="addEditPublicationForm"
+                        name="addEditPublicationForm">
                         @csrf
-                        <input type="hidden" name="id" id="id-numeric">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
                         <div class="mb-3">
-                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Nivel Académico') }}</label>
-                            <select id="inputStateAcademicLevel" class="form-control">
-                                <option data-id="">Elegir Nivel Académico</option>
-                                @foreach($academicLevels as $academicLevel)
-                                <option data-id="{{$academicLevel->id}}">{{$academicLevel->name_academic_level}}</option>
-                                @endforeach
+                            <input id="title_PublicationID" type="text" class="form-control" name="title_publication"
+                                value="" required autocomplete="title_publication" autofocus
+                                placeholder="Título de la Publicación">
+                            <span style="display: none;" class="invalid-feedback" id="title_publication_error_span"
+                                role="alert">
+                                <strong id="title_publication_error"></strong>
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <input id="text_PublicationID" type="text" class="form-control" name="text_publication"
+                                value="" required autocomplete="text_publication" autofocus
+                                placeholder="Descripción de la Publicación">
+                            <span style="display: none;" class="invalid-feedback" id="text_publication_error_span"
+                                role="alert">
+                                <strong id="text_publication_error"></strong>
+                            </span>
+                        </div>
+                        <div class="mb-3 flex-column">
+                            <label for="state"
+                                class="col-12 col-form-label text-md-start">{{ __('Categoría') }}</label>
+                            <select id="inputCategory" class="form-control" required>
+                                <option data-id="" value="">Elegir</option>
+                                <option selected data-id="1">News</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Nombre Título Académico') }}</label>
-                            <input id="name_academicID" type="text" class="form-control" name="title_academic" value="" required autocomplete="title_academic" autofocus placeholder="Ingrese el Nombre del Título">
-                            <span style="display: none;" class="invalid-feedback" id="name_error_span" role="alert">
-                                <strong id="name_error"></strong>
-                            </span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Fecha de Inicio') }}</label>
-                            <input id="init_date_academicID" type="date" class="form-control" name="init_date_academic" value="" required autocomplete="init_date_academic" autofocus>
-                            <span style="display: none;" class="invalid-feedback" id="init_date_error_span" role="alert">
+                            <label for="title"
+                                class="col-12 col-form-label text-md-start">{{ __('Fecha de Inicio') }}</label>
+                            <input id="init_date_publicationID" type="date" class="form-control"
+                                name="init_date_publication" value="" required
+                                autocomplete="init_date_publication" autofocus>
+                            <span style="display: none;" class="invalid-feedback" id="init_date_error_span"
+                                role="alert">
                                 <strong id="init_date_error"></strong>
                             </span>
                         </div>
 
                         <div class="mb-3">
-                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Fecha Finalización') }}</label>
-                            <input id="end_date_academicID" type="date" class="form-control" name="end_date_academic" value="" required autocomplete="end_date_academic" autofocus>
-                            <span style="display: none;" class="invalid-feedback" id="end_date_error_span" role="alert">
+                            <label for="title"
+                                class="col-12 col-form-label text-md-start">{{ __('Fecha Finalización') }}</label>
+                            <input id="end_date_publicationID" type="date" class="form-control"
+                                name="end_date_publication" value="" required
+                                autocomplete="end_date_publication" autofocus>
+                            <span style="display: none;" class="invalid-feedback" id="end_date_error_span"
+                                role="alert">
                                 <strong id="end_date_error"></strong>
                             </span>
                         </div>
 
                         <div class="mb-3">
-                            <label for="title" class="col-12 col-form-label text-md-start">{{ __('Documento Soporte') }}</label>
-                            <input class="form-control form-control-sm" id="titleFileSm" name="file_academic" type="file" accept=".pdf" value="null">
+                            <label for="title"
+                                class="col-12 col-form-label text-md-start">{{ __('Imagen Adjunta') }}</label>
+                            <input class="form-control form-control-sm" id="titleFileSm" name="file_publication"
+                                type="file" accept="image/,.jpg,.jpeg,.png,.gif" value="null">
                         </div>
 
                         <div class="d-grid gap-2">
@@ -117,7 +140,8 @@
                                 <div class="d-grid gap-2 m-2">
                                     <a href="" style="text-decoration: none">
                                         <div class="d-grid gap-2 pt-2">
-                                            <button type="submit" id="btn-save" value="addNewAcademic" class="btn btn-primary btn-new">Guardar</button>
+                                            <button type="submit" id="btn-save" value="addNewAcademicLevel"
+                                                class="btn btn-primary btn-new">Guardar</button>
                                         </div>
                                     </a>
                                 </div>
@@ -378,39 +402,42 @@
         $('#datatable-ajax-crud').DataTable({
             processing: true
             , serverSide: true
-            , ajax: {
-                url: "{{ url('academic') }}"
-                , data: {
-                    id: $("#userData").find('input[name="id"]').val()
-                }
-            }
+            , ajax: "{{ url('publications') }}"
             , columns: [{
                     data: 'id'
                     , name: 'id'
                     , 'visible': false
                 }
                 , {
-                    data: 'name_academic_level'
-                    , name: 'name_academic_level'
+                    data: 'name'
+                    , name: 'name'
                 }
                 , {
-                    data: 'title_academic'
-                    , name: 'title_academic'
+                    data: 'name_category_publication'
+                    , name: 'name_category_publication'
                 }
                 , {
-                    data: 'init_date_academic'
-                    , name: 'init_date_academic'
+                    data: 'title_publication'
+                    , name: 'title_publication'
                 }
                 , {
-                    data: 'end_date_academic'
-                    , name: 'end_date_academic'
+                    data: 'text_publication'
+                    , name: 'text_publication'
                 }
                 , {
-                    data: 'fileName_academic'
-                    , name: 'fileName_academic'
+                    data: 'init_date_publication'
+                    , name: 'init_date_publication'
+                }
+                , {
+                    data: 'end_date_publication'
+                    , name: 'end_date_publication'
+                }
+                , {
+                    data: 'fileName_publication'
+                    , name: 'fileName_publication'
                     , fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
-                        if (oData.fileName_academic) {
-                            $(nTd).html("<a target='_blank' href='/uploads/academics/" + oData.fileName_academic + "'>" + "<i class='fa-solid fa-file-pdf fa-2x'>" + "</i>" + "</a>");
+                        if (oData.fileName_publication) {
+                            $(nTd).html("<a target='_blank' href='/uploads/publications/" + oData.fileName_publication + "'>" + "<i class='fa-solid fa-file fa-2x'>" + "</i>" + "</a>");
                         }
                     }
                 }
@@ -426,143 +453,151 @@
             , language: spanishLanguage
         , });
 
-        $('#addNewAcademic').click(function(e) {
-            e.preventDefault();
-            cleanErrors();
-            $('#addEditAcademicForm').trigger("reset");
-            $('#inputStateAcademicLevel').find('option').attr("selected", false);
-            $('#ajaxAcademicModel').html("Crear Título Académico");
-            $('#ajax-academic-model').modal('show');
-        });
-
-        $('body').on('click', '.editAcademic', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            cleanErrors();
-            // ajax
-            $.ajax({
-                type: "POST"
-                , url: "{{ url('edit-academic') }}"
-                , data: {
-                    id: id
-                }
-                , dataType: 'json'
-                , success: function(res) {
-                    console.log(res);
-                    $('#ajaxAcademicModel').html("Editar Nivel Académico");
-                    $('#id-numeric').val(res.id);
-                    $('#name_academicID').val(res.title_academic);
-                    $('#inputStateAcademicLevel option[data-id="' + res.academic_level_id + '"]').attr('selected', 'selected');
-                    $('#init_date_academicID').val(res.init_date_academic);
-                    $('#end_date_academicID').val(res.end_date_academic);
-                    $('#ajax-academic-model').modal('show');
-                }
+        $('#addNewPublication').click(function(e) {
+                e.preventDefault();
+                cleanErrors();
+                $('#addEditPublicationForm').trigger("reset");
+                $('#id').val('');
+                $('#inputCategory').find('option').attr("selected", false);
+                $('#ajaxPublicationModel').html("Crear Nueva Publicación");
+                $('#ajax-publication-model').modal('show');
             });
-        });
-        $('body').on('click', '.deleteAcademic', function(e) {
-            e.preventDefault();
 
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success btn-new-success-sweet-alert'
-                    , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                }
-                , buttonsStyling: false
-            })
+            $('body').on('click', '.edit', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                cleanErrors();
+                // ajax
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('edit-publication') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#ajaxPublicationModel').html("Editar Publicación");
+                        $('#ajax-publication-model').modal('show');
+                        $('#id').val(res.id);
+                        $('#title_PublicationID').val(res.title_publication);
+                        $('#text_PublicationID').val(res.text_publication);
+                        $('#inputCategory option[data-id="' + res.category_publication_id +
+                            '"]').attr('selected', 'selected');
+                        $('#init_date_publicationID').val(res.init_date_publication);
+                        $('#end_date_publicationID').val(res.end_date_publication);
+                    }
+                });
+            });
+            $('body').on('click', '.delete', function(e) {
+                e.preventDefault();
 
-            swalWithBootstrapButtons.fire({
-                title: 'Estas seguro?'
-                , text: "Estos cambios no se pueden revertir!"
-                , icon: 'warning'
-                , showCancelButton: true
-                , confirmButtonText: 'Si, borrar nivel académico!'
-                , cancelButtonText: 'No, cancelar!'
-                , reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //Swal.fire('Facultad eliminada con éxito!', '', 'success')
-                    var id = $(this).data('id');
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success btn-new-success-sweet-alert',
+                        cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                    },
+                    buttonsStyling: false
+                })
 
-                    // ajax
-                    $.ajax({
-                        type: "POST"
-                        , url: "{{ url('delete-academic') }}"
-                        , data: {
-                            id: id
-                        }
-                        , dataType: 'json'
-                        , success: function(res) {
-                            var oTable = $('#datatable-ajax-crud').dataTable();
-                            oTable.fnDraw(false);
+                swalWithBootstrapButtons.fire({
+                    title: 'Estas seguro?',
+                    text: "Estos cambios no se pueden revertir!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, borrar publicación!',
+                    cancelButtonText: 'No, cancelar!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data('id');
+
+                        // ajax
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ url('delete-publication') }}",
+                            data: {
+                                id: id
+                            },
+                            dataType: 'json',
+                            success: function(res) {
+                                $.ajax({
+                                    url: "{{ url('feed') }}",
+                                    type: 'GET',
+                                    success: function(data) {
+                                        $("#pagination_data").html(data);
+                                    },
+                                    error: function(data) {
+
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Borrado completado'
+                                })
+                            }
+                        });
+                    }
+                })
+            });
+            $('#addEditPublicationForm').submit(function(e) {
+                e.preventDefault();
+                cleanErrors();
+                let formData = new FormData(this);
+                formData.append('category_publication_id', $('#inputCategory option:selected').attr(
+                    'data-id'));
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('add-update-publication') }}",
+                    cache: false,
+                    dataType: false,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: (response) => {
+                        $('#addEditPublicationForm').trigger("reset");
+                        $('#ajax-publication-model').modal('hide');
+
+                        if (response) {
+                            $.ajax({
+                            url: "{{ url('feed') }}",
+                            type: 'GET',
+                            success: function(data) {
+                                $("#pagination_data").html(data);
+                            },
+                            error: function(data) {
+
+                            }
+                        });
+
                             Toast.fire({
-                                icon: 'success'
-                                , title: 'Borrado completado'
+                                icon: 'success',
+                                title: 'Datos guardados con éxito'
                             })
                         }
-                    });
-                }
-            })
-        });
+                    },
+                    error: function(response) {
+                        console.log(response);
+                        //TODO: Mostrar todos los errores
 
-        $('#addEditAcademicForm').submit(function(e) {
-            e.preventDefault();
-            cleanErrors();
-            let formData = new FormData(this);
-            var data = $('#titleFileSm').value;
-            formData.append('academic_level_id', $('#inputStateAcademicLevel option:selected').attr('data-id'));
-            formData.append('user_id', $("#userData").find('input[name="id"]').val());
-            $.ajax({
-                type: 'POST'
-                , url: "{{ url('add-update-academic') }}"
-                , cache: false
-                , dataType: false
-                , processData: false
-                , contentType: false
-                , data: formData
-                , success: (response) => {
-                    $('#addEditAcademicForm').trigger("reset");
-                    $('#ajax-academic-model').modal('hide');
-                    var oTable = $('#datatable-ajax-crud').dataTable();
-                    oTable.fnDraw(false);
-                    if (response) {
-                        Toast.fire({
-                            icon: 'success'
-                            , title: 'Datos guardados con éxito'
-                        })
+                        try {
+                            //TODO: Mostrar todos los errores
+                        } catch (exp) {}
+                        if (response.status == 500) {
+                            console.log(response);
+                            const swalWithBootstrapButtonsError = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
+                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                                },
+                                buttonsStyling: false
+                            })
+                            swalWithBootstrapButtonsError.fire(
+                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
+                            )
+                        }
                     }
-                }
-                , error: function(response) {
-                    console.log(response);
-                    $("#name_error_span").show();
-                    $("#email_error_span").show();
-                    $("#identification_id_error_span").show();
-                    $("#direction_error_span").show();
-
-                    try {
-                        $("#name_error").text(response.responseJSON.errors.name);
-                        $("#email_error").text(response.responseJSON.errors.email);
-                        $("#identification_id_error").text(response.responseJSON.errors.identification_id);
-                        $("#direction_error").text(response.responseJSON.errors.direction);
-                    } catch (exp) {}
-                    if (response.status == 500) {
-                        //console.log(response);
-                        const swalWithBootstrapButtonsError = Swal.mixin({
-                            customClass: {
-                                confirmButton: 'btn btn-success btn-new-success-sweet-alert'
-                                , cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                            }
-                            , buttonsStyling: false
-                        })
-                        swalWithBootstrapButtonsError.fire(
-                            'Cancelled'
-                            , response.responseJSON.errorInfo[2]
-                            , 'error'
-                        )
-                    }
-                }
+                });
             });
-        });
-
 
     });
 

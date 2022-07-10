@@ -38,12 +38,17 @@
                     </div>
                     <div class="row d-flex justify-content-center mt-2">
                         <div class="d-flex justify-content-center col-md-8 col-lg-6 col-xl-5">
-                            <p>Descripción para trabajar</p>
+                            <p class="text-center">{{$userCurriculum[0]->description}}</p>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="d-flex justify-content-center col-md-8 col-lg-6 col-xl-5">
                             <p>{{$userCurriculum[0]->email}}</p>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center mt-2">
+                        <div class="d-flex justify-content-center col-md-8 col-lg-6 col-xl-5">
+                            <p>{{$userCurriculum[0]->phone}}</p>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">
@@ -64,7 +69,7 @@
                 <div class="accordion-body">
                     <!--INICIO TABLA-->
                     <div class="table-responsive">
-                        <table class="table table-striped" style="width:100%" id="datatable-ajax-crud">
+                        <table class="table table-hover" style="width:100%" id="datatable-ajax-crud">
 
                             <thead class="table-light">
                                 <tr>
@@ -77,12 +82,12 @@
                                 </tr>
                                 @foreach ($userCurriculum[1] as $key => $academic)
                                 <tr>
-                                    <th scope="col" class="align-middle text-center">{{ ++$key }}</th>
-                                    <th scope="col" class="align-middle text-center">{{$academic->name_academic_level}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$academic->title_academic}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$academic->init_date_academic}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$academic->end_date_academic}}</th>
-                                    <th scope="col" class="align-middle text-center"><a target='_blank' href='/uploads/academics/{{$academic->fileName_academic}}'> <i class='fa-solid fa-file-pdf fa-2x'></i></a></th>
+                                    <td class="align-middle text-center">{{ ++$key }}</td>
+                                    <td class="align-middle text-center">{{$academic->name_academic_level}}</td>
+                                    <td class="align-middle text-center">{{$academic->title_academic}}</td>
+                                    <td class="align-middle text-center">{{$academic->init_date_academic}}</td>
+                                    <td class="align-middle text-center">{{$academic->end_date_academic}}</td>
+                                    <td class="align-middle text-center"><a target='_blank' href='/uploads/academics/{{$academic->fileName_academic}}'> <i class='fa-solid fa-file-pdf fa-2x'></i></a></td>
                                 </tr>
                                 @endforeach
                             </thead>
@@ -107,7 +112,7 @@
                 <div class="accordion-body">
                     <!--INICIO TABLA-->
                     <div class="table-responsive">
-                        <table class="table table-striped" style="width:100%" id="datatable-ajax-crud-work">
+                        <table class="table table-hover" style="width:100%" id="datatable-ajax-crud-work">
 
                             <thead class="table-light">
                                 <tr>
@@ -120,12 +125,12 @@
                                 </tr>
                                 @foreach ($userCurriculum[2] as $key => $work)
                                 <tr>
-                                    <th scope="col" class="align-middle text-center">{{ ++$key }}</th>
-                                    <th scope="col" class="align-middle text-center">{{$work->name_work_type}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$work->title_work}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$work->init_date_work}}</th>
-                                    <th scope="col" class="align-middle text-center">{{$work->end_date_work}}</th>
-                                    <th scope="col" class="align-middle text-center"><a target='_blank' href='/uploads/works/{{$work->fileName_work}}'> <i class='fa-solid fa-file-pdf fa-2x'></i></a></th>
+                                    <td scope="row" class="align-middle text-center">{{ ++$key }}</td>
+                                    <td scope="row" class="align-middle text-center">{{$work->name_work_type}}</td>
+                                    <td scope="row" class="align-middle text-center">{{$work->title_work}}</td>
+                                    <td scope="row" class="align-middle text-center">{{$work->init_date_work}}</td>
+                                    <td scope="row" class="align-middle text-center">{{$work->end_date_work}}</td>
+                                    <td scope="row" class="align-middle text-center"><a target='_blank' href='/uploads/works/{{$work->fileName_work}}'> <i class='fa-solid fa-file-pdf fa-2x'></i></a></td>
                                 </tr>
                                 @endforeach
                             </thead>

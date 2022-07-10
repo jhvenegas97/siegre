@@ -87,6 +87,7 @@ class WorkController extends Controller
 
     public function destroy(Request $request)
     {
+        unlink(Work::where('id',$request->id)->first()->path_work);
         $work = Work::where('id', $request->id)->delete();
 
         return Response()->json($work);

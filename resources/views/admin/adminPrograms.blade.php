@@ -376,6 +376,7 @@
                 e.preventDefault();
                 cleanErrors();
                 $('#addEditProgramForm').trigger("reset");
+                $('#id').val('');
                 $('#ajaxProgramModel').html("Crear programa");
                 $('#ajax-program-model').modal('show');
             });

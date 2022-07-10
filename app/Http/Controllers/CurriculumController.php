@@ -16,13 +16,18 @@ class CurriculumController extends Controller
      */
     public function index(Request $request)
     {
-        $where = array('id' => $request->id);
-        $user  = User::where($where)->first();
-        $userCurriculum = array();
-        array_push($userCurriculum,$user);
-        array_push($userCurriculum,Academic::join('academic_levels','academic_levels.id','=','academics.academic_level_id')->where('user_id',$user->id)->get());
-        array_push($userCurriculum,Work::join('work_types','work_types.id','=','works.work_type_id')->where('user_id',$user->id)->get());
-        return view('client.curriculum')->with(array('userCurriculum'=>$userCurriculum));
+        $user  = User::where('users.showCurriculum','=','1')->where('users.id','=',$request->id)->first();
+        if($user!=null){
+            $userCurriculum = array();
+            array_push($userCurriculum,$user);
+            array_push($userCurriculum,Academic::join('academic_levels','academic_levels.id','=','academics.academic_level_id')->where('user_id',$user->id)->get());
+            array_push($userCurriculum,Work::join('work_types','work_types.id','=','works.work_type_id')->where('user_id',$user->id)->get());
+            return view('client.curriculum')->with(array('userCurriculum'=>$userCurriculum));
+        }
+        else{
+            return view('auth.userNotAllowed');
+        }
+        
     }
 
     /**

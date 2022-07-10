@@ -360,6 +360,7 @@
                 e.preventDefault();
                 cleanErrors();
                 $('#addEditFacultyForm').trigger("reset");
+                $('#id').val('');
                 $('#ajaxFacultyModel').html("Crear facultad");
                 $('#ajax-faculty-model').modal('show');
             });

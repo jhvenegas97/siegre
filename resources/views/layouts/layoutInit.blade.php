@@ -65,7 +65,7 @@
                         </form>
                     @endguest
                     <li class="nav-item">
-                    <a class="nav-link" href="{{route('list-curriculum')}}"><i class="fa fa-users fa-sm"></i> Hojas de Vida</a>
+                    <a class="nav-link" href="{{route('list-curriculum')}}"><i class="fa fa-id-card fa-sm"></i> Hojas de Vida</a>
                     </li>
 
                     <li class="nav-item">

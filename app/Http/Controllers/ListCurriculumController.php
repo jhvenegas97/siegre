@@ -15,13 +15,18 @@ class ListCurriculumController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::join('academics', 'users.id', '=', 'academics.user_id')->paginate(3);;
+        $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
+        join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')->groupBy('users.id')->paginate(2);;
         if($request->has('name') || $request->has('academic_level_id')){
             if($request->filled('academic_level_id')){
-                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->where('users.name','like',"%".$request->get("name")."%")->where('academics.academic_level_id','=',$request->get('academic_level_id'))->paginate(3);
+                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
+                join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')
+                ->where('users.name','like',"%".$request->get("name")."%")->where('academics.academic_level_id','=',$request->get('academic_level_id'))->groupBy('users.id')->paginate(2);
             }
             else{
-                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->where('users.name','like',"%".$request->get("name")."%")->paginate(3);
+                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
+                join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')
+                ->where('users.name','like',"%".$request->get("name")."%")->groupBy('users.id')->paginate(2);
             }
         }
         

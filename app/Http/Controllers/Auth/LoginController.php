@@ -70,11 +70,20 @@ class LoginController extends Controller
 
     public function checkID(Request $request)
     {
-        $client = new GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado',['verify' => 'C:\xampp\apache\bin\curl-ca-bundle.crt']);
-        dd($res);
+        $client = new GuzzleHttp\Client(['verify' => false]);
+        $res = $client->request('GET', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado');
+        //dd($res);
 
-        if (session()->has('dataUser')) {
+        $arrayEgresados = json_decode($res->getBody(),true);
+        
+        foreach($arrayEgresados as $value){
+            foreach($value as $element){
+                print($element);
+            }
+            print("<br>");
+        }
+
+        /* if (session()->has('dataUser')) {
             $userExists = Identification::where('documento', '=', $request->identificationField)->exists();
             if ($userExists) {
                 User::create([
@@ -94,6 +103,6 @@ class LoginController extends Controller
             } else {
                 return view('auth.userNotAllowed');
             }
-        }
+        } */
     }
 }

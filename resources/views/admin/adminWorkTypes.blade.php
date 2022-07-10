@@ -358,6 +358,8 @@
                 e.preventDefault();
                 cleanErrors();
                 $('#addEditWorkTypeForm').trigger("reset");
+                $('#id').val('');
+                console.log($('#id').val());
                 $('#ajaxWorkTypeModel').html("Crear Tipo de Trabajo");
                 $('#ajax-work-type-model').modal('show');
             });

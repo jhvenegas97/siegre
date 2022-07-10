@@ -35,7 +35,7 @@
         <div class="mb-3 flex-column">
             <label for="state" class="col-12 col-form-label text-md-start">{{ __('Permisos') }}</label>
             @foreach($permission as $value)
-            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name form-check-input')) }}
                 {{ $value->name }}</label>
             <br />
             @endforeach

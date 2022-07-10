@@ -358,6 +358,7 @@
                 e.preventDefault();
                 cleanErrors();
                 $('#addEditAcademicLevelForm').trigger("reset");
+                $('#id').val('');
                 $('#ajaxAcademicLevelModel').html("Crear Nivel Académico");
                 $('#ajax-academic-level-model').modal('show');
             });

@@ -115,8 +115,7 @@
                 <div class="col-lg-10 d-flex align-items-center gap-2 justify-content-center justify-content-lg-start justify-content-xl-start justify-content-xxl-start justify-content-md-center justify-content-sm-center justify-content-xs-center">
                     <a href="{{route('home')}}"><img class="shadow-personalized" src="{{asset('images/hogar.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
                     <a href="{{route('edit-user', ['id'=>Auth::user()->id])}}"><img class="shadow-personalized" src="{{asset('images/usuario1.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
-                    <a href="#"><img class="shadow-personalized" src="{{asset('images/entretenimientomenu.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
-                    <a href="#"><img class="shadow-personalized" src="{{asset('images/consulta.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
+                    <a href="{{route('feed')}}"><img class="shadow-personalized" src="{{asset('images/entretenimientomenu.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
                 </div>
             </div>
 
