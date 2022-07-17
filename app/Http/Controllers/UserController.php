@@ -9,6 +9,8 @@ use Exception;
 use Datatables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 
 class UserController extends Controller
 {
@@ -102,5 +104,10 @@ class UserController extends Controller
         $user = User::where('id', $request->id)->delete();
         //Delete on cascade, because the publications and all data related is going to be deleted
         return Response()->json($user);
+    }
+    
+    public function exportExcel()
+    {
+    	return Excel::download(new UsersExport, 'user-list.xlsx');
     }
 }

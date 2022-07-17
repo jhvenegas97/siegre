@@ -56,6 +56,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/add-update-user', [Controllers\UserController::class, 'store'])->middleware('can:user-create,user-update')->name('store-user');
     Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->name('edit-user');
     Route::post('/delete-user', [Controllers\UserController::class, 'destroy']);
+    Route::get('user-list-excel',[Controllers\UserController::class, 'exportExcel'])->name('users.excel');
 
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store'])->middleware('role_or_permission:program-create,program-edit');
