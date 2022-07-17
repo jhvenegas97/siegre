@@ -25,9 +25,11 @@
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
+                @can('category-publication-create')
                 <div class="col-12 d-flex justify-content-center justify-content-md-start">
                     <button id="addNewCategoryPublication" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#categoryPublicationCreate">Crear Categoría de Publicación</button>
-                </div>
+                </div>    
+                @endcan
             </div>
 
         </div>

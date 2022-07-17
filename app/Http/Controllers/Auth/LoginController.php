@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Library\Services\UserUdenarService;
 use App\Models\Identification;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -11,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
-use GuzzleHttp;
 
 class LoginController extends Controller
 {
@@ -34,15 +34,17 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $_userUdenarService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserUdenarService $userUdenarService)
     {
         $this->middleware('guest')->except('logout');
+        $this->_userUdenarService = $userUdenarService;
     }
 
     // Google login
@@ -70,22 +72,10 @@ class LoginController extends Controller
 
     public function checkID(Request $request)
     {
-        $client = new GuzzleHttp\Client(['verify' => false]);
-        $res = $client->request('GET', 'https://sapiens.udenar.edu.co:3019/solicitudLicInfEgresado');
-        //dd($res);
-
-        $arrayEgresados = json_decode($res->getBody(),true);
-        
-        foreach($arrayEgresados as $value){
-            foreach($value as $element){
-                print($element);
-            }
-            print("<br>");
-        }
-
-        /* if (session()->has('dataUser')) {
-            $userExists = Identification::where('documento', '=', $request->identificationField)->exists();
-            if ($userExists) {
+        $arrayStudentsUdenar = $this->_userUdenarService->GetDataUdenar();
+        if (session()->has('dataUser')) {
+            $userExistsUdenar = $this->_userUdenarService->userExistsInUdenar($request->identificationField,$arrayStudentsUdenar);
+            if ($userExistsUdenar) {
                 User::create([
                     'name' => session('dataUser')->user['name'],
                     'email' => session('dataUser')->user['email'],
@@ -103,6 +93,8 @@ class LoginController extends Controller
             } else {
                 return view('auth.userNotAllowed');
             }
-        } */
+        }
     }
+
+    
 }

@@ -39,6 +39,7 @@ Route::group(['midldleware'=>'guest'],function(){
 
     Route::get('/list-curriculum', [Controllers\ListCurriculumController::class, 'index'])->name('list-curriculum');
     Route::get('/curriculum', [Controllers\CurriculumController::class, 'index']);
+    Route::get('/publication', [Controllers\PublicationDetailController::class, 'index']);
 });
 
 Auth::routes();
@@ -51,13 +52,13 @@ Route::group(['middleware'=>'auth'],function(){
     Route::resource('roles', Controllers\RoleController::class);
     Route::resource('permissions', Controllers\PermissionController::class);
 
-    Route::get('/user', [Controllers\UserController::class, 'index'])->name('user');
-    Route::post('/add-update-user', [Controllers\UserController::class, 'store'])->name('store-user');
+    Route::get('/user', [Controllers\UserController::class, 'index'])->middleware('can:user-list')->name('user');
+    Route::post('/add-update-user', [Controllers\UserController::class, 'store'])->middleware('can:user-create,user-update')->name('store-user');
     Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->name('edit-user');
     Route::post('/delete-user', [Controllers\UserController::class, 'destroy']);
 
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->name('program');
-    Route::post('/add-update-program', [Controllers\ProgramController::class, 'store']);
+    Route::post('/add-update-program', [Controllers\ProgramController::class, 'store'])->middleware('role_or_permission:program-create,program-edit');
     Route::post('/edit-program', [Controllers\ProgramController::class, 'edit']);
     Route::post('/delete-program', [Controllers\ProgramController::class, 'destroy']);
 

@@ -21,9 +21,11 @@
         <div class="container mt-3 mb-3">
             <div class="row d-flex justify-content-start flex-column flex-md-row">
                                 <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
+                                    @can('publication-admin-create')
                                     <div class="col-12 d-flex justify-content-center justify-content-md-start">
                                         <button id="addNewPublication" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear nueva Publicación</button>
                                     </div>
+                                    @endcan
                                 </div>
 
                             </div>

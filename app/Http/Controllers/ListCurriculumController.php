@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 
 class ListCurriculumController extends Controller
 {
@@ -15,18 +16,33 @@ class ListCurriculumController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
-        join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')->groupBy('users.id')->paginate(2);;
+        $users = DB::table('users')
+            ->join('academics', 'users.id', '=', 'academics.user_id')
+            ->join('works', 'users.id', '=', 'works.user_id')
+            ->where('users.showCurriculum','=','1')
+            ->select('users.*')
+            ->groupBy('users.id')
+            ->paginate(2);
         if($request->has('name') || $request->has('academic_level_id')){
             if($request->filled('academic_level_id')){
-                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
-                join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')
-                ->where('users.name','like',"%".$request->get("name")."%")->where('academics.academic_level_id','=',$request->get('academic_level_id'))->groupBy('users.id')->paginate(2);
+                $users = DB::table('users')
+                    ->join('academics', 'users.id', '=', 'academics.user_id')
+                    ->join('works', 'users.id', '=', 'works.user_id')
+                    ->where('users.showCurriculum','=','1')
+                    ->where('users.name','like',"%".$request->get("name")."%")->where('academics.academic_level_id','=',$request->get('academic_level_id'))
+                    ->select('users.*')
+                    ->groupBy('users.id')
+                    ->paginate(2);
             }
             else{
-                $users = User::join('academics', 'users.id', '=', 'academics.user_id')->
-                join('works', 'users.id', '=', 'works.user_id')->where('users.showCurriculum','=','1')
-                ->where('users.name','like',"%".$request->get("name")."%")->groupBy('users.id')->paginate(2);
+                $users = DB::table('users')
+                    ->join('academics', 'users.id', '=', 'academics.user_id')
+                    ->join('works', 'users.id', '=', 'works.user_id')
+                    ->where('users.showCurriculum','=','1')
+                    ->where('users.name','like',"%".$request->get("name")."%")
+                    ->select('users.*')
+                    ->groupBy('users.id')
+                    ->paginate(2);
             }
         }
         

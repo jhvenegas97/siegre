@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AcademicLevelSeeder::class);
         $this->call(RolesPermissionsSeeder::class);
         $this->call(CategoryPublicationsSeeder::class);
+        $this->call(WorkTypeSeeder::class);
     }
 }

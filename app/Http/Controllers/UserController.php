@@ -14,11 +14,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        /*$data['programs'] = Program::orderBy('id','desc')->paginate(5);
-        return view('admin.adminPrograms',$data);*/
         if (request()->ajax()) {
             return datatables()->of(DB::select('select u.id,name,email,state,i.documento from users u inner join identifications i on u.identification_id = i.id where u.id !="' . Auth::user()->id . '"'))
-                ->addColumn('action', 'admin.programAction')
+                ->addColumn('action', 'admin.userAction')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
@@ -83,7 +81,7 @@ class UserController extends Controller
                     'direction' => $request->direction,
                 ]
             );
-        
+            
             return Response()->json($user);
             
         } catch (Exception $e) {

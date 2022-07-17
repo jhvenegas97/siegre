@@ -15,6 +15,8 @@
         })
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
     <style>
         .fa-ellipsis:hover {
             color: #0CBCCC !important;
@@ -95,17 +97,17 @@
     <script src="https://js.pusher.com/7.1/pusher.min.js"></script>
     <script>
         /* 
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
+          // Enable pusher logging - don't include this in production
+          Pusher.logToConsole = true;
 
-      var pusher = new Pusher('5160c6d4988ca5c7c74d', {
-        cluster: 'us2'
-      });
+          var pusher = new Pusher('5160c6d4988ca5c7c74d', {
+            cluster: 'us2'
+          });
 
-      var channel = pusher.subscribe('my-channel');
-      channel.bind('App\\Events\\PublicationEvent', function(data) {
-        alert(JSON.stringify(data));
-      }); */
+          var channel = pusher.subscribe('my-channel');
+          channel.bind('App\\Events\\PublicationEvent', function(data) {
+            alert(JSON.stringify(data));
+          }); */
     </script>
 
     <script>
@@ -131,22 +133,24 @@
 
         // Bind a function to a Event (the full Laravel class)
         channel.bind('App\\Events\\PublicationEvent', function(data) {
+            var getUrl = window.location;
+            var baseUrl = getUrl.origin+"/publication?id="+data.publication.id;
+            console.log(baseUrl);
             var existingNotifications = notifications.html();
-            var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
             var newNotificationHtml = `
-        <li><a class="dropdown-item" href="#">
+        <li><a class="dropdown-item" href="`+baseUrl+`" target="_blank">
             <div class="media">
 <img src="/images/admin.svg" width="30%" alt="User Avatar" class="img-size-50 mr-3 img-circle">
 <div class="media-body">
-<h3 class="dropdown-item-title">
-    `+data.user.name+`
+<h5 class="dropdown-item-title">
+    ` + data.user.name + `
 <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-</h3>
-<p class="text-sm">`+data.publication.title_publication+`</p>
-<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+</h5>
+<p class="text-sm">` + data.publication.title_publication + `</p>
+<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> ` + moment(data.created_at).fromNow() + `</p>
 </div>
 </div>
-            </a></li>
+</a></li>
         `;
 
             notifications.html(newNotificationHtml + existingNotifications);

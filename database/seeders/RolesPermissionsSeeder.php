@@ -25,26 +25,115 @@ class RolesPermissionsSeeder extends Seeder
             'permission-list',
             'permission-create',
             'permission-edit',
-            'permission-delete'
+            'permission-delete',
+            'academic-level-list',
+            'academic-level-create',
+            'academic-level-edit',
+            'academic-level-delete',
+            'academic-list',
+            'academic-create',
+            'academic-edit',
+            'academic-delete',
+            'category-publication-list',
+            'category-publication-create',
+            'category-publication-edit',
+            'category-publication-delete',
+            'faculty-list',
+            'faculty-create',
+            'faculty-edit',
+            'faculty-delete',
+            'program-list',
+            'program-create',
+            'program-edit',
+            'program-delete',
+            'publication-list',
+            'publication-create',
+            'publication-edit',
+            'publication-delete',
+            'publication-admin-list',
+            'publication-admin-create',
+            'publication-admin-edit',
+            'publication-admin-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
+            'work-type-list',
+            'work-type-create',
+            'work-type-edit',
+            'work-type-delete',
+            'work-list',
+            'work-create',
+            'work-edit',
+            'work-delete'
+         ];
+
+         $permissionsNameEgresado = [
+            'publication-list',
+            'publication-create',
+            'publication-edit',
+            'publication-delete'
+         ];
+
+         $permissionsNameGestor = [
+            'publication-list',
+            'publication-create',
+            'publication-edit',
+            'publication-delete',
+            'publication-admin-list',
+            'publication-admin-create',
+            'publication-admin-edit',
+            'publication-admin-delete'
          ];
       
          foreach ($permissions as $permission) {
               Permission::create(['name' => $permission]);
          }
 
-         $role = Role::create(['name' => 'Admin']);
-     
-        $permissions = Permission::pluck('id','id')->all();
-   
-        $role->syncPermissions($permissions);
+        $roleAdmin = Role::create(['name' => 'Admin']);
+        $roleGestor = Role::create(['name' => 'Gestor']);
+        $roleEgresado = Role::create(['name' => 'Egresado']);
 
-        $user = User::create([
-            'name' => 'Jonathan Venegas', 
+        $permissionsEgresado = array();
+        $permissionsGestor = array();
+
+        foreach ($permissionsNameEgresado as $permission) {
+            array_push($permissionsEgresado,Permission::where('name','=',$permission)->pluck('id','id'));
+        }
+
+        foreach ($permissionsNameGestor as $permission) {
+            array_push($permissionsGestor,Permission::where('name','=',$permission)->pluck('id','id'));
+        }
+     
+        $permissionsAdmin = Permission::pluck('id','id')->all();
+
+        $roleAdmin->syncPermissions($permissionsAdmin);
+        $roleGestor->syncPermissions($permissionsGestor);
+        $roleEgresado->syncPermissions($permissionsEgresado);
+
+        $userAdmin = User::create([
+            'name' => 'Usuario Administrador', 
             'email' => 'admin@gmail.com',
             'identification_id' => '401',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('Ei55&9')
         ]);
 
-        $user->assignRole([$role->id]);
+        $userGestor = User::create([
+            'name' => 'Usuario Gestor', 
+            'email' => 'adminGestor@gmail.com',
+            'identification_id' => '403',
+            'password' => bcrypt('Ei55&9')
+        ]);
+
+        $userEgresado = User::create([
+            'name' => 'Usuario Egresado', 
+            'email' => 'adminEgresado@gmail.com',
+            'identification_id' => '402',
+            'password' => bcrypt('Ei55&9')
+        ]);
+
+        $userAdmin->assignRole([$roleAdmin->id]);
+        $userGestor->assignRole([$roleGestor->id]);
+        $userEgresado->assignRole([$roleEgresado->id]);
     }
 }

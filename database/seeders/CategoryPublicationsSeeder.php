@@ -14,12 +14,18 @@ class CategoryPublicationsSeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
-            'News'
-        ];
+        $csvFile = fopen(base_path("database/data/categorias-publicaciones.csv"), "r");
 
-        foreach ($categories as $category) {
-            CategoryPublication::create(['name_category_publication' => $category]);
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                CategoryPublication::create([
+                    "name_category_publication" => $data['0']
+                ]);
+            }
+            $firstline = false;
         }
+
+        fclose($csvFile);
     }
 }

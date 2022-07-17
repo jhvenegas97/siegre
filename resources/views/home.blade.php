@@ -14,6 +14,7 @@
                 </div>
             </div>
             <div class="row">
+                @can('user-list','user-create','user-edit','user-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -32,6 +33,8 @@
                         </div>
                     </div>
                 </div>
+                @endcan
+                @can('publication-admin-list','publication-admin-create','publication-admin-edit','publication-admin-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -50,6 +53,8 @@
                         </div>
                     </div>
                 </div>
+                @endcan
+                @can('program-list','program-create','program-edit','program-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -68,6 +73,8 @@
                         </div>
                     </div>
                 </div>
+                @endcan
+                @can('faculty-list','faculty-create','faculty-edit','faculty-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -86,9 +93,10 @@
                         </div>
                     </div>
                 </div>
-
+                @endcan
             </div>
             <div class="row mt-3">
+                @can('academic-level-list','academic-level-create','academic-level-edit','academic-level-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -107,7 +115,8 @@
                         </div>
                     </div>
                 </div>
-
+                @endcan
+                @can('work-type-list','work-type-create','work-type-edit','work-type-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -126,7 +135,8 @@
                         </div>
                     </div>
                 </div>
-
+                @endcan
+                @can('role-list','role-create','role-edit','role-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -145,7 +155,8 @@
                         </div>
                     </div>
                 </div>
-
+                @endcan
+                @can('permission-list','permission-create','permission-edit','permission-delete')
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card">
                         <div class="card-content">
@@ -164,6 +175,7 @@
                         </div>
                     </div>
                 </div>
+                @endcan
             </div>
             <div class="row mt-3">
                 <div class="col-xl-3 col-sm-6 col-12">

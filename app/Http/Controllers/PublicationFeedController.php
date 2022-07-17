@@ -15,12 +15,17 @@ class PublicationFeedController extends Controller
 {
     public function index(Request $request)
     {
-        $publications = Publication::all();
+        $publications = Publication::orderByDesc('created_at','desc')->get();
         if ($request->has('title_publication') || $request->has('category_publication_id')) {
             if ($request->filled('category_publication_id')) {
-                $publications = Publication::join('category_publications', 'category_publications.id', '=', 'publications.category_publication_id')->where('publications.title_publication', 'like', "%" . $request->get("title_publication") . "%")->where('publications.category_publication_id', '=', $request->get('category_publication_id'))->groupBy('publications.id');
+                $publications = Publication::join('category_publications', 'category_publications.id', '=', 'publications.category_publication_id')
+                ->where('publications.title_publication', 'like', "%" . $request->get("title_publication") . "%")
+                ->where('publications.category_publication_id', '=', $request->get('category_publication_id'))
+                ->groupBy('publications.id')->orderByDesc('publications.created_at','desc')->get();
             } else {
-                $publications = Publication::join('category_publications', 'category_publications.id', '=', 'publications.category_publication_id')->where('publications.title_publication', 'like', "%" . $request->get("title_publication") . "%")->groupBy('publications.id');
+                $publications = Publication::join('category_publications', 'category_publications.id', '=', 'publications.category_publication_id')
+                ->where('publications.title_publication', 'like', "%" . $request->get("title_publication") . "%")
+                ->groupBy('publications.id')->orderByDesc('publications.created_at','desc')->get();
             }
         }
 

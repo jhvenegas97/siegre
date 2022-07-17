@@ -25,11 +25,12 @@
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
+                @can('faculty-create')
                 <div class="col-12 d-flex justify-content-center justify-content-md-start">
                     <button id="addNewFaculty" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear Facultad</button>
                 </div>
+                @endcan
             </div>
-
         </div>
 
         <!--INICIO TABLA-->

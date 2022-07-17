@@ -49,7 +49,7 @@
                         </button> <span class="name mt-3 fw-bold">{{ $userCurriculum->name }}</span>
                         <span class="idd">{{ $userCurriculum->email }}</span>
                         <span class="idd">{{ $userCurriculum->phone }}</span>
-                        <div class=" px-2 rounded mt-4 date "> <span class="join">Se unió en {{$userCurriculum->created_at->format('j F, Y')}}</span> </div>
+                        <div class=" px-2 rounded mt-4 date "> <span class="join">Se unió en {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $userCurriculum->created_at)->format('d F Y')}}</span> </div>
                     </div>
                 </div>
             </div>
