@@ -122,6 +122,20 @@
                                                 </div>
 
                                                 <div class="mb-3 flex-column">
+                                                    <label for="program" class="col-12 col-form-label text-md-start">{{ __('Rol') }}</label>
+                                                    <select id="inputRole" class="form-control" required>
+                                                        <option data-id="" value="">Elegir</option>
+                                                        @foreach($roles as $role)
+                                                            @if($role->id==$user->roles->first()->id)
+                                                                <option selected data-id="{{$role->id}}">{{$role->name}}</option>
+                                                            @else
+                                                                <option data-id="{{$role->id}}">{{$role->name}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3 flex-column">
                                                     <label for="program" class="col-12 col-form-label text-md-start">{{ __('Programa') }}</label>
                                                     <select id="inputProgram" class="form-control" required>
                                                         <option data-id="" value="">Elegir</option>
@@ -1479,6 +1493,7 @@
             var data = $('#avatarFileSm').value;
             formData.append('state', $('#inputState option:selected').attr('data-id'));
             formData.append('program_id', $('#inputProgram option:selected').attr('data-id'));
+            formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
             $.ajax({
                 type: 'POST'
                 , url: "{{ url('add-update-user') }}"
