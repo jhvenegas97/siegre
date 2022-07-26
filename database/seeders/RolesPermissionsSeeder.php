@@ -58,6 +58,7 @@ class RolesPermissionsSeeder extends Seeder
             'user-create',
             'user-edit',
             'user-delete',
+            'user-export-data',
             'work-type-list',
             'work-type-create',
             'work-type-edit',

@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Pusher\Pusher;
+use Illuminate\Support\Facades\Auth;
 
 class PublicationFeedController extends Controller
 {
@@ -50,63 +51,76 @@ class PublicationFeedController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required',
-            'category_publication_id' => 'required',
-            'title_publication' => 'required',
-            'text_publication' => 'required|max:255',
-            'init_date_publication' => 'required',
-            'end_date_publication' => 'required',
-            'file_publication' => 'required_without:id|max:10240|mimes:jpg,jpeg,png,gif',
-        ]);
-
-        try {
-            $publicationId = $request->id;
-            if ($request->has('file_publication')) {
-                if (Publication::where('id', $request->id)->first() != null) {
-                    unlink(Publication::where('id', $request->id)->first()->path_publication);
-                }
-
-                $pdfPath = $request->file('file_publication');
-                $pdfName = $pdfPath->getClientOriginalName();
-                $name = time() . '.' . request()->file_publication->getClientOriginalExtension();
-                $path = $request->file_publication->move(public_path('uploads\publications'), $pdfName);
-
-                $publication   =   Publication::updateOrCreate(
-                    [
-                        'id' => $publicationId
-                    ],
-                    [
-                        'user_id' => $request->user_id,
-                        'category_publication_id' => $request->category_publication_id,
-                        'title_publication' => $request->title_publication,
-                        'text_publication' => $request->text_publication,
-                        'init_date_publication' => $request->init_date_publication,
-                        'end_date_publication' => $request->end_date_publication,
-                        'fileName_publication' => $pdfName,
-                        'path_publication' => $path,
-                    ]
-                );
-                event(new \App\Events\PublicationEvent($publication,User::where("id",$request->user_id)->first()));
-                return Response()->json($publication);
-            } else {
-                $publication   =   Publication::updateOrCreate(
-                    [
-                        'id' => $publicationId
-                    ],
-                    [
-                        'user_id' => $request->user_id,
-                        'category_publication_id' => $request->category_publication_id,
-                        'title_publication' => $request->title_publication,
-                        'text_publication' => $request->text_publication,
-                        'init_date_publication' => $request->init_date_publication,
-                        'end_date_publication' => $request->end_date_publication,
-                    ]
-                );
+        $userHasPermissions = true;
+        if(in_array("Egresado",Auth::user()->getRoleNames()->toArray())){
+            if(Auth::user()->id != $request->user_id){
+                $userHasPermissions = false;
             }
-            return Response()->json($publication);
-        } catch (Exception $e) {
-            return Response()->json($e, 500);
+        }
+        if($userHasPermissions){
+            $request->validate([
+                'user_id' => 'required',
+                'category_publication_id' => 'required',
+                'title_publication' => 'required',
+                'text_publication' => 'required|max:255',
+                'init_date_publication' => 'required',
+                'end_date_publication' => 'required',
+                'file_publication' => 'required_without:id|max:10240|mimes:jpg,jpeg,png,gif',
+            ]);
+    
+            try {
+                $publicationId = $request->id;
+                if ($request->has('file_publication')) {
+                    if (Publication::where('id', $request->id)->first() != null) {
+                        unlink(Publication::where('id', $request->id)->first()->path_publication);
+                    }
+    
+                    $pdfPath = $request->file('file_publication');
+                    $pdfName = $pdfPath->getClientOriginalName();
+                    $name = time() . '.' . request()->file_publication->getClientOriginalExtension();
+                    $path = $request->file_publication->move(public_path('uploads\publications'), $pdfName);
+    
+                    $publication   =   Publication::updateOrCreate(
+                        [
+                            'id' => $publicationId
+                        ],
+                        [
+                            'user_id' => $request->user_id,
+                            'category_publication_id' => $request->category_publication_id,
+                            'title_publication' => $request->title_publication,
+                            'text_publication' => $request->text_publication,
+                            'init_date_publication' => $request->init_date_publication,
+                            'end_date_publication' => $request->end_date_publication,
+                            'fileName_publication' => $pdfName,
+                            'path_publication' => $path,
+                        ]
+                    );
+                    event(new \App\Events\PublicationEvent($publication,User::where("id",$request->user_id)->first()));
+                    return Response()->json($publication);
+                } else {
+                    $publication   =   Publication::updateOrCreate(
+                        [
+                            'id' => $publicationId
+                        ],
+                        [
+                            'user_id' => $request->user_id,
+                            'category_publication_id' => $request->category_publication_id,
+                            'title_publication' => $request->title_publication,
+                            'text_publication' => $request->text_publication,
+                            'init_date_publication' => $request->init_date_publication,
+                            'end_date_publication' => $request->end_date_publication,
+                        ]
+                    );
+                }
+                return Response()->json($publication);
+            } catch (Exception $e) {
+                return Response()->json($e, 500);
+            }
+        }
+        else{
+            return response()->json([
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
+            ],401);
         }
     }
 
@@ -115,14 +129,41 @@ class PublicationFeedController extends Controller
         $where = array('id' => $request->id);
         $publication  = Publication::where($where)->first();
 
-        return response()->json($publication);
+        $userHasPermissions = true;
+        if(in_array("Egresado",Auth::user()->getRoleNames()->toArray())){
+            if(Auth::user()->id != $publication->user_id){
+                $userHasPermissions = false;
+            }
+        }
+        if($userHasPermissions){
+            return response()->json($publication);
+        }
+        else{
+            return response()->json([
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
+            ],401);
+        }
     }
 
     public function destroy(Request $request)
     {
-        unlink(Publication::where('id', $request->id)->first()->path_publication);
-        $publication = Publication::where('id', $request->id)->delete();
+        $publication = Publication::where('id', $request->id)->first();
 
-        return Response()->json($publication);
+        $userHasPermissions = true;
+        if(in_array("Egresado",Auth::user()->getRoleNames()->toArray())){
+            if(Auth::user()->id != $publication->user_id){
+                $userHasPermissions = false;
+            }
+        }
+        if($userHasPermissions){
+            unlink(Publication::where('id', $request->id)->first()->path_publication);
+            $publication = Publication::where('id', $request->id)->delete();
+            return Response()->json($publication);
+        }
+        else{
+            return response()->json([
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
+            ],401);
+        }
     }
 }

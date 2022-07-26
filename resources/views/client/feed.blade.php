@@ -285,7 +285,11 @@
                                     class="col-12 col-form-label text-md-start">{{ __('Categoría') }}</label>
                                 <select id="inputCategory" class="form-control" required>
                                     <option data-id="" value="">Elegir</option>
-                                    <option selected data-id="1">News</option>
+                                    @foreach ($categoryPublications as $categoryPublication)
+                                    <option data-id="{{ $categoryPublication->id }}">
+                                        {{ $categoryPublication->name_category_publication }}
+                                    </option>
+                                @endforeach
                                 </select>
                             </div>
 
@@ -605,6 +609,7 @@
                         $('#ajaxPublicationModel').html("Editar Publicación");
                         $('#ajax-publication-model').modal('show');
                         $('#id').val(res.id);
+                        $('#user_id').val(res.user_id);
                         $('#title_PublicationID').val(res.title_publication);
                         $('#text_PublicationID').val(res.text_publication);
                         $('#inputCategory option[data-id="' + res.category_publication_id +

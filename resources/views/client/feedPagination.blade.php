@@ -8,6 +8,7 @@
                         <h5 class="card-title">{{ $publication->title_publication }}</h5>
                     </div>
                     <div class="d-flex justify-content-end col-2">
+                        @if(Auth::user()->id == $publication->user_id)
                         <div class="dropdown">
                             <i class="dropbtn fa-solid fa-ellipsis fa-2x"></i>
                             <div class="dropdown-content">
@@ -16,6 +17,7 @@
                                 <a href="#">Ocultar <i class="dropbtn fa-solid fa-eye-slash fa-1x"></i></a>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <h6 class="card-title d-flex justify-content-end text-muted">
