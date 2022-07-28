@@ -6,7 +6,7 @@
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="font-size: 1.8rem;">
         <div class="carousel-inner">
             <div class="d-flex carousel-item active align-items-center">
-                <img src="{{asset('images/Egresados.png')}}" class="d-block w-100" alt="egresados">
+                <img src="{{asset('images/egresadose.png')}}" class="d-block w-100" alt="egresados">
                 <div class="carousel-caption d-none d-md-block text-start">
                     <h1>Bienvenidos a SIEGRES</h1>
                     <h3>Sistema de Información Web para Egresados</h3>
