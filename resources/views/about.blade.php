@@ -8,7 +8,8 @@
             <div class="card card-mod" style="width: 18rem;">
               <div class="card-body">
                 <h4><span class="badge bg-secondary btn-new card-title">Capacitaciones</span></h1>
-                <p class="card-text text-justify">Encontraras notificacione de las capacitaciones que se pueden presentar momentaniamente y que pueden ser de gran interes e innovacion para los egresados del programa Licenciatura en Informatica.</p>
+                <p class="card-text text-justify">Encontrarás notificaciones de las capacitaciones que se pueden presentar momentaniamente y que pueden ser de gran interés e innovación para los egresados del programa Licenciatura en Informática.</p>
+                <img src=images/cp.png width="80" height="80" class="img-responsive" alt="">
               </div>
             </div>
           </div>
@@ -17,7 +18,8 @@
             <div class="card card-mod" style="width: 18rem;">
               <div class="card-body">
                 <h4><span class="badge bg-secondary btn-new card-title">Ofertas laborales</span></h1>
-                <p class="card-text text-justify">Se subiran al sistema de informacion web todas las vacantes que requieran las instituciones, emprasas u organizaciones relacionadas con el perfil ocupacional de un licenciado en informatica.</p>
+                <p class="card-text text-justify">Se subiran al sistema de información web todas las vacantes que requieran personal con el perfil ocupacional de un licenciado en informática, de igual forma, podran visualizar los perfiles publicos para realizar un contacto con los egresados.</p>
+                <img src=images/ol.png width="80" height="80" class="img-responsive" alt="">
               </div>
             </div>
           </div>
@@ -26,56 +28,27 @@
             <div class="card card-mod" style="width: 18rem;">
               <div class="card-body">
                 <h4><span class="badge bg-secondary btn-new card-title">Entretenimiento</span></h1>
+                <p class="card-text text-justify">Se puede visualisar todos los articulos de la revista runin del programa, eventos academicos entre otros aspectos de interes. Licenciatura en Informática de la Universidad de Nariño acreditada en alta calidad.</p>
+                <img src=images/rm.png width="80" height="80" class="img-responsive" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm d-flex justify-content-center align-items-center">
+            <div class="card card-mod" style="width: 18rem;">
+              <div class="card-body">
+                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
                 <p class="card-text text-justify">Se puede visualisar todos los articulos de la revista runin del programa, eventos academicos entre otros aspectos de interes. Licenciatura en Informática de la Universidad de Nariño acreditada alta calidad.</p>
+                <img src=images/rm.png width="80" height="80" class="img-responsive" alt="">
               </div>
             </div>
           </div>
 
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <div class="card card-mod" style="width: 18rem;">
-              <div class="card-body">
-                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
-                <p class="card-text text-justify">Periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose, Universidad de Nariño acreditada alta calidad.</p>
-              </div>
-            </div>
-          </div>
+          
 
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <div class="card card-mod" style="width: 18rem;">
-              <div class="card-body">
-                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
-                <p class="card-text text-justify">Periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose, Universidad de Nariño acreditada alta calidad.</p>
-              </div>
-            </div>
-          </div>
+        
 
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <div class="card card-mod" style="width: 18rem;">
-              <div class="card-body">
-                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
-                <p class="card-text text-justify">Periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose, Universidad de Nariño acreditada alta calidad.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <div class="card card-mod" style="width: 18rem;">
-              <div class="card-body">
-                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
-                <p class="card-text text-justify">Periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose, Universidad de Nariño acreditada alta calidad.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <div class="card card-mod" style="width: 18rem;">
-              <div class="card-body">
-                <h4><span class="badge bg-secondary btn-new card-title">Reconocimiento al mérito</span></h1>
-                <p class="card-text text-justify">Periodicamente se destacara a los egresados que tengan una experiencia academica y de formacion continua, con el animo de motivar a los demas a que sigan formandose, Universidad de Nariño acreditada alta calidad.</p>
-              </div>
-            </div>
-          </div>
-
+        
         </div>
         
       </div>
