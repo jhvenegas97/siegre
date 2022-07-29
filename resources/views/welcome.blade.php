@@ -5,12 +5,14 @@
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="font-size: 1.8rem;">
         <div class="carousel-inner">
-            <div class="d-flex carousel-item active align-items-center">
+            <div class="d-flex carousel-item active align-items-end">
                 <img src="{{asset('images/egresadose.png')}}" class="d-block w-100" alt="egresados">
-                <div class="carousel-caption d-none d-md-block text-start">
-                    <h1>Bienvenidos a SIEGRES</h1>
-                    <h3>Sistema de Información Web para Egresados</h3>
-                    <h4>Para conocer más información regístrese <a href="{{route('login')}}">aquí</a></h4>
+                <div class="carousel-caption d-none d-md-block text-star pb-0">
+                <div class="infoSlider2">    
+                    <h2 class="text-center">Bienvenidos a SIEGRES</h2>
+                    <h4 class="text-center">Sistema de Información Web para Egresados</h4>
+                    <h5 class="text-center">Para conocer más información regístrese <a href="{{route('login')}}">aquí</a></h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,4 +75,28 @@
         </div>
     </div>
     <!--FIN TEXTO-->
+
+<style>
+.infoSlider2 {
+    background: rgba(36, 34, 21, 0.64);
+    padding: 10px 0px 10px 25px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+.infoSlider2 h1 {
+    font-size: 40px;
+}
+
+.infoSlider2 a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    background: rgba(255,255,255,0.3);
+    padding: 3px;
+}
+
+.infoSlider2 a:hover {
+    background: rgba(255,255,255,0.5);
+}
+</style>
 @endsection
