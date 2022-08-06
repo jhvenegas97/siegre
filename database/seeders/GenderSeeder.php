@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Gender;
 use Illuminate\Database\Seeder;
-use App\Models\Identification;
 
-class IdentificationSeeder extends Seeder
+class GenderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,14 +14,13 @@ class IdentificationSeeder extends Seeder
      */
     public function run()
     {
-        $csvFile = fopen(base_path("database/data/identificaciones.csv"), "r");
+        $csvFile = fopen(base_path("database/data/generos.csv"), "r");
 
         $firstline = true;
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
             if (!$firstline) {
-                Identification::create([
-                    "student_code" => $data['0'],
-                    "document" => $data['1']
+                Gender::create([
+                    "name" => $data['0'],
                 ]);
             }
             $firstline = false;

@@ -30,6 +30,7 @@ class User extends Authenticatable
         'avatar',
         'external_id',
         'program_id',
+        'gender_id',
         'identification_id',
         'direction',
         'fileName',

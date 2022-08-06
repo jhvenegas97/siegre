@@ -1,4 +1,4 @@
-@section('title', 'Administrador Usuarios')
+@section('title', 'Administrador Último Cargo')
 @extends('layouts.layoutAdmin')
 @section('content')
     <script>
@@ -21,16 +21,13 @@
 
      <div class="container-fluid">
         <center>
-            <h3 class="mb-4">Lista de Usuarios</h3>
+            <h3 class="mb-4">Reporte de Último Cargo por Usuario</h3>
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
-                @can('user-create')
                 <div class="col-12 d-flex justify-content-center justify-content-md-start">
-                <button id="addNewUser" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear Usuario</button>
-                <a class="ms-2" href="{{ route('users.excel') }}"><button id="exportExcel" class="btn btn-primary btn-new">Exportar Usuarios</button></a>
+                <a class="ms-2" href="{{ route('last-job-user.excel') }}"><button id="exportExcel" class="btn btn-primary btn-new">Exportar a Excel</button></a>
                 </div>
-                @endcan
             </div>
         </div>
 
@@ -40,13 +37,13 @@
 
                  <thead class="table-light">
                  <tr>
-                     <th scope="col" class="align-middle text-center">No</th>
-                     <th scope="col" class="align-middle text-center">Nombres</th>
-                     <th scope="col" class="align-middle text-center">E-mail</th>
-                     <th scope="col" class="align-middle text-center">Estado</th>
-                     <th scope="col" class="align-middle text-center">Identificacion</th>
+                     <th scope="col" class="align-middle text-center">Identificación</th>
+                     <th scope="col" class="align-middle text-center">Nombre</th>
+                     <th scope="col" class="align-middle text-center">Nombre Trabajo</th>
+                     <th scope="col" class="align-middle text-center">Tipo de Trabajo</th>
+                     <th scope="col" class="align-middle text-center">Fecha de Inicio</th>
+                     <th scope="col" class="align-middle text-center">Fecha de Fin</th>
 
-                     <th scope="col">Acciones</th>
                  </tr>
                  </thead>
              </table>
@@ -299,66 +296,17 @@
             $('#datatable-ajax-crud').DataTable({
                                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('user') }}",
+                ajax: "{{ url('reports-last-job-user') }}",
                 columns: [
-                    {data: 'id', name: 'id', 'visible': false},
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                    { data: 'state', name: 'state' },
                     { data: 'identification_id', name: 'identification_id' },
-                    {data: 'action', name: 'action', orderable: false},
+                    { data: 'name', name: 'name' },
+                    { data: 'title_work', name: 'title_work' },
+                    { data: 'name_work_type', name: 'name_work_type' },
+                    { data: 'init_date_work', name: 'init_date_work' },
+                    { data: 'end_date_work', name: 'end_date_work' },
                 ],
                 order: [[0, 'desc']],
                 language:spanishLanguage,
-            });
-
-            $('body').on('click', '.edit', function (e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                var url = "{{ url('edit-user') }}"+"?id="+id;
-                window.location.href = url;
-            });
-
-            $('body').on('click', '.delete', function (e) {
-                e.preventDefault();
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                        cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                    },
-                    buttonsStyling: false
-                })
-
-                swalWithBootstrapButtons.fire({
-                    title: 'Estas seguro?',
-                    text: "Estos cambios no se pueden revertir!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, borrar el usuario!',
-                    cancelButtonText: 'No, cancelar!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var id = $(this).data('id');
-
-                        // ajax
-                        $.ajax({
-                            type:"POST",
-                            url: "{{ url('delete-user') }}",
-                            data: { id: id },
-                            dataType: 'json',
-                            success: function(res){
-                                var oTable = $('#datatable-ajax-crud').dataTable();
-                                oTable.fnDraw(false);
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Borrado completado'
-                                })
-                            }
-                        });
-                    }
-                })
             });
         });
     </script>

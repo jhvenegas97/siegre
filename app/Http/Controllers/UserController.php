@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            return datatables()->of(DB::select('select u.id,name,email,state,i.documento from users u inner join identifications i on u.identification_id = i.id where u.id !="' . Auth::user()->id . '"'))
+            return datatables()->of(DB::select('select u.id,name,email,state,identification_id from users u where u.id !="' . Auth::user()->id . '"'))
                 ->addColumn('action', 'admin.userAction')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
@@ -37,13 +37,14 @@ class UserController extends Controller
         }
         if($userHasPermissions){
             $request->validate([
-                'name' => 'required|max:20',
+                'name' => 'required|max:50',
                 'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
                 'identification_id' => 'required',
                 'state' => 'required',
                 'program_id' => 'required',
                 'role_id' => 'required',
-                'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'gender_id' => 'required',
+                'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             ]);
 
 
@@ -65,9 +66,10 @@ class UserController extends Controller
                             'description' => $request->description,
                             'phone' => $request->phone,
                             'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
-                            'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
+                            'identification_id' => $request->identification_id,
                             'state' => $request->state,
                             'program_id' => $request->program_id,
+                            'gender_id' => $request->gender_id,
                             'direction' => $request->direction,
                             'fileName'=> $imageName,
                             'path'=>$path,
@@ -86,9 +88,10 @@ class UserController extends Controller
                         'description' => $request->description,
                         'phone' => $request->phone,
                         'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
-                        'identification_id' => Identification::where('documento','=',$request->identification_id)->select('id')->first()->id,
+                        'identification_id' => $request->identification_id,
                         'state' => $request->state,
                         'program_id' => $request->program_id,
+                        'gender_id' => $request->gender_id,
                         'direction' => $request->direction,
                     ]
                 );
@@ -126,7 +129,8 @@ class UserController extends Controller
                 ->with('programs', DB::select('select * from programs'))
                 ->with('academicLevels', DB::select('select * from academic_levels'))
                 ->with('workTypes', DB::select('select * from work_types'))
-                ->with('roles',DB::select('select * from roles'));
+                ->with('roles',DB::select('select * from roles'))
+                ->with('genders',DB::select('select * from genders'));
         }
         else{
             return response()->json([

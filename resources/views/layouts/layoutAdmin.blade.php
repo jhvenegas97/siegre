@@ -102,7 +102,11 @@
                             @if(Auth::user()->avatar!=null)
                                 <img src="{{Auth::user()->avatar}}" width="70" height="70" class="img-responsive img-circle" alt="">
                             @else
+                                @if (Auth::user()->fileName!=null)
+                                <img src="{{asset('uploads/'.Auth::user()->fileName)}}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                @else
                                 <img src="{{asset('images/admin.svg')}}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                @endif
                             @endif
                         </div>
                         <div class="col-12 d-flex align-items-center justify-content-center">
@@ -123,7 +127,7 @@
         <div class="col-xs-4 col-sm-6 col-md-6 col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end justify-content-xl-end justify-content-xxl-end justify-content-sm-center justify-content-xs-center justify-content-md-center">
             <ul class="pagination shadow-lg">
                 <li class="page-item "><a class="page-link" href="/home"><i class="fa fa-home fa-sm mr-1 ml-0"></i> <small> Inicio</small> </a></li>
-                <li class="page-item active"><a class="page-link" href="#"><i class="fa fa-users fa-sm mr-1 ml-0"></i><small> Admin</small></a></li>
+                <li class="page-item active"><a class="page-link" href="#"><i class="fa fa-users fa-sm mr-1 ml-0"></i><small> {{Auth::user()->getRoleNames()->first()}}</small></a></li>
             </ul>
         </div>
     </div>

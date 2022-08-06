@@ -94,15 +94,29 @@
                                                 </div>
 
                                                 <div class="row mb-3 flex-column">
-                                                    <label for="document-id" class="col-12 col-form-label text-md-start">{{ __('Documento de identificación') }}</label>
+                                                    <label for="identification-id" class="col-12 col-form-label text-md-start">{{ __('Documento de Identificación') }}</label>
 
                                                     <div class="col-12">
-                                                        <input id="identification_id" type="text" class="form-control" name="identification_id" value="{{$user->identification->documento}}" required autocomplete="new-documento">
+                                                        <input id="identification_id" type="text" class="form-control" name="identification_id" value="{{$user->identification_id}}" required autocomplete="new-identification-id">
 
                                                         <span style="display: none;" class="invalid-feedback" id="identification_id_error_span" role="alert">
                                                             <strong id="identification_id_error"></strong>
                                                         </span>
                                                     </div>
+                                                </div>
+
+                                                <div class="mb-3 flex-column">
+                                                    <label for="gender" class="col-12 col-form-label text-md-start">{{ __('Género') }}</label>
+                                                    <select id="inputGender" class="form-control" required>
+                                                        <option data-id="" value="">Elegir</option>
+                                                        @foreach($genders as $gender)
+                                                        @if($user->gender_id==$gender->id)
+                                                        <option selected data-id="{{$gender->id}}">{{$gender->name}}</option>
+                                                        @else
+                                                        <option data-id="{{$gender->id}}">{{$gender->name}}</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
 
 
@@ -122,7 +136,7 @@
                                                 </div>
 
                                                 <div class="mb-3 flex-column">
-                                                    <label for="program" class="col-12 col-form-label text-md-start">{{ __('Rol') }}</label>
+                                                    <label for="role" class="col-12 col-form-label text-md-start">{{ __('Rol') }}</label>
                                                     <select id="inputRole" class="form-control" required>
                                                         <option data-id="" value="">Elegir</option>
                                                         @foreach($roles as $role)
@@ -1494,6 +1508,7 @@
             formData.append('state', $('#inputState option:selected').attr('data-id'));
             formData.append('program_id', $('#inputProgram option:selected').attr('data-id'));
             formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
+            formData.append('gender_id', $('#inputGender option:selected').attr('data-id'));
             $.ajax({
                 type: 'POST'
                 , url: "{{ url('add-update-user') }}"

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\IdentificationController;
 use App\Models\Identification;
+use App\Library\Services\UserUdenarService;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Gender;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,15 +34,17 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $_userUdenarService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserUdenarService $userUdenarService)
     {
         $this->middleware('guest');
+        $this->_userUdenarService = $userUdenarService;
     }
 
     /**
@@ -55,7 +59,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'documento' => ['required', 'string','exists:identifications'],
+            'identification_id' => ['required', 'string'],
+            'gender' => ['required'],
         ]);
     }
 
@@ -67,14 +72,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'state'=> '1',
-            'identification_id' => Identification::select('id')->where('documento', $data['documento'])->first()->id,
-        ]);
-        $user->assignRole([3]);
-        return $user;
+        try{
+            $arrayStudentsUdenar = $this->_userUdenarService->GetDataUdenar();
+            $userExistsUdenar = $this->_userUdenarService->userExistsInUdenar($data['identification_id'],$arrayStudentsUdenar);
+            if ($userExistsUdenar) {
+                $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'state'=> '1',
+                'gender_id'=> $data['gender'],
+                'identification_id' => $data['identification_id'],
+            ]);
+            $user->assignRole([3]);
+            return $user;
+            } else {
+                return view('auth.userNotAllowed');
+            }
+        }
+        catch (Exception $e) {
+            return view('auth.userNotAllowed');
+        }
+        
+    }
+
+    public function showRegistrationForm()
+    {
+        $genders = Gender::all();
+        return view("auth.register", compact("genders"));
     }
 }

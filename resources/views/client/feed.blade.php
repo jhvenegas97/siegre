@@ -209,11 +209,16 @@
                             <div class="row flex-column d-flex justify-content-center">
                                 <div class="col-12 d-flex align-items-center justify-content-center">
                                     @if (Auth::user()->avatar != null)
-                                        <img src="{{ Auth::user()->avatar }}" width="50" height="50"
-                                            class="img-responsive img-circle" alt="">
+                                    <img src="{{ $publication->user->avatar }}" width="35" height="35"
+                                        class="img-responsive img-circle" alt="">
                                     @else
-                                        <img src="{{ asset('images/admin.svg') }}" width="50" height="50"
-                                            class="img-responsive img-circle" alt="">
+                                        @if (Auth::user()->fileName!=null)
+                                        <img src="{{asset('uploads/'.Auth::user()->fileName)}}" width="35" height="35"
+                                        class="img-responsive img-circle" alt="">
+                                        @else
+                                        <img src="{{ asset('images/admin.svg') }}" width="35" height="35"
+                                        class="img-responsive img-circle" alt="">
+                                        @endif
                                     @endif
                                 </div>
                             </div>

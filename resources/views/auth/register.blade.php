@@ -63,17 +63,27 @@
                             </div>
 
                             <div class="row mb-3 flex-column">
-                                <label for="documento-id" class="col-12 col-form-label text-md-start">{{ __('Documento de identificación') }}</label>
+                                <label for="identification-id" class="col-12 col-form-label text-md-start">{{ __('Documento de Identificación') }}</label>
 
                                 <div class="col-12">
-                                    <input id="documento" type="text" class="form-control @error('documento') is-invalid @enderror" name="documento" required autocomplete="new-documento">
+                                    <input id="identification_id" type="text" class="form-control @error('identification_id') is-invalid @enderror" name="identification_id" required autocomplete="new-identification-id">
 
-                                    @error('documento')
+                                    @error('identification_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
                                 </div>
+                            </div>
+
+                            <div class="mb-3 flex-column">
+                                <label for="gender" class="col-12 col-form-label text-md-start">{{ __('Género') }}</label>
+                                    <select id="inputGender" name="gender" class="form-control" required>
+                                        <option selected value="">Elegir</option>
+                                        @foreach($genders as $gender)
+                                        <option value="{{$gender->id}}">{{$gender->name}}</option>
+                                        @endforeach
+                                    </select>
                             </div>
 
                             <div class="row mb-0">

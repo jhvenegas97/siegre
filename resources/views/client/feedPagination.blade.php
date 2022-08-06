@@ -35,8 +35,13 @@
                             <img src="{{ $publication->user->avatar }}" width="35" height="35"
                                 class="img-responsive img-circle" alt="">
                         @else
+                            @if (Auth::user()->fileName!=null)
+                            <img src="{{asset('uploads/'.Auth::user()->fileName)}}" width="35" height="35"
+                                class="img-responsive img-circle" alt="">
+                            @else
                             <img src="{{ asset('images/admin.svg') }}" width="35" height="35"
                                 class="img-responsive img-circle" alt="">
+                            @endif
                         @endif
                         <small class="text-muted">{{ $publication->user->name }}</small>
                     </div>

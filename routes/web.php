@@ -93,6 +93,12 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/add-update-work', [Controllers\WorkController::class, 'store'])->middleware('any_permission:work-create,work-edit');
     Route::post('/edit-work', [Controllers\WorkController::class, 'edit'])->middleware('any_permission:work-edit');
     Route::post('/delete-work', [Controllers\WorkController::class, 'destroy'])->middleware('any_permission:work-delete');
+
+    Route::get('/reports-jobs-user', [Controllers\ReportsController::class, 'jobsUser'])->middleware('can:program-list')->name('jobs-user');
+    Route::get('jobs-user-list-excel',[Controllers\ReportsController::class, 'exportJobsUserExcel'])->middleware('any_permission:user-export-data')->name('jobs-user.excel');
     
+    Route::get('/reports-last-job-user', [Controllers\ReportsController::class, 'lastJobUser'])->middleware('can:program-list')->name('last-job-user');
+    Route::get('last-job-user-list-excel',[Controllers\ReportsController::class, 'exportLastJobUserExcel'])->middleware('any_permission:user-export-data')->name('last-job-user.excel');
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
