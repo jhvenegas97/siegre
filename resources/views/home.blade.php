@@ -216,6 +216,27 @@
                     </div>
                 </div>
 
+                @can('reports-system')
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('reports')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-clipboard-check fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Reportes</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endcan
+
             </div>
 
         </section>

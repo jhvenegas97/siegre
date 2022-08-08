@@ -24,14 +24,79 @@ class UserController extends Controller
                 ->make(true);
         }
 
-        return view('admin.adminUsers');
+        return view('admin.adminUsers')
+        ->with('roles',DB::select('select * from roles'))
+        ->with('user', Auth::user());
+    }
+
+    public function changeState(Request $request)
+    {
+        try{
+            $userId = $request->user_id;
+            $user   =   User::updateOrCreate(
+                [
+                    'id' => $userId
+                ],
+                [
+                    'state' => $request->state,
+                ]
+            );
+
+            return Response()->json($user);
+        }
+        catch (Exception $e){
+            return Response()->json($e,500);
+        }
+    }
+
+    public function changeStateEdit(Request $request)
+    {
+        try{
+            $where = array('id' => $request->id);
+            $user  = User::where($where)->first();
+
+            return Response()->json($user);
+        }
+        catch (Exception $e){
+            return Response()->json($e,500);
+        }
+    }
+
+    public function assingRole(Request $request)
+    {
+        try{
+            $where = array('id' => $request->user_id);
+            $user  = User::where($where)->first();
+
+            $user->syncRoles([]);
+            $user->assignRole([$request->role_id]);
+
+            return Response()->json($user);
+        }
+        catch (Exception $e){
+            return Response()->json($e,500);
+        }
+    }
+
+    public function assingRoleEdit(Request $request)
+    {
+        try{
+            $where = array('id' => $request->id);
+            $user  = User::where($where)->first();
+            $userToReturn = array('user'=>$user,'role'=>$user->roles->first());
+
+            return Response()->json($userToReturn);
+        }
+        catch (Exception $e){
+            return Response()->json($e,500);
+        }
     }
 
     public function store(Request $request)
     {
         $userHasPermissions = true;
         if(in_array("Egresado",Auth::user()->getRoleNames()->toArray()) || in_array("Gestor",Auth::user()->getRoleNames()->toArray())){
-            if(Auth::user()->id != $request->user_id){
+            if(Auth::user()->id != $request->id){
                 $userHasPermissions = false;
             }
         }
@@ -40,9 +105,6 @@ class UserController extends Controller
                 'name' => 'required|max:50',
                 'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
                 'identification_id' => 'required',
-                'state' => 'required',
-                'program_id' => 'required',
-                'role_id' => 'required',
                 'gender_id' => 'required',
                 'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             ]);
@@ -67,7 +129,6 @@ class UserController extends Controller
                             'phone' => $request->phone,
                             'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
                             'identification_id' => $request->identification_id,
-                            'state' => $request->state,
                             'program_id' => $request->program_id,
                             'gender_id' => $request->gender_id,
                             'direction' => $request->direction,
@@ -75,8 +136,7 @@ class UserController extends Controller
                             'path'=>$path,
                         ]
                     );
-                    $user->syncRoles([]);
-                    $user->assignRole([$request->role_id]);
+                    
                 }
                 $user   =   User::updateOrCreate(
                     [
@@ -89,14 +149,11 @@ class UserController extends Controller
                         'phone' => $request->phone,
                         'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
                         'identification_id' => $request->identification_id,
-                        'state' => $request->state,
                         'program_id' => $request->program_id,
                         'gender_id' => $request->gender_id,
                         'direction' => $request->direction,
                     ]
                 );
-                $user->syncRoles([]);
-                $user->assignRole([$request->role_id]);
 
                 return Response()->json($user);
 
@@ -106,7 +163,7 @@ class UserController extends Controller
         }
         else{
             return response()->json([
-                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS. D'
             ],401);
         }
     }
@@ -125,7 +182,7 @@ class UserController extends Controller
 
         if($userHasPermissions){
             return view('admin.adminUsersEdit')
-                ->with('user', $user,)
+                ->with('user', $user)
                 ->with('programs', DB::select('select * from programs'))
                 ->with('academicLevels', DB::select('select * from academic_levels'))
                 ->with('workTypes', DB::select('select * from work_types'))

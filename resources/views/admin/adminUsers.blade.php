@@ -15,42 +15,43 @@
         })
     </script>
 
-    @if(session()->has('success'))
-
+    @if (session()->has('success'))
     @endif
 
-     <div class="container-fluid">
+    <div class="container-fluid">
         <center>
             <h3 class="mb-4">Lista de Usuarios</h3>
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
                 @can('user-create')
-                <div class="col-12 d-flex justify-content-center justify-content-md-start">
-                <button id="addNewUser" class="btn btn-primary btn-new" data-bs-toggle="modal" data-bs-target="#facultyCreate">Crear Usuario</button>
-                <a class="ms-2" href="{{ route('users.excel') }}"><button id="exportExcel" class="btn btn-primary btn-new">Exportar Usuarios</button></a>
-                </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start">
+                        <button id="addNewUser" class="btn btn-primary btn-new" data-bs-toggle="modal"
+                            data-bs-target="#facultyCreate">Crear Usuario</button>
+                        <a class="ms-2" href="{{ route('users.excel') }}"><button id="exportExcel"
+                                class="btn btn-primary btn-new">Exportar Usuarios</button></a>
+                    </div>
                 @endcan
             </div>
         </div>
 
         <!--INICIO TABLA-->
-         <div class="table-responsive">
-             <table class="table table-striped" style="width:100%" id="datatable-ajax-crud">
+        <div class="table-responsive">
+            <table class="table table-striped" style="width:100%" id="datatable-ajax-crud">
 
-                 <thead class="table-light">
-                 <tr>
-                     <th scope="col" class="align-middle text-center">No</th>
-                     <th scope="col" class="align-middle text-center">Nombres</th>
-                     <th scope="col" class="align-middle text-center">E-mail</th>
-                     <th scope="col" class="align-middle text-center">Estado</th>
-                     <th scope="col" class="align-middle text-center">Identificacion</th>
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="align-middle text-center">No</th>
+                        <th scope="col" class="align-middle text-center">Nombres</th>
+                        <th scope="col" class="align-middle text-center">E-mail</th>
+                        <th scope="col" class="align-middle text-center">Estado</th>
+                        <th scope="col" class="align-middle text-center">Identificacion</th>
 
-                     <th scope="col">Acciones</th>
-                 </tr>
-                 </thead>
-             </table>
-         </div>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
 
         <!--FIN TABLA-->
         <br>
@@ -58,10 +59,105 @@
         <br>
     </div>
 
+    <div class="modal" id="ajax-assignRole-model" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12  d-flex justify-content-center">
+                            <h5 class="modal-title" id="ajaxAssignRoleModel">Asignar Rol</h5>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 ps-4 pe-4 mt-2">
+                        <form method="POST" action="javascript:void(0)" id="assignRoleForm" name="assignRoleForm">
+                            @csrf
+                            <div class="mb-3">
+                                <select id="inputRole" class="form-control" required>
+                                    <option data-id="" value="">Elegir</option>
+                                    @foreach ($roles as $role)
+                                        @if ($role->id == $user->roles->first()->id)
+                                            <option selected data-id="{{ $role->id }}">{{ $role->name }}</option>
+                                        @else
+                                            <option data-id="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <div class="modal-footer pt-0 pb-0" style="display: block !important;">
+                                    <!--FOOTER DE VENTANA EMERGENTE NO DE TODO EL DOCUMENTO-->
+                                    <div class="d-grid gap-2 m-2">
+                                        <a href="" style="text-decoration: none">
+                                            <div class="d-grid gap-2 pt-2">
+                                                <button type="submit" id="btn-save" value="assignRole"
+                                                    class="btn btn-primary btn-new">Guardar</button>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ajax-changeState-model" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12  d-flex justify-content-center">
+                            <h5 class="modal-title" id="ajaxChangeStateModel">Cambiar Estado</h5>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 ps-4 pe-4 mt-2">
+                        <form method="POST" action="javascript:void(0)" id="changeStateForm" name="changeStateForm">
+                            @csrf
+                            <div class="mb-3">
+                                <select id="inputState" class="form-control" required>
+                                    <option data-id="" value="">Elegir</option>
+                                    <option data-id="1">Activo</option>
+                                    <option data-id="0">Inactivo</option>
+                                </select>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <div class="modal-footer pt-0 pb-0" style="display: block !important;">
+                                    <!--FOOTER DE VENTANA EMERGENTE NO DE TODO EL DOCUMENTO-->
+                                    <div class="d-grid gap-2 m-2">
+                                        <a href="" style="text-decoration: none">
+                                            <div class="d-grid gap-2 pt-2">
+                                                <button type="submit" id="btn-save" value="changeState"
+                                                    class="btn btn-primary btn-new">Guardar</button>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--FIN CUERPO-->
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        var user_id;
+        $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -297,29 +393,50 @@
             };
 
             $('#datatable-ajax-crud').DataTable({
-                                processing: true,
+                processing: true,
                 serverSide: true,
                 ajax: "{{ url('user') }}",
-                columns: [
-                    {data: 'id', name: 'id', 'visible': false},
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                    { data: 'state', name: 'state' },
-                    { data: 'identification_id', name: 'identification_id' },
-                    {data: 'action', name: 'action', orderable: false},
+                columns: [{
+                        data: 'id',
+                        name: 'id',
+                        'visible': false
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'state',
+                        name: 'state'
+                    },
+                    {
+                        data: 'identification_id',
+                        name: 'identification_id'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    },
                 ],
-                order: [[0, 'desc']],
-                language:spanishLanguage,
+                order: [
+                    [0, 'desc']
+                ],
+                language: spanishLanguage,
             });
 
-            $('body').on('click', '.edit', function (e) {
+            $('body').on('click', '.edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                var url = "{{ url('edit-user') }}"+"?id="+id;
+                var url = "{{ url('edit-user') }}" + "?id=" + id;
                 window.location.href = url;
             });
 
-            $('body').on('click', '.delete', function (e) {
+            $('body').on('click', '.delete', function(e) {
                 e.preventDefault();
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -344,11 +461,13 @@
 
                         // ajax
                         $.ajax({
-                            type:"POST",
+                            type: "POST",
                             url: "{{ url('delete-user') }}",
-                            data: { id: id },
+                            data: {
+                                id: id
+                            },
                             dataType: 'json',
-                            success: function(res){
+                            success: function(res) {
                                 var oTable = $('#datatable-ajax-crud').dataTable();
                                 oTable.fnDraw(false);
                                 Toast.fire({
@@ -359,6 +478,140 @@
                         });
                     }
                 })
+            });
+
+            $('body').on('click', '.assignRole', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                user_id = $(this).data('id');
+                // ajax
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('assign-role-edit') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#assignRoleForm').trigger("reset");
+                        $('#ajaxAssignRoleModel').html("Editar Rol");
+                        $('#ajax-assignRole-model').modal('show');
+                        $('#inputRole option[data-id="' + res.role.id + '"]').attr('selected',
+                            'selected');
+                    }
+                });
+            });
+
+            $('#assignRoleForm').submit(function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+                formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
+                formData.append('user_id', user_id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('assign-role') }}",
+                    cache: false,
+                    dataType: false,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: (response) => {
+                        $('#assignRoleForm').trigger("reset");
+                        $('#ajax-assignRole-model').modal('hide');
+                        var oTable = $('#datatable-ajax-crud').dataTable();
+                        oTable.fnDraw(false);
+                        if (response) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Datos guardados con éxito'
+                            })
+                        }
+                    },
+                    error: function(response) {
+                        console.log(response);
+                        try {} catch (exp) {}
+                        if (response.status == 500) {
+                            //console.log(response);
+                            const swalWithBootstrapButtonsError = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
+                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                                },
+                                buttonsStyling: false
+                            })
+                            swalWithBootstrapButtonsError.fire(
+                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
+                            )
+                        }
+                    }
+                });
+            });
+
+            $('body').on('click', '.state', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                user_id = $(this).data('id');
+                // ajax
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('change-state-edit') }}",
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#changeStateForm').trigger("reset");
+                        $('#ajaxChangeStateModel').html("Editar Estado");
+                        $('#ajax-changeState-model').modal('show');
+                        $('#inputState option[data-id="' + res.state + '"]').attr('selected',
+                            'selected');
+                    }
+                });
+            });
+
+            $('#changeStateForm').submit(function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+                formData.append('state', $('#inputState option:selected').attr('data-id'));
+                formData.append('user_id', user_id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('change-state') }}",
+                    cache: false,
+                    dataType: false,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: (response) => {
+                        $('#changeStateForm').trigger("reset");
+                        $('#ajax-changeState-model').modal('hide');
+                        var oTable = $('#datatable-ajax-crud').dataTable();
+                        oTable.fnDraw(false);
+                        if (response) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Datos guardados con éxito'
+                            })
+                        }
+                    },
+                    error: function(response) {
+                        console.log(response);
+                        try {} catch (exp) {}
+                        if (response.status == 500) {
+                            //console.log(response);
+                            const swalWithBootstrapButtonsError = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
+                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+                                },
+                                buttonsStyling: false
+                            })
+                            swalWithBootstrapButtonsError.fire(
+                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
+                            )
+                        }
+                    }
+                });
             });
         });
     </script>

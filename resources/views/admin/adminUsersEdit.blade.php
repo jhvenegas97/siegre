@@ -120,6 +120,7 @@
                                                 </div>
 
 
+                                                @can('change-state')
                                                 <div class="mb-3 flex-column">
                                                     <label for="state" class="col-12 col-form-label text-md-start">{{ __('Estado') }}</label>
                                                     <select id="inputState" class="form-control" required>
@@ -134,7 +135,9 @@
 
                                                     </select>
                                                 </div>
+                                                @endcan
 
+                                                @can('assign-role')
                                                 <div class="mb-3 flex-column">
                                                     <label for="role" class="col-12 col-form-label text-md-start">{{ __('Rol') }}</label>
                                                     <select id="inputRole" class="form-control" required>
@@ -148,10 +151,11 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                @endcan
 
                                                 <div class="mb-3 flex-column">
                                                     <label for="program" class="col-12 col-form-label text-md-start">{{ __('Programa') }}</label>
-                                                    <select id="inputProgram" class="form-control" required>
+                                                    <select id="inputProgram" class="form-control">
                                                         <option data-id="" value="">Elegir</option>
                                                         @foreach($programs as $program)
                                                         @if($user->program_id==$program->id)
@@ -458,7 +462,7 @@
 
                         <div class="mb-3">
                             <label for="title" class="col-12 col-form-label text-md-start">{{ __('Fecha Finalización') }}</label>
-                            <input id="end_date_workID" type="date" class="form-control" name="end_date_work" value="" required autocomplete="end_date_work" autofocus>
+                            <input id="end_date_workID" type="date" class="form-control" name="end_date_work" value="" autocomplete="end_date_work" autofocus>
                             <span style="display: none;" class="invalid-feedback" id="end_date_work_error_span" role="alert">
                                 <strong id="end_date_work_error"></strong>
                             </span>

@@ -59,6 +59,9 @@ class RolesPermissionsSeeder extends Seeder
             'user-edit',
             'user-delete',
             'user-export-data',
+            'assign-role',
+            'change-state',
+            'reports-system',
             'work-type-list',
             'work-type-create',
             'work-type-edit',
@@ -73,7 +76,16 @@ class RolesPermissionsSeeder extends Seeder
             'publication-list',
             'publication-create',
             'publication-edit',
-            'publication-delete'
+            'publication-delete',
+            'academic-list',
+            'academic-create',
+            'academic-edit',
+            'academic-delete',
+            'work-list',
+            'work-create',
+            'work-edit',
+            'work-delete',
+            'user-edit'
          ];
 
          $permissionsNameGestor = [
@@ -84,7 +96,16 @@ class RolesPermissionsSeeder extends Seeder
             'publication-admin-list',
             'publication-admin-create',
             'publication-admin-edit',
-            'publication-admin-delete'
+            'publication-admin-delete',
+            'academic-list',
+            'academic-create',
+            'academic-edit',
+            'academic-delete',
+            'work-list',
+            'work-create',
+            'work-edit',
+            'work-delete',
+            'user-edit'
          ];
       
          foreach ($permissions as $permission) {
@@ -116,6 +137,8 @@ class RolesPermissionsSeeder extends Seeder
             'name' => 'Usuario Administrador', 
             'email' => 'admin@gmail.com',
             'identification_id' => '401',
+            'gender_id' => '1',
+            'state' => '1',
             'password' => bcrypt('Ei55&9')
         ]);
 
@@ -123,6 +146,8 @@ class RolesPermissionsSeeder extends Seeder
             'name' => 'Usuario Gestor', 
             'email' => 'adminGestor@gmail.com',
             'identification_id' => '403',
+            'gender_id' => '2',
+            'state' => '1',
             'password' => bcrypt('Ei55&9')
         ]);
 
@@ -130,6 +155,8 @@ class RolesPermissionsSeeder extends Seeder
             'name' => 'Usuario Egresado', 
             'email' => 'adminEgresado@gmail.com',
             'identification_id' => '402',
+            'gender_id' => '2',
+            'state' => '1',
             'password' => bcrypt('Ei55&9')
         ]);
 

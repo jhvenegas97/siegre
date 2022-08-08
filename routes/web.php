@@ -56,6 +56,10 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/edit-user', [Controllers\UserController::class, 'edit'])->middleware('any_permission:user-edit')->name('edit-user');
     Route::post('/delete-user', [Controllers\UserController::class, 'destroy'])->middleware('any_permission:user-delete');
     Route::get('user-list-excel',[Controllers\UserController::class, 'exportExcel'])->middleware('any_permission:user-export-data')->name('users.excel');
+    Route::post('assign-role-edit',[Controllers\UserController::class, 'assingRoleEdit'])->middleware('any_permission:assign-role')->name('assign-role-edit');
+    Route::post('assign-role',[Controllers\UserController::class, 'assingRole'])->middleware('any_permission:assign-role')->name('assign-role');
+    Route::post('change-state-edit',[Controllers\UserController::class, 'changeStateEdit'])->middleware('any_permission:change-state')->name('change-state-edit');
+    Route::post('change-state',[Controllers\UserController::class, 'changeState'])->middleware('any_permission:change-state')->name('change-state');
 
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->middleware('can:program-list')->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store'])->middleware('any_permission:program-create,program-edit');
@@ -94,11 +98,25 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/edit-work', [Controllers\WorkController::class, 'edit'])->middleware('any_permission:work-edit');
     Route::post('/delete-work', [Controllers\WorkController::class, 'destroy'])->middleware('any_permission:work-delete');
 
-    Route::get('/reports-jobs-user', [Controllers\ReportsController::class, 'jobsUser'])->middleware('can:program-list')->name('jobs-user');
+    Route::get('/reports-jobs-user', [Controllers\ReportsController::class, 'jobsUser'])->middleware('can:reports-system')->name('jobs-user');
     Route::get('jobs-user-list-excel',[Controllers\ReportsController::class, 'exportJobsUserExcel'])->middleware('any_permission:user-export-data')->name('jobs-user.excel');
     
-    Route::get('/reports-last-job-user', [Controllers\ReportsController::class, 'lastJobUser'])->middleware('can:program-list')->name('last-job-user');
+    Route::get('/reports-last-job-user', [Controllers\ReportsController::class, 'lastJobUser'])->middleware('can:reports-system')->name('last-job-user');
     Route::get('last-job-user-list-excel',[Controllers\ReportsController::class, 'exportLastJobUserExcel'])->middleware('any_permission:user-export-data')->name('last-job-user.excel');
 
+    Route::get('/reports-last-login-user', [Controllers\ReportsController::class, 'lastLoginUser'])->middleware('can:reports-system')->name('last-login-user');
+    Route::get('last-login-user-list-excel',[Controllers\ReportsController::class, 'exportLastLoginUserExcel'])->middleware('any_permission:user-export-data')->name('last-login-user.excel');
+
+    Route::get('/reports-working-user', [Controllers\ReportsController::class, 'workingUser'])->middleware('can:reports-system')->name('working-user');
+    Route::get('working-user-list-excel',[Controllers\ReportsController::class, 'workingUserExcel'])->middleware('any_permission:user-export-data')->name('working-user.excel');
+
+    Route::get('/reports-college-degree-user', [Controllers\ReportsController::class, 'collegeDegreeUser'])->middleware('can:reports-system')->name('college-degree-user');
+    Route::get('college-degree-user-list-excel',[Controllers\ReportsController::class, 'collegeDegreeUserExcel'])->middleware('any_permission:user-export-data')->name('college-degree-user.excel');
+
+    Route::get('/reports-gender-employability-user', [Controllers\ReportsController::class, 'genderEmployabilityUser'])->middleware('can:reports-system')->name('gender-employability-user');
+    Route::get('gender-employability-user-list-excel',[Controllers\ReportsController::class, 'genderEmployabilityUserExcel'])->middleware('any_permission:user-export-data')->name('gender-employability-user.excel');
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/reports', [App\Http\Controllers\ReportsController::class, 'index'])->middleware('can:reports-system')->name('reports');
 });
