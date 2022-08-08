@@ -72,32 +72,9 @@
         </div>
 
         <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/admin.svg') }}" width="200" height="200" class="img-responsive" alt="">
-            </div>
-
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/gestor.svg') }}" width="200" height="200" class="img-responsive"
-                    alt="">
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/egresado.svg') }}" width="200" height="200" class="img-responsive"
-                    alt="">
-            </div>
-        </div>
-    </div>
+    
+    
+    
     </div>
 
     </div>
