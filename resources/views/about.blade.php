@@ -29,7 +29,7 @@
               <div class="card-body">
                 <h4><span class="badge bg-secondary btn-new card-title">Entretenimiento</span></h1>
                 <p class="card-text text-justify">Se puede visualisar todos los eventos academicos y sociales que se presenten en el programa de Licenciatura en Informática de la Universidad de Nariño acreditada en alta calidad.</p>
-                <img src=images/rm.png width="80" height="80" class="img-responsive" alt="">
+                <img src=images/en.png width="80" height="80" class="img-responsive" alt="">
               </div>
             </div>
           </div>
