@@ -45,7 +45,7 @@
                             <label class="form-check-label" for="remember">{{ __(' Recordar') }}</label>
                             @if (Route::has('password.request'))
                                 <a class="text-end" href="{{ route('password.request') }}">
-                                    {{ __('Olvidó su contraseña?') }}
+                                    {{ __('¿Olvidó su contraseña?') }}
                                 </a>
                             @endif
                         </div>
@@ -58,7 +58,7 @@
                 <div class="d-grid gap-2">
                     <div class="modal-footer pt-0 pb-0" style="display: block !important;">
                         <!--FOOTER DE VENTANA EMERGENTE NO DE TODO EL DOCUMENTO-->
-                        <h6 class="text-center mt-2">¿Aún no tienes cuenta en SIEGRE?</h6>
+                        <h6 class="text-center mt-2">¿Aún no tienes cuenta en SIEGRES?</h6>
                         <div class="d-grid gap-2 m-2">
                             <a href="{{ route('register') }}" style="text-decoration: none">
                                 <div class="d-grid gap-2 pt-2">
