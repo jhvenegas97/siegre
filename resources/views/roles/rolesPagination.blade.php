@@ -18,8 +18,8 @@
                         <a class="btn btn-primary btn-new mb-2" href="{{ route('roles.edit', $role->id) }}">Editar</a>
                     @endcan
                     @can('role-delete')
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
-                        {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-new mb-2 fw-bold']) !!}
+                        {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline','id' => $role->id]) !!}
+                        {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-new mb-2 fw-bold delete']) !!}
                         {!! Form::close() !!}
                     @endcan
                 </td>
@@ -31,3 +31,32 @@
 <div id="pagination" class="d-flex justify-content-center mt-3">
     {{ $roles->links() }}
 </div>
+
+<script>
+    $(".delete").click(function(e) {
+        e.preventDefault();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success btn-new-success-sweet-alert',
+                cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Estas seguro?',
+            text: "Estos cambios no se pueden revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, borrar rol!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#"+$(this.form).attr('id')).unbind('submit').submit();
+            }
+        })
+
+    });
+</script>

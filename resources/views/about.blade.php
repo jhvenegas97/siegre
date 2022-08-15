@@ -42,16 +42,18 @@
                 <img src=images/rm.png width="80" height="80" class="img-responsive" alt="">
               </div>
             </div>
-          </div>
-
-          
-
-        
-
-        
+          </div>          
         </div>
-        
       </div>
-
+    </div>
+    <div class="container text-center">
+      <div class="col-sm d-flex justify-content-center align-items-center">
+        <div class="row d-flex align-items-center">
+          <a href="{{ route('home') }}" style="text-decoration: none">
+          <button type="button" class="btn btn-primary btn-new">Regresar <i
+            class=""></i></button>
+          </a>
+        </div>
+      </div>
     </div>
 @endsection

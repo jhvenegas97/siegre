@@ -60,6 +60,8 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('assign-role',[Controllers\UserController::class, 'assingRole'])->middleware('any_permission:assign-role')->name('assign-role');
     Route::post('change-state-edit',[Controllers\UserController::class, 'changeStateEdit'])->middleware('any_permission:change-state')->name('change-state-edit');
     Route::post('change-state',[Controllers\UserController::class, 'changeState'])->middleware('any_permission:change-state')->name('change-state');
+    Route::post('store-admin',[Controllers\UserController::class, 'storeAdmin'])->middleware('any_permission:user-create')->name('store-admin');
+    Route::get('create-user',[Controllers\UserController::class, 'createUser'])->middleware('any_permission:user-create')->name('create-user');
 
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->middleware('can:program-list')->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store'])->middleware('any_permission:program-create,program-edit');
@@ -70,6 +72,11 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/add-update-faculty', [Controllers\FacultyController::class, 'store'])->middleware('any_permission:faculty-create,faculty-edit');
     Route::post('/edit-faculty', [Controllers\FacultyController::class, 'edit'])->middleware('any_permission:faculty-edit');
     Route::post('/delete-faculty', [Controllers\FacultyController::class, 'destroy'])->middleware('any_permission:faculty-delete'); 
+
+    Route::get('/gender', [Controllers\GenderController::class, 'index'])->middleware('can:gender-list')->name('gender');
+    Route::post('/add-update-gender', [Controllers\GenderController::class, 'store'])->middleware('any_permission:gender-create,gender-edit');
+    Route::post('/edit-gender', [Controllers\GenderController::class, 'edit'])->middleware('any_permission:gender-edit');
+    Route::post('/delete-gender', [Controllers\GenderController::class, 'destroy'])->middleware('any_permission:gender-delete'); 
 
     Route::get('/academic-level', [Controllers\AcademicLevelController::class, 'index'])->middleware('can:academic-level-list')->name('academic-level');
     Route::post('/add-update-academic-level', [Controllers\AcademicLevelController::class, 'store'])->middleware('any_permission:academic-level-create,academic-level-edit');

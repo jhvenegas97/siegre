@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 class FacultyController extends Controller
 {
     public function index(){
-        /*$data['programs'] = Program::orderBy('id','desc')->paginate(5);
-        return view('admin.adminPrograms',$data);*/
         if(request()->ajax()) {
             return datatables()->of(Faculty::select('*'))
                 ->addColumn('action', 'admin.facultyAction')

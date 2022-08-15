@@ -1,7 +1,7 @@
 @extends('layouts.layoutInit')
 @section('title', 'Inicio sesión')
 @section('content')
- 
+
     <div class="container-fluid">
         <h3 class="text-center mt-3">Iniciar Sesión</h3>
         <div class="row d-flex justify-content-center">
@@ -9,7 +9,8 @@
                 <div class="d-grid gap-2 m-3">
                     <a href="{{ route('login.google') }}" style="text-decoration: none">
                         <div class="d-grid gap-2 pt-2">
-                            <button type="button" class="btn btn-primary btn-new">Google <i class="fa-brands fa-google"></i></button>
+                            <button type="button" class="btn btn-primary btn-new">Google <i
+                                    class="fa-brands fa-google"></i></button>
                         </div>
                     </a>
                 </div>
@@ -37,7 +38,7 @@
                                 </span>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3 form-check d-flex flex-row gap-2">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                 {{ old('remember') ? 'checked' : '' }}>
@@ -71,37 +72,8 @@
             </div>
         </div>
 
-        <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/admin.svg') }}" width="200" height="200" class="img-responsive" alt="">
-            </div>
-
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/gestor.svg') }}" width="200" height="200" class="img-responsive"
-                    alt="">
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row">
-
-            <div class="col-12 d-flex justify-content-center p-3">
-                <img src="{{ asset('images/egresado.svg') }}" width="200" height="200" class="img-responsive"
-                    alt="">
-            </div>
-        </div>
-    </div>
     </div>
 
-    </div>
 
-    
 
 @endsection

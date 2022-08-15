@@ -35,16 +35,17 @@
             <form id="searchform" name="searchform">
                 <div class="row">
                     <h4 class="text-center">Filtrar Hojas de Vida</h4>
+                    
                 </div>
                 <div class="row mt-2 mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-5 mt-2">
                         <div class="form-group">
                             <input type="text" placeholder="Filtrar por Nombre" name="name"
                                 value="{{ request()->get('name', '') }}" class="form-control" />
                             @csrf
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 mt-2">
                         <div class="form-group">
                             <input type="hidden" id="academic_level_id_input" name="academic_level_id"
                                 value="{{ request()->get('academic_level_id', '') }}" class="form-control" />
@@ -57,8 +58,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-1 d-flex justify-content-center">
+                    <div class="col-md-2 d-flex justify-content-center mt-2">
                         <a class='btn btn-new' href='{{ url('list-curriculum') }}' id='search_btn'>Buscar</a>
+                        <a class="text-center ps-2" href="{{route('home')}}"><img class="shadow-personalized" src="{{asset('images/hogar.png')}}" width="40 " height="40 " class="img-responsive " alt=" "></a>
                     </div>
                 </div>
             </form>

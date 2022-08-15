@@ -99,10 +99,14 @@
                         <div class="mb-3 flex-column">
                             <label for="state"
                                 class="col-12 col-form-label text-md-start">{{ __('Categoría') }}</label>
-                            <select id="inputCategory" class="form-control" required>
-                                <option data-id="" value="">Elegir</option>
-                                <option selected data-id="1">News</option>
-                            </select>
+                                <select id="inputCategory" class="form-control" required>
+                                    <option data-id="" value="">Elegir</option>
+                                    @foreach ($categoryPublications as $categoryPublication)
+                                    <option data-id="{{ $categoryPublication->id }}">
+                                        {{ $categoryPublication->name_category_publication }}
+                                    </option>
+                                @endforeach
+                                </select>
                         </div>
 
                         <div class="mb-3">
@@ -522,16 +526,8 @@
                             },
                             dataType: 'json',
                             success: function(res) {
-                                $.ajax({
-                                    url: "{{ url('feed') }}",
-                                    type: 'GET',
-                                    success: function(data) {
-                                        $("#pagination_data").html(data);
-                                    },
-                                    error: function(data) {
-
-                                    }
-                                });
+                                var oTable = $('#datatable-ajax-crud').dataTable();
+                                oTable.fnDraw(false);
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'Borrado completado'
@@ -560,16 +556,8 @@
                         $('#ajax-publication-model').modal('hide');
 
                         if (response) {
-                            $.ajax({
-                            url: "{{ url('feed') }}",
-                            type: 'GET',
-                            success: function(data) {
-                                $("#pagination_data").html(data);
-                            },
-                            error: function(data) {
-
-                            }
-                        });
+                            var oTable = $('#datatable-ajax-crud').dataTable();
+                            oTable.fnDraw(false);
 
                             Toast.fire({
                                 icon: 'success',

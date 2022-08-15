@@ -118,41 +118,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-
-
-                                                @can('change-state')
-                                                <div class="mb-3 flex-column">
-                                                    <label for="state" class="col-12 col-form-label text-md-start">{{ __('Estado') }}</label>
-                                                    <select id="inputState" class="form-control" required>
-                                                        <option data-id="" value="">Elegir</option>
-                                                        @if($user->state==0)
-                                                        <option data-id="1">Activo</option>
-                                                        <option selected data-id="0">Inactivo</option>
-                                                        @else
-                                                        <option selected data-id="1">Activo</option>
-                                                        <option data-id="0">Inactivo</option>
-                                                        @endif
-
-                                                    </select>
-                                                </div>
-                                                @endcan
-
-                                                @can('assign-role')
-                                                <div class="mb-3 flex-column">
-                                                    <label for="role" class="col-12 col-form-label text-md-start">{{ __('Rol') }}</label>
-                                                    <select id="inputRole" class="form-control" required>
-                                                        <option data-id="" value="">Elegir</option>
-                                                        @foreach($roles as $role)
-                                                            @if($role->id==$user->roles->first()->id)
-                                                                <option selected data-id="{{$role->id}}">{{$role->name}}</option>
-                                                            @else
-                                                                <option data-id="{{$role->id}}">{{$role->name}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                @endcan
-
+                                                
                                                 <div class="mb-3 flex-column">
                                                     <label for="program" class="col-12 col-form-label text-md-start">{{ __('Programa') }}</label>
                                                     <select id="inputProgram" class="form-control">

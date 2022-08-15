@@ -237,6 +237,27 @@
                 </div>
                 @endcan
 
+                @can('gender-list','gender-create','gender-edit','gender-delete')
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('gender')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-venus-mars fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Géneros</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endcan
+
             </div>
 
         </section>
@@ -260,10 +281,9 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>Total Publicaciones</h4>
-                                        <span>Publicaciones al mes</span>
                                     </div>
                                     <div class="align-self-center">
-                                        <h1>18,000</h1>
+                                        <h1>{{$total_publications}}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +301,6 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>Total Usuarios</h4>
-                                        <span>Usarios nuevos al mes</span>
                                     </div>
                                     <div class="align-self-center">
                                         <h1>{{$total_users}}</h1>
