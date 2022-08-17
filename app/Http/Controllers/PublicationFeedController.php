@@ -145,6 +145,35 @@ class PublicationFeedController extends Controller
         }
     }
 
+    public function hide(Request $request)
+    {
+        $where = array('id' => $request->id);
+        $publication  = Publication::where($where)->first();
+
+        $userHasPermissions = true;
+        if(in_array("Egresado",Auth::user()->getRoleNames()->toArray())){
+            if(Auth::user()->id != $publication->user_id){
+                $userHasPermissions = false;
+            }
+        }
+        if($userHasPermissions){
+            $publication   =   Publication::updateOrCreate(
+                [
+                    'id' => $request->id
+                ],
+                [
+                    'hidden' => $request->hidden,
+                ]
+            );
+            return response()->json($publication);
+        }
+        else{
+            return response()->json([
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.D'
+            ],401);
+        }
+    }
+
     public function destroy(Request $request)
     {
         $publication = Publication::where('id', $request->id)->first();

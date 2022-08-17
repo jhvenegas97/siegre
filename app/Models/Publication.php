@@ -20,6 +20,7 @@ class Publication extends Model
         'end_date_publication',
         'fileName_publication',
         'path_publication',
+        'hidden',
     ];
 
     public function user()

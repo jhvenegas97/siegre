@@ -563,7 +563,7 @@
                         $('#changeStateForm').trigger("reset");
                         $('#ajaxChangeStateModel').html("Editar Estado");
                         $('#ajax-changeState-model').modal('show');
-                        $('#inputState option[data-id="' + res.state + '"]').attr('selected',
+                        $('#inputState option[data-id="' + res.state + '"]').prop('selected',
                             'selected');
                     }
                 });

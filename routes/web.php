@@ -94,6 +94,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/add-update-publication', [Controllers\PublicationFeedController::class, 'store'])->middleware('any_permission:publication-create,publication-edit,publication-admin-create,publication-admin-edit');
     Route::post('/edit-publication', [Controllers\PublicationFeedController::class, 'edit'])->middleware('any_permission:publication-edit,publication-admin-edit');
     Route::post('/delete-publication', [Controllers\PublicationFeedController::class, 'destroy'])->middleware('any_permission:publication-delete,publication-admin-delete');
+    Route::post('/hide-publication',[Controllers\PublicationFeedController::class, 'hide'])->middleware('any_permission:publication-hide,publication-admin-hide');
 
     Route::get('/academic', [Controllers\AcademicController::class, 'index'])->middleware('can:academic-list')->name('academic');
     Route::post('/add-update-academic', [Controllers\AcademicController::class, 'store'])->middleware('any_permission:academic-create,academic-edit');

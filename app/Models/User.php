@@ -66,11 +66,6 @@ class User extends Authenticatable
         return $this->belongsTo("App\Models\Program", "program_id");
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new UserResetPassword($token));

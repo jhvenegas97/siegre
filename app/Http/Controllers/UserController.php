@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        dd(User::where(array('id'=>'1'))->roles->first());
         if (request()->ajax()) {
             return datatables()->of(DB::select('select u.id,name,email,state,identification_id from users u where u.id !="' . Auth::user()->id . '"'))
                 ->addColumn('action', 'admin.userAction')
@@ -82,8 +83,7 @@ class UserController extends Controller
     public function assingRoleEdit(Request $request)
     {
         try{
-            $where = array('id' => $request->id);
-            $user  = User::where($where)->first();
+            $user  = User::find($request->id);
             $userToReturn = array('user'=>$user,'role'=>$user->roles->first());
 
             return Response()->json($userToReturn);

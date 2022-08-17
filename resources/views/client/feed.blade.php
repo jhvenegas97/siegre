@@ -18,6 +18,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
     <style>
+        .hide-publication{
+            opacity: 60% !important;
+        }
+
         .fa-ellipsis:hover {
             color: #0CBCCC !important;
             cursor: pointer !important;
@@ -674,6 +678,46 @@
                         });
                     }
                 })
+            });
+            $('body').on('click', '.hide', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var hidden = $(this).data('hidden') == 0 ? 1 : 0;
+                // ajax
+                $.ajax({
+                        type: "POST",
+                        url: "{{ url('hide-publication') }}",
+                        data: {
+                            id: id,
+                            hidden: hidden
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            console.log(res.hidden);
+                            if(res.hidden == "1"){
+                                $("#pub"+id).addClass('hide-publication');
+                                //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
+                                $("#pubHidden"+$(this).data('id')).dataset.hidden = res.hidden;
+                                console.log($(this).data('hidden'));
+                                //$(this).setAttribute('data-hidden',res.hidden);
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Se ocultó con éxito'
+                            })
+                            }
+                            else{
+                                $("#pub"+id).removeClass('hide-publication');
+                                //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
+                                $("#pubHidden"+$(this).data('id')).dataset.hidden = res.hidden;
+                                console.log($(this).data('hidden'));
+                                //$(this).setAttribute('data-hidden',res.hidden);
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Se desocultó con éxito'
+                            })
+                            }
+                        }
+                    });
             });
             $('#addEditPublicationForm').submit(function(e) {
                 e.preventDefault();

@@ -25,6 +25,7 @@ class CreatePublicationsTable extends Migration
             $table->string('path_publication')->nullable();
             $table->date('init_date_publication');
             $table->date('end_date_publication');
+            $table->boolean('hidden')->nullable()->default(0);
             $table->timestamps();
         });
     }
