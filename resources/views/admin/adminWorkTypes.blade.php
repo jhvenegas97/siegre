@@ -405,7 +405,6 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        //Swal.fire('Facultad eliminada con éxito!', '', 'success')
                         var id = $(this).data('id');
 
                         // ajax
@@ -450,38 +449,39 @@
                         $("#ajax-work-type-model").modal('hide');
                         var oTable = $('#datatable-ajax-crud').dataTable();
                         oTable.fnDraw(false);
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'El nivel académico fue creado con éxito'
-                        })
+                        
+                        if ($("#ajaxWorkTypeModel").text() == "Editar Tipo de Trabajo") {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Datos modificados con éxito'
+                            })
+                        } else {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Datos guardados con éxito'
+                            })
+                        }
+
                         $("#btn-save").html('Guardar');
                         $("#btn-save"). attr("disabled", false);
                     },
                     error: function(response){
-                        console.log(response);
                         $("#btn-save").html('Guardar');
                         $("#btn-save"). attr("disabled", false);
-                        $("#name_error_span").show();
-                        try{
-                            $("#name_error").text(response.responseJSON.errors.name_academic_level);
-                        }
-                        catch (exp){
-                        }
-                        if(response.status == 500){
-                            console.log(response);
-                            const swalWithBootstrapButtonsError = Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                                },
-                                buttonsStyling: false
-                            })
-                            swalWithBootstrapButtonsError.fire(
-                                'Cancelled',
-                                response.responseJSON.message,
-                                'error'
-                            )
-                        }
+                        
+                        var dataErrors = Object.entries(response.responseJSON.errors);
+                        dataErrors.forEach(element => {
+                            element.slice(1).forEach(entry => {
+                                Toastify({
+                                    text: entry,
+                                    duration: 3000,
+                                    gravity: "bottom",
+                                    style: {
+                                        background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                    },
+                                }).showToast();
+                            });
+                        });
                     }
                 });
             });

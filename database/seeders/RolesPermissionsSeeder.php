@@ -67,6 +67,8 @@ class RolesPermissionsSeeder extends Seeder
             'user-export-data',
             'assign-role',
             'change-state',
+            'change-password',
+            'change-password-admin',
             'reports-system',
             'work-type-list',
             'work-type-create',
@@ -92,7 +94,8 @@ class RolesPermissionsSeeder extends Seeder
             'work-create',
             'work-edit',
             'work-delete',
-            'user-edit'
+            'user-edit',
+            'change-password'
          ];
 
          $permissionsNameGestor = [
@@ -106,6 +109,10 @@ class RolesPermissionsSeeder extends Seeder
             'publication-admin-edit',
             'publication-admin-delete',
             'publication-admin-hide',
+            'category-publication-list',
+            'category-publication-create',
+            'category-publication-edit',
+            'category-publication-delete',
             'academic-list',
             'academic-create',
             'academic-edit',
@@ -114,7 +121,8 @@ class RolesPermissionsSeeder extends Seeder
             'work-create',
             'work-edit',
             'work-delete',
-            'user-edit'
+            'user-edit',
+            'change-password'
          ];
       
          foreach ($permissions as $permission) {

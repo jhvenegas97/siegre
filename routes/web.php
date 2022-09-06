@@ -62,6 +62,8 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('change-state',[Controllers\UserController::class, 'changeState'])->middleware('any_permission:change-state')->name('change-state');
     Route::post('store-admin',[Controllers\UserController::class, 'storeAdmin'])->middleware('any_permission:user-create')->name('store-admin');
     Route::get('create-user',[Controllers\UserController::class, 'createUser'])->middleware('any_permission:user-create')->name('create-user');
+    Route::post('update-password',[Controllers\UserController::class,'updatePassword'])->middleware('any_permission:change-password')->name('update-password');
+    Route::post('update-password-admin',[Controllers\UserController::class,'updatePasswordAdmin'])->middleware('any_permission:change-password-admin')->name('update-password-admin');
 
     Route::get('/program', [Controllers\ProgramController::class, 'index'])->middleware('can:program-list')->name('program');
     Route::post('/add-update-program', [Controllers\ProgramController::class, 'store'])->middleware('any_permission:program-create,program-edit');
@@ -87,6 +89,11 @@ Route::group(['middleware'=>'auth'],function(){
     Route::post('/add-update-work-type', [Controllers\WorkTypeController::class, 'store'])->middleware('any_permission:work-type-create,work-type-edit');
     Route::post('/edit-work-type', [Controllers\WorkTypeController::class, 'edit'])->middleware('any_permission:work-type-edit');
     Route::post('/delete-work-type', [Controllers\WorkTypeController::class, 'destroy'])->middleware('any_permission:work-type-delete');
+
+    Route::get('/category-publication', [Controllers\CategoryPublicationController::class, 'index'])->middleware('can:category-publication-list')->name('category-publication');
+    Route::post('/add-update-category-publication', [Controllers\CategoryPublicationController::class, 'store'])->middleware('any_permission:category-publication-create,category-publication-edit');
+    Route::post('/edit-category-publication', [Controllers\CategoryPublicationController::class, 'edit'])->middleware('any_permission:category-publication-edit');
+    Route::post('/delete-category-publication', [Controllers\CategoryPublicationController::class, 'destroy'])->middleware('any_permission:category-publication-delete');
 
     Route::get('/feed', [Controllers\PublicationFeedController::class, 'index'])->middleware('can:publication-list')->name('feed');
     Route::get('/publications', [Controllers\PublicationFeedController::class, 'indexAdmin'])->middleware('role:Admin|Gestor')->name('publications');

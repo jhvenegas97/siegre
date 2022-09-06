@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
     <style>
-        .hide-publication{
+        .hide-publication {
             opacity: 60% !important;
         }
 
@@ -100,18 +100,17 @@
 
     <script src="https://js.pusher.com/7.1/pusher.min.js"></script>
     <script>
-        /* 
-          // Enable pusher logging - don't include this in production
-          Pusher.logToConsole = true;
+        /* // Enable pusher logging - don't include this in production
+                  Pusher.logToConsole = true;
 
-          var pusher = new Pusher('5160c6d4988ca5c7c74d', {
-            cluster: 'us2'
-          });
+                  var pusher = new Pusher('5160c6d4988ca5c7c74d', {
+                    cluster: 'us2'
+                  });
 
-          var channel = pusher.subscribe('my-channel');
-          channel.bind('App\\Events\\PublicationEvent', function(data) {
-            alert(JSON.stringify(data));
-          }); */
+                  var channel = pusher.subscribe('my-channel');
+                  channel.bind('App\\Events\\PublicationEvent', function(data) {
+                    alert(JSON.stringify(data));
+                  }); */
     </script>
 
     <script>
@@ -138,11 +137,11 @@
         // Bind a function to a Event (the full Laravel class)
         channel.bind('App\\Events\\PublicationEvent', function(data) {
             var getUrl = window.location;
-            var baseUrl = getUrl.origin+"/publication?id="+data.publication.id;
+            var baseUrl = getUrl.origin + "/publication?id=" + data.publication.id;
             console.log(baseUrl);
             var existingNotifications = notifications.html();
             var newNotificationHtml = `
-        <li><a class="dropdown-item" href="`+baseUrl+`" target="_blank">
+        <li><a class="dropdown-item" href="` + baseUrl + `" target="_blank">
             <div class="media">
 <img src="/images/admin.svg" width="30%" alt="User Avatar" class="img-size-50 mr-3 img-circle">
 <div class="media-body">
@@ -213,15 +212,15 @@
                             <div class="row flex-column d-flex justify-content-center">
                                 <div class="col-12 d-flex align-items-center justify-content-center">
                                     @if (Auth::user()->avatar != null)
-                                    <img src="{{ $publication->user->avatar }}" width="35" height="35"
-                                        class="img-responsive img-circle" alt="">
+                                        <img src="{{ $publication->user->avatar }}" width="35" height="35"
+                                            class="img-responsive img-circle" alt="">
                                     @else
-                                        @if (Auth::user()->fileName!=null)
-                                        <img src="{{asset('uploads/'.Auth::user()->fileName)}}" width="35" height="35"
-                                        class="img-responsive img-circle" alt="">
+                                        @if (Auth::user()->fileName != null)
+                                            <img src="{{ asset('uploads/' . Auth::user()->fileName) }}" width="35"
+                                                height="35" class="img-responsive img-circle" alt="">
                                         @else
-                                        <img src="{{ asset('images/admin.svg') }}" width="35" height="35"
-                                        class="img-responsive img-circle" alt="">
+                                            <img src="{{ asset('images/admin.svg') }}" width="35" height="35"
+                                                class="img-responsive img-circle" alt="">
                                         @endif
                                     @endif
                                 </div>
@@ -281,9 +280,9 @@
                                 </span>
                             </div>
                             <div class="mb-3">
-                                <input id="text_PublicationID" type="text" class="form-control" name="text_publication"
-                                    value="" required autocomplete="text_publication" autofocus
-                                    placeholder="Descripción de la Publicación">
+                                <input id="text_PublicationID" type="text" class="form-control"
+                                    name="text_publication" value="" required autocomplete="text_publication"
+                                    autofocus placeholder="Descripción de la Publicación">
                                 <span style="display: none;" class="invalid-feedback" id="text_publication_error_span"
                                     role="alert">
                                     <strong id="text_publication_error"></strong>
@@ -295,10 +294,10 @@
                                 <select id="inputCategory" class="form-control" required>
                                     <option data-id="" value="">Elegir</option>
                                     @foreach ($categoryPublications as $categoryPublication)
-                                    <option data-id="{{ $categoryPublication->id }}">
-                                        {{ $categoryPublication->name_category_publication }}
-                                    </option>
-                                @endforeach
+                                        <option data-id="{{ $categoryPublication->id }}">
+                                            {{ $categoryPublication->name_category_publication }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -359,10 +358,6 @@
         $('#inputStateCategoryPublication').on('change', function() {
             $('#category_publication_id_input').val(this.value);
         });
-
-        function cleanErrors() {
-            //TODO: Implement Clean Errors
-        }
 
         $(document).ready(function() {
             $.ajaxSetup({
@@ -594,10 +589,9 @@
 
             $('#addNewPublication').click(function(e) {
                 e.preventDefault();
-                cleanErrors();
                 $('#addEditPublicationForm').trigger("reset");
                 $('#id').val('');
-                $('#inputCategory').find('option').attr("selected", false);
+                $('#inputCategory').find('option').prop("selected", false);
                 $('#ajaxPublicationModel').html("Crear Nueva Publicación");
                 $('#ajax-publication-model').modal('show');
             });
@@ -605,7 +599,6 @@
             $('body').on('click', '.edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                cleanErrors();
                 // ajax
                 $.ajax({
                     type: "POST",
@@ -622,7 +615,7 @@
                         $('#title_PublicationID').val(res.title_publication);
                         $('#text_PublicationID').val(res.text_publication);
                         $('#inputCategory option[data-id="' + res.category_publication_id +
-                            '"]').attr('selected', 'selected');
+                            '"]').prop('selected', 'selected');
                         $('#init_date_publicationID').val(res.init_date_publication);
                         $('#end_date_publicationID').val(res.end_date_publication);
                     }
@@ -685,45 +678,58 @@
                 var hidden = $(this).data('hidden') == 0 ? 1 : 0;
                 // ajax
                 $.ajax({
-                        type: "POST",
-                        url: "{{ url('hide-publication') }}",
-                        data: {
-                            id: id,
-                            hidden: hidden
-                        },
-                        dataType: 'json',
-                        success: function(res) {
-                            console.log(res.hidden);
-                            if(res.hidden == "1"){
-                                $("#pub"+id).addClass('hide-publication');
-                                //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
-                                $("#pubHidden"+$(this).data('id')).dataset.hidden = res.hidden;
-                                console.log($(this).data('hidden'));
-                                //$(this).setAttribute('data-hidden',res.hidden);
-                                Toast.fire({
+                    type: "POST",
+                    url: "{{ url('hide-publication') }}",
+                    data: {
+                        id: id,
+                        hidden: hidden
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        console.log(res.hidden);
+                        if (res.hidden == "1") {
+                            $("#pub" + id).addClass('hide-publication');
+                            //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
+                            $("#pubHidden" + $(this).data('id')).dataset.hidden = res.hidden;
+                            console.log($(this).data('hidden'));
+                            //$(this).setAttribute('data-hidden',res.hidden);
+                            Toast.fire({
                                 icon: 'success',
                                 title: 'Se ocultó con éxito'
                             })
-                            }
-                            else{
-                                $("#pub"+id).removeClass('hide-publication');
-                                //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
-                                $("#pubHidden"+$(this).data('id')).dataset.hidden = res.hidden;
-                                console.log($(this).data('hidden'));
-                                //$(this).setAttribute('data-hidden',res.hidden);
-                                Toast.fire({
+                        } else {
+                            $("#pub" + id).removeClass('hide-publication');
+                            //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
+                            $("#pubHidden" + $(this).data('id')).dataset.hidden = res.hidden;
+                            console.log($(this).data('hidden'));
+                            //$(this).setAttribute('data-hidden',res.hidden);
+                            Toast.fire({
                                 icon: 'success',
                                 title: 'Se desocultó con éxito'
                             })
-                            }
                         }
-                    });
+                    },
+                    error: function(response){
+                        var dataErrors = Object.entries(response.responseJSON.errors);
+                        dataErrors.forEach(element => {
+                            element.slice(1).forEach(entry => {
+                                Toastify({
+                                    text: entry,
+                                    duration: 3000,
+                                    gravity: "bottom",
+                                    style: {
+                                        background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                    },
+                                }).showToast();
+                            });
+                        });
+                    }
+                });
             });
             $('#addEditPublicationForm').submit(function(e) {
                 e.preventDefault();
-                cleanErrors();
                 let formData = new FormData(this);
-                formData.append('category_publication_id', $('#inputCategory option:selected').attr(
+                formData.append('category_publication_id', $('#inputCategory option:selected').prop(
                     'data-id'));
                 $.ajax({
                     type: 'POST',
@@ -744,37 +750,51 @@
                                 success: function(data) {
                                     $("#pagination_data").html(data);
                                 },
-                                error: function(data) {
-
+                                error: function(response) {
+                                    var dataErrors = Object.entries(response
+                                        .responseJSON.errors);
+                                    dataErrors.forEach(element => {
+                                        element.slice(1).forEach(entry => {
+                                            Toastify({
+                                                text: entry,
+                                                duration: 3000,
+                                                gravity: "bottom",
+                                                style: {
+                                                    background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                                },
+                                            }).showToast();
+                                        });
+                                    });
                                 }
                             });
 
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Datos guardados con éxito'
-                            })
+                            if ($("#ajaxPublicationModel").text() == "Editar Publicación") {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Datos modificados con éxito'
+                                })
+                            } else {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Datos guardados con éxito'
+                                })
+                            }
                         }
                     },
                     error: function(response) {
-                        console.log(response);
-                        //TODO: Mostrar todos los errores
-
-                        try {
-                            //TODO: Mostrar todos los errores
-                        } catch (exp) {}
-                        if (response.status == 500) {
-                            console.log(response);
-                            const swalWithBootstrapButtonsError = Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                                },
-                                buttonsStyling: false
-                            })
-                            swalWithBootstrapButtonsError.fire(
-                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
-                            )
-                        }
+                        var dataErrors = Object.entries(response.responseJSON.errors);
+                        dataErrors.forEach(element => {
+                            element.slice(1).forEach(entry => {
+                                Toastify({
+                                    text: entry,
+                                    duration: 3000,
+                                    gravity: "bottom",
+                                    style: {
+                                        background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                    },
+                                }).showToast();
+                            });
+                        });
                     }
                 });
             });

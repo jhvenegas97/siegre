@@ -44,7 +44,7 @@ class WorkController extends Controller
                     $pdfPath = $request->file('file_work');
                     $pdfName = $pdfPath->getClientOriginalName();
                     $name = time().'.'.request()->file_work->getClientOriginalExtension();
-                    $path = $request->file_work->move(public_path('uploads\works'), $pdfName);
+                    $path = $request->file_work->move(public_path('uploads/works'), $pdfName);
                     
                     $work   =   Work::updateOrCreate(
                         [

@@ -65,7 +65,7 @@ class PublicationFeedController extends Controller
                 'text_publication' => 'required|max:255',
                 'init_date_publication' => 'required',
                 'end_date_publication' => 'required',
-                'file_publication' => 'required_without:id|max:10240|mimes:jpg,jpeg,png,gif',
+                'file_publication' => 'required_without:id|mimes:jpg,jpeg,png,gif',
             ]);
     
             try {
@@ -78,7 +78,7 @@ class PublicationFeedController extends Controller
                     $pdfPath = $request->file('file_publication');
                     $pdfName = $pdfPath->getClientOriginalName();
                     $name = time() . '.' . request()->file_publication->getClientOriginalExtension();
-                    $path = $request->file_publication->move(public_path('uploads\publications'), $pdfName);
+                    $path = $request->file_publication->move(public_path('uploads/publications'), $pdfName);
     
                     $publication   =   Publication::updateOrCreate(
                         [

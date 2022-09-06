@@ -505,7 +505,7 @@
             $('#assignRoleForm').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
+                formData.append('role_id', $('#inputRole option:selected').prop('data-id'));
                 formData.append('user_id', user_id);
                 $.ajax({
                     type: 'POST',
@@ -528,21 +528,19 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
-                        try {} catch (exp) {}
-                        if (response.status == 500) {
-                            //console.log(response);
-                            const swalWithBootstrapButtonsError = Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                                },
-                                buttonsStyling: false
-                            })
-                            swalWithBootstrapButtonsError.fire(
-                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
-                            )
-                        }
+                        var dataErrors = Object.entries(response.responseJSON.errors);
+                        dataErrors.forEach(element => {
+                            element.slice(1).forEach(entry => {
+                                Toastify({
+                                    text: entry,
+                                    duration: 3000,
+                                    gravity: "bottom",
+                                    style: {
+                                        background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                    },
+                                }).showToast();
+                            });
+                        });
                     }
                 });
             });
@@ -572,7 +570,7 @@
             $('#changeStateForm').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                formData.append('state', $('#inputState option:selected').attr('data-id'));
+                formData.append('state', $('#inputState option:selected').prop('data-id'));
                 formData.append('user_id', user_id);
                 $.ajax({
                     type: 'POST',
@@ -595,21 +593,19 @@
                         }
                     },
                     error: function(response) {
-                        console.log(response);
-                        try {} catch (exp) {}
-                        if (response.status == 500) {
-                            //console.log(response);
-                            const swalWithBootstrapButtonsError = Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-success btn-new-success-sweet-alert',
-                                    cancelButton: 'btn btn-danger btn-new-danger-sweet-alert'
-                                },
-                                buttonsStyling: false
-                            })
-                            swalWithBootstrapButtonsError.fire(
-                                'Cancelled', response.responseJSON.errorInfo[2], 'error'
-                            )
-                        }
+                        var dataErrors = Object.entries(response.responseJSON.errors);
+                        dataErrors.forEach(element => {
+                            element.slice(1).forEach(entry => {
+                                Toastify({
+                                    text: entry,
+                                    duration: 3000,
+                                    gravity: "bottom",
+                                    style: {
+                                        background: "linear-gradient(to right, #ED360D, #96c93d)",
+                                    },
+                                }).showToast();
+                            });
+                        });
                     }
                 });
             });

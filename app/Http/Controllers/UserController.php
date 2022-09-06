@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -93,6 +94,76 @@ class UserController extends Controller
         }
     }
 
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'oldpassword'=> 'required',
+            'password'=> 'required',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->roles;  
+        if($request->has('password') and $request->get('password')!=null and $request->get('password')!=''){
+          
+            if (Hash::check($request->oldpassword, $user->password)) {
+                if ($request->password == $request->password_confirmation) {
+                    $user->password = bcrypt($request->password);
+                    $user->save();
+                    return response()->json($user);                                
+                } else {
+                   return response()->json([                   
+                    'errors'=>['La nueva contraseña no coincide.']
+                   ],500);
+                }
+                
+            } else {
+                return response()->json([
+                    'errors'=>['La contraseña de administrador o actual es incorrecta.']
+                ],500);
+            }
+        }elseif($request->has('password') and ($request->password==null || $request->password=='')){
+            return response()->json([                   
+                'errors'=>['La contraseña no puede ser vacia']
+               ],500);
+        }
+    }
+
+    public function updatePasswordAdmin(Request $request)
+    {
+        $request->validate([
+            'oldpassword'=> 'required',
+            'password'=> 'required',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->roles;  
+        if($request->has('password') and $request->get('password')!=null and $request->get('password')!=''){
+          
+            if (Hash::check($request->oldpassword, Auth::user()->password)) {
+                if ($request->password == $request->password_confirmation) {
+                    $user->password = bcrypt($request->password);
+                    $user->save();
+                    return response()->json($user);                                
+                } else {
+                   return response()->json([                   
+                    'errors'=>['La nueva contraseña no coincide.']
+                   ],500);
+                }
+                
+            } else {
+                return response()->json([
+                    'errors'=>['La contraseña de administrador o actual es incorrecta.']
+                ],500);
+            }
+        }elseif($request->has('password') and ($request->password==null || $request->password=='')){
+            return response()->json([                   
+                'errors'=>['La contraseña no puede ser vacia']
+               ],500);
+        }
+    }
+
     public function storeAdmin(Request $request)
     {
         $userHasPermissions = true;
@@ -107,6 +178,8 @@ class UserController extends Controller
                 'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
                 'identification_id' => 'required',
                 'gender_id' => 'required',
+                'password'=> 'required',
+                'password_confirmation' => 'required',
                 'role_id' => 'required',
                 'state' => 'required',
                 'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -115,12 +188,36 @@ class UserController extends Controller
 
             try {
                 $userId = $request->id;
-                if ($request->has('file')) {
-                    $imagePath = $request->file('file');
-                    $imageName = $imagePath->getClientOriginalName();
-                    $name = time().'.'.request()->file->getClientOriginalExtension();
-                    $path = $request->file->move(public_path('uploads'), $imageName);
-
+                if ($request->password == $request->password_confirmation) {
+                    if ($request->has('file')) {
+                        $imagePath = $request->file('file');
+                        $imageName = $imagePath->getClientOriginalName();
+                        $name = time().'.'.request()->file->getClientOriginalExtension();
+                        $path = $request->file->move(public_path('uploads'), $imageName);
+    
+                        $user   =   User::updateOrCreate(
+                            [
+                                'id' => $userId
+                            ],
+                            [
+                                'name' => $request->name,
+                                'email' => $request->email,
+                                'description' => $request->description,
+                                'phone' => $request->phone,
+                                'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
+                                'identification_id' => $request->identification_id,
+                                'program_id' => $request->program_id,
+                                'gender_id' => $request->gender_id,
+                                'state' => $request->state,
+                                'direction' => $request->direction,
+                                'fileName'=> $imageName,
+                                'path'=>$path,
+                                'password' => bcrypt($request->password),
+                            ]
+                        );
+                        $user->assignRole([$request->role_id]);
+                        
+                    }
                     $user   =   User::updateOrCreate(
                         [
                             'id' => $userId
@@ -132,45 +229,28 @@ class UserController extends Controller
                             'phone' => $request->phone,
                             'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
                             'identification_id' => $request->identification_id,
+                            'state' => $request->state,
                             'program_id' => $request->program_id,
                             'gender_id' => $request->gender_id,
-                            'state' => $request->state,
-                            'role_id' => $request->role_id,
                             'direction' => $request->direction,
-                            'fileName'=> $imageName,
-                            'path'=>$path,
+                            'password' => bcrypt($request->password),
                         ]
                     );
-                    
+                    $user->assignRole([$request->role_id]);
+    
+                    return Response()->json($user);                     
+                } else {
+                   return response()->json([                   
+                    'errors'=>['La contraseña no coincide.']
+                   ],500);
                 }
-                $user   =   User::updateOrCreate(
-                    [
-                        'id' => $userId
-                    ],
-                    [
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'description' => $request->description,
-                        'phone' => $request->phone,
-                        'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
-                        'identification_id' => $request->identification_id,
-                        'state' => $request->state,
-                        'role_id' => $request->role_id,
-                        'program_id' => $request->program_id,
-                        'gender_id' => $request->gender_id,
-                        'direction' => $request->direction,
-                    ]
-                );
-
-                return Response()->json($user);
-
             } catch (Exception $e) {
                 return Response()->json($e,500);
             }
         }
         else{
             return response()->json([
-                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS. D'
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
             ],401);
         }
     }
@@ -187,7 +267,6 @@ class UserController extends Controller
             $request->validate([
                 'name' => 'required|max:50',
                 'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
-                'identification_id' => 'required',
                 'gender_id' => 'required',
                 'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             ]);
@@ -211,7 +290,6 @@ class UserController extends Controller
                             'description' => $request->description,
                             'phone' => $request->phone,
                             'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
-                            'identification_id' => $request->identification_id,
                             'program_id' => $request->program_id,
                             'gender_id' => $request->gender_id,
                             'direction' => $request->direction,
@@ -231,7 +309,6 @@ class UserController extends Controller
                         'description' => $request->description,
                         'phone' => $request->phone,
                         'showCurriculum' => $request->has('showCurriculum') ? $request->input('showCurriculum') == 0 ? 1 : 0 : 0,
-                        'identification_id' => $request->identification_id,
                         'program_id' => $request->program_id,
                         'gender_id' => $request->gender_id,
                         'direction' => $request->direction,
@@ -246,7 +323,7 @@ class UserController extends Controller
         }
         else{
             return response()->json([
-                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS. D'
+                'errors'=>'USER DOES NOT HAVE THE RIGHT PERMISSIONS.'
             ],401);
         }
     }

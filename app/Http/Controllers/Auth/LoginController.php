@@ -83,9 +83,10 @@ class LoginController extends Controller
                     'state' => '1',
                     'password' => Hash::make('password'),
                     'external_id' => session('dataUser')->user['id'],
-                    'identification_id' => Identification::select('id')->where('documento',$request->identificationField)->first()->id,
+                    'identification_id' => $request->identificationField,
                 ]);
                 $user = User::find(User::where('email', '=', session('dataUser')->user['email'])->first()->id);
+                $user->assignRole([3]);
                 Auth::login($user);
                 if (Auth::check()) {
                     return redirect()->route('home');

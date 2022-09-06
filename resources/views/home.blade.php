@@ -260,6 +260,30 @@
 
             </div>
 
+            <div class="row mt-3">
+                @can('category-publication-list','category-publication-create','category-publication-edit','category-publication-delete')
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('category-publication')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center">
+                                            <i class="fa-solid fa-address-book fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-left ms-3">
+                                            <h4 class="danger">Categorías Publicaciones</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endcan
+
+            </div>
+
         </section>
 
         <section id="stats-subtitle">

@@ -32,7 +32,7 @@ class CategoryPublicationController extends Controller
                     'id' => $categoryPublicationId
                 ],
                 [
-                    'name_faculty' => $request->name_category_publication
+                    'name_category_publication' => $request->name_category_publication
                 ]);
             return Response()->json($categoryPublication);
         }

@@ -14,4 +14,27 @@ class UsersExport implements FromCollection
     {
         return User::all();
     }
+
+    public function headings(): array
+    {
+        return [
+            'id',
+            'identification_id',
+            'program_id',
+            'name',
+            'description',
+            'email',
+            'phone',
+            'direction',
+            'fileName',
+            'path',
+            'email_verified_at',
+            'state',
+            'showCurriculum',
+            'avatar',
+            'external_id',
+            'created_at',
+            'updated_at',
+        ];
+    }
 }
