@@ -542,10 +542,10 @@
                 cleanErrors();
                 let formData = new FormData(this);
                 var data = $('#avatarFileSm').value;
-                formData.append('state', $('#inputState option:selected').prop('data-id'));
-                formData.append('program_id', $('#inputProgram option:selected').prop('data-id'));
-                formData.append('role_id', $('#inputRole option:selected').prop('data-id'));
-                formData.append('gender_id', $('#inputGender option:selected').prop('data-id'));
+                formData.append('state', $('#inputState option:selected').attr('data-id'));
+                formData.append('program_id', $('#inputProgram option:selected').attr('data-id'));
+                formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
+                formData.append('gender_id', $('#inputGender option:selected').attr('data-id'));
                 $.ajax({
                     type: 'POST',
                     url: "{{ url('store-admin') }}",

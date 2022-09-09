@@ -675,7 +675,7 @@
             $('body').on('click', '.hide', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                var hidden = $(this).data('hidden') == 0 ? 1 : 0;
+                var hidden = $("#pubHidden"+id).val() == "0" ? 0 : 1;
                 // ajax
                 $.ajax({
                     type: "POST",
@@ -686,23 +686,17 @@
                     },
                     dataType: 'json',
                     success: function(res) {
-                        console.log(res.hidden);
+                        //console.log(res.hidden);
                         if (res.hidden == "1") {
                             $("#pub" + id).addClass('hide-publication');
-                            //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
-                            $("#pubHidden" + $(this).data('id')).dataset.hidden = res.hidden;
-                            console.log($(this).data('hidden'));
-                            //$(this).setAttribute('data-hidden',res.hidden);
+                            $("#pubHidden"+id).val("0");
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Se ocultó con éxito'
                             })
                         } else {
                             $("#pub" + id).removeClass('hide-publication');
-                            //$("#pubHidden"+$(this).data('id')).attr('data-hidden',res.hidden);
-                            $("#pubHidden" + $(this).data('id')).dataset.hidden = res.hidden;
-                            console.log($(this).data('hidden'));
-                            //$(this).setAttribute('data-hidden',res.hidden);
+                            $("#pubHidden"+id).val("1");
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Se desocultó con éxito'
@@ -729,7 +723,7 @@
             $('#addEditPublicationForm').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                formData.append('category_publication_id', $('#inputCategory option:selected').prop(
+                formData.append('category_publication_id', $('#inputCategory option:selected').attr(
                     'data-id'));
                 $.ajax({
                     type: 'POST',

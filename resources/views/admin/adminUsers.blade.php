@@ -505,7 +505,7 @@
             $('#assignRoleForm').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                formData.append('role_id', $('#inputRole option:selected').prop('data-id'));
+                formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
                 formData.append('user_id', user_id);
                 $.ajax({
                     type: 'POST',
@@ -570,7 +570,7 @@
             $('#changeStateForm').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                formData.append('state', $('#inputState option:selected').prop('data-id'));
+                formData.append('state', $('#inputState option:selected').attr('data-id'));
                 formData.append('user_id', user_id);
                 $.ajax({
                     type: 'POST',

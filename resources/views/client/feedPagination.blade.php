@@ -16,7 +16,8 @@
                             <div class="dropdown-content">
                                 <a href="" class="edit" data-id="{{$publication->id}}">Editar <i class="dropbtn fa-solid fa-trash-can fa-1x"></i></a>
                                 <a href="" class="delete" data-id="{{$publication->id}}">Eliminar <i class="dropbtn fa-solid fa-pen-to-square fa-1x"></i></a>
-                                <a id="pubHidden{{$publication->id}}" href="" class="hide" data-id="{{$publication->id}}" data-hidden="{{$publication->hidden}}">Ocultar <i class="dropbtn fa-solid fa-eye-slash fa-1x"></i></a>
+                                <a href="" class="hide" data-id="{{$publication->id}}">Ocultar / Desocultar <i class="dropbtn fa-solid fa-eye-slash fa-1x"></i></a>
+                                <input type="hidden" id="pubHidden{{$publication->id}}" data-id="{{$publication->id}}" value="{{$publication->hidden}}">
                             </div>
                         </div>
                         @endif
@@ -68,7 +69,8 @@
                             <div class="dropdown-content">
                                 <a href="" class="edit" data-id="{{$publication->id}}">Editar <i class="dropbtn fa-solid fa-trash-can fa-1x"></i></a>
                                 <a href="" class="delete" data-id="{{$publication->id}}">Eliminar <i class="dropbtn fa-solid fa-pen-to-square fa-1x"></i></a>
-                                <a href="" class="hide" data-id="{{$publication->id}}" data-hidden="{{$publication->hidden}}">Ocultar <i class="dropbtn fa-solid fa-eye-slash fa-1x"></i></a>
+                                <a href="" class="hide" data-id="{{$publication->id}}">Ocultar / Desocultar <i class="dropbtn fa-solid fa-eye-slash fa-1x"></i></a>
+                                <input type="hidden" id="pubHidden{{$publication->id}}" data-id="{{$publication->id}}" value="{{$publication->hidden}}">
                             </div>
                         </div>
                         @endif

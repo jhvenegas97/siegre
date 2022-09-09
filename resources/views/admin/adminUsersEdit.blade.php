@@ -1179,7 +1179,7 @@
                 cleanErrors();
                 let formData = new FormData(this);
                 var data = $('#titleFileSm').value;
-                formData.append('academic_level_id', $('#inputStateAcademicLevel option:selected').prop(
+                formData.append('academic_level_id', $('#inputStateAcademicLevel option:selected').attr(
                     'data-id'));
                 formData.append('user_id', $("#userData").find('input[name="id"]').val());
                 $.ajax({
@@ -1598,7 +1598,7 @@
                 cleanErrors();
                 let formData = new FormData(this);
                 var data = $('#titleFileWorkSm').value;
-                formData.append('work_type_id', $('#inputStateWorkLevel option:selected').prop('data-id'));
+                formData.append('work_type_id', $('#inputStateWorkLevel option:selected').attr('data-id'));
                 formData.append('user_id', $("#userData").find('input[name="id"]').val());
                 $.ajax({
                     type: 'POST',
@@ -1673,10 +1673,10 @@
                 cleanErrors();
                 let formData = new FormData(this);
                 var data = $('#avatarFileSm').value;
-                formData.append('state', $('#inputState option:selected').prop('data-id'));
-                formData.append('program_id', $('#inputProgram option:selected').prop('data-id'));
-                formData.append('role_id', $('#inputRole option:selected').prop('data-id'));
-                formData.append('gender_id', $('#inputGender option:selected').prop('data-id'));
+                formData.append('state', $('#inputState option:selected').attr('data-id'));
+                formData.append('program_id', $('#inputProgram option:selected').attr('data-id'));
+                formData.append('role_id', $('#inputRole option:selected').attr('data-id'));
+                formData.append('gender_id', $('#inputGender option:selected').attr('data-id'));
                 $.ajax({
                     type: 'POST',
                     url: "{{ url('add-update-user') }}",
