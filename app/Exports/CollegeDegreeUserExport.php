@@ -13,7 +13,7 @@ class CollegeDegreeUserExport implements FromCollection,WithHeadings
     */
     public function collection()
     {
-        return collect(DB::select('select U.identification_id, U.name, U.email, A.title_academic, AL.name_academic_level from users as U inner join academics as A on U.identification_id = A.id inner join academic_levels as AL on A.academic_level_id = AL.id'));
+        return collect(DB::select('select U.identification_id, U.name, U.email, A.title_academic, AL.name_academic_level from users as U inner join academics as A on U.id = A.user_id inner join academic_levels as AL on A.academic_level_id = AL.id'));
     }
 
     public function headings(): array

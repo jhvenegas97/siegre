@@ -91,7 +91,7 @@
 <footer class="footer mt-auto py-3 bg-light d-flex flex-wrap align-items-center justify-content-center" style="font-size: 1.05rem; ">
 
     <div class="col-md-8 col-sm-12 d-flex align-items-center justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start text-center text-md-start text-lg-start text-xl-start ">
-        <span class="justify-content-sm-center d-flex " style="padding-left: 30px; padding-right: 30px; ">SIEGRES<br>© Copyright Universidad de Nariño. All Rights Reserved 2021 <br> Calle 18 Carrera 50 Torobajo, Bloque 3, Departamento de Matemáticas y Estadística</span>
+        <span class="justify-content-sm-center d-flex " style="padding-left: 30px; padding-right: 30px; ">SIEGRES<br>© Copyright Universidad de Nariño. All Rights Reserved 2022 <br> Calle 18 Carrera 50 Torobajo, Bloque 3, Departamento de Matemáticas y Estadística</span>
     </div>
 
     <div class="col-md-4 col-sm-12 d-flex justify-content-center justify-content-md-end justify-content-lg-end justify-content-xl-end ">

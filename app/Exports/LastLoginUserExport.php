@@ -13,7 +13,7 @@ class LastLoginUserExport implements FromCollection,WithHeadings
     */
     public function collection()
     {
-        return collect(DB::select('select FROM_UNIXTIME(s.last_activity) as last_activity, U.identification_id, U.name from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(s.last_activity)'));
+        return collect(DB::select('select FROM_UNIXTIME(last_activity) as last_activity, U.identification_id, U.name from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(last_activity)'));
     }
 
     public function headings(): array

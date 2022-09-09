@@ -61,7 +61,7 @@ class ReportsController extends Controller
     public function lastLoginUser(){
 
         if(request()->ajax()) {
-            return datatables()->of(DB::select('select FROM_UNIXTIME(s.last_activity) as last_activity, U.identification_id, U.name from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(s.last_activity)'))
+            return datatables()->of(DB::select('select FROM_UNIXTIME(last_activity) as last_activity, U.identification_id, U.name from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(last_activity)'))
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -93,7 +93,7 @@ class ReportsController extends Controller
     public function collegeDegreeUser(){
 
         if(request()->ajax()) {
-            return datatables()->of(DB::select('select U.identification_id, U.name, U.email, A.title_academic, AL.name_academic_level from users as U inner join academics as A on U.identification_id = A.id inner join academic_levels as AL on A.academic_level_id = AL.id'))
+            return datatables()->of(DB::select('select U.identification_id, U.name, U.email, A.title_academic, AL.name_academic_level from users as U inner join academics as A on U.id = A.user_id inner join academic_levels as AL on A.academic_level_id = AL.id'))
                 ->addIndexColumn()
                 ->make(true);
         }
