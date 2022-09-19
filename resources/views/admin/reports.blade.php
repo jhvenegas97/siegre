@@ -135,6 +135,26 @@
                     </div>
                 </div>
                 @endcan
+                @can('reports-system')
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{route('active-users')}}" class="card-panel">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="align-self-center align-bottom">
+                                            <i class="fa-solid fa-person-circle-check fa-3x"></i>
+                                        </div>
+                                        <div class="media-body text-right ms-3">
+                                            <h4 class="danger">Usuarios Activos</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endcan
             </div>
         </section>
     </div>

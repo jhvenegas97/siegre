@@ -1,4 +1,4 @@
-@section('title', 'Administrador Último Inicio Sesión')
+@section('title', 'Administrador Usuarios Activos')
 @extends('layouts.layoutAdmin')
 @section('content')
     <script>
@@ -21,12 +21,12 @@
 
      <div class="container-fluid">
         <center>
-            <h3 class="mb-4">Reporte de Último Inicio de Sesión por Usuario</h3>
+            <h3 class="mb-4">Reporte de Usuarios Activos</h3>
         </center>
         <div class="row d-flex justify-content-start flex-column flex-md-row">
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start mb-4">
                 <div class="col-12 d-flex justify-content-center justify-content-md-start">
-                <a class="ms-2" href="{{ route('last-login-user.excel') }}"><button id="exportExcel" class="btn btn-primary btn-new">Exportar a Excel</button></a>
+                <a class="ms-2" href="{{ route('active-user.excel') }}"><button id="exportExcel" class="btn btn-primary btn-new">Exportar a Excel</button></a>
                 </div>
             </div>
         </div>
@@ -37,13 +37,12 @@
 
                  <thead class="table-light">
                  <tr>
-                     <th scope="col" class="align-middle text-center">ID</th>
                      <th scope="col" class="align-middle text-center">Identificación</th>
                      <th scope="col" class="align-middle text-center">Nombre</th>
                      <th scope="col" class="align-middle text-center">Email</th>
-                     <th scope="col" class="align-middle text-center">Último Inicio Sesión</th>
                      <th scope="col" class="align-middle text-center">Teléfono</th>
                      <th scope="col" class="align-middle text-center">Dirección</th>
+                     <th scope="col" class="align-middle text-center">Fecha Inicio Sesión</th>
                  </tr>
                  </thead>
              </table>
@@ -296,17 +295,16 @@
             $('#datatable-ajax-crud').DataTable({
                                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('reports-last-login-user') }}",
+                ajax: "{{ url('reports-active-users') }}",
                 columns: [
-                    { data: 'id', name: 'id' },
                     { data: 'identification_id', name: 'identification_id' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
-                    { data: 'last_sign_in_at', name: 'last_sign_in_at' },
                     { data: 'phone', name: 'phone' },
                     { data: 'direction', name: 'direction' },
+                    { data: 'last_activity', name: 'last_activity' },
                 ],
-                order: [[0, 'asc']],
+                order: [[0, 'desc']],
                 language:spanishLanguage,
             });
         });

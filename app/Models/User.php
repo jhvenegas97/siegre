@@ -57,6 +57,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'last_sign_in_at'
+    ];
+
     public function identification()
     {
         return $this->belongsTo("App\Models\Identification", "identification_id");

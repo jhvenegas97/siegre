@@ -11,6 +11,7 @@ use App\Exports\LastLoginUserExport;
 use App\Exports\WorkingUserExport;
 use App\Exports\CollegeDegreeUserExport;
 use App\Exports\GenderEmployabilityUserExport;
+use App\Exports\ActiveUsersExport;
 
 class ReportsController extends Controller
 {
@@ -58,10 +59,21 @@ class ReportsController extends Controller
     	return Excel::download(new LastJobUserExport, 'last-job-user-list.xlsx');
     }
 
+    public function activeUsers(){
+
+        if(request()->ajax()) {
+            return datatables()->of(DB::select('select U.identification_id, U.name,U.email,U.phone,U.direction, FROM_UNIXTIME(last_activity) as last_activity from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(last_activity)'))
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+        return view('admin.adminReportsActiveUsers');
+    }
+
     public function lastLoginUser(){
 
         if(request()->ajax()) {
-            return datatables()->of(DB::select('select FROM_UNIXTIME(last_activity) as last_activity, U.identification_id, U.name from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(last_activity)'))
+            return datatables()->of(DB::select('select users.id,identification_id,users.name,email,last_sign_in_at,phone,direction from users inner join genders on users.gender_id = genders.id order by users.id'))
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -72,6 +84,11 @@ class ReportsController extends Controller
     public function exportLastLoginUserExcel()
     {
     	return Excel::download(new LastLoginUserExport, 'last-login-user-list.xlsx');
+    }
+
+    public function exportActiveUsersExcel()
+    {
+    	return Excel::download(new ActiveUsersExport, 'active-users-list.xlsx');
     }
 
     public function workingUser(){

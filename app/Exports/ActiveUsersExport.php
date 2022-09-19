@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class LastLoginUserExport implements FromCollection,WithHeadings
+class ActiveUsersExport implements FromCollection,WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return collect(DB::select('select users.id,identification_id,users.name,email,last_sign_in_at,phone,direction from users inner join genders on users.gender_id = genders.id order by users.id'));
+        return collect(DB::select('select U.identification_id, U.name,U.email,U.phone,U.direction, FROM_UNIXTIME(last_activity) as last_activity from sessions as S inner join users as U on U.id = S.user_id group by U.id having max(last_activity)'));
+
     }
 
     public function headings(): array
     {
         return [
-            'id',
             'identification_id',
             'name',
             'email',
-            'last_sign_in_at',
             'phone',
-            'direction'
+            'direction',
+            'last_activity',
         ];
     }
 }

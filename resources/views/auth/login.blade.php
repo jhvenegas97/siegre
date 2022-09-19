@@ -39,10 +39,10 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3 form-check d-flex flex-row gap-2">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                        <div class="mb-3 form-check d-flex flex-row gap-2 ps-0">
+                            {{-- <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                 {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">{{ __(' Recordar') }}</label>
+                            <label class="form-check-label" for="remember">{{ __(' Recordar') }}</label> --}}
                             @if (Route::has('password.request'))
                                 <a class="text-end" href="{{ route('password.request') }}">
                                     {{ __('¿Olvidó su contraseña?') }}

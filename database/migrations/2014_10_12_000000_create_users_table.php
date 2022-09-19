@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->boolean('showCurriculum')->nullable()->default(0);;
             $table->string('avatar')->nullable();
             $table->string('external_id')->nullable();
+            $table->timestamp('last_sign_in_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

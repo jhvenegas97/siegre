@@ -286,6 +286,7 @@
 
         </section>
 
+        @hasrole('Admin')
         <section id="stats-subtitle">
             <div class="row">
                 <div class="col-12 mt-3 mb-1">
@@ -337,6 +338,7 @@
             </div>
             <br>
         </section>
+        @endhasrole
     </div>
 
 </div>

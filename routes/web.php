@@ -122,6 +122,9 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('/reports-last-login-user', [Controllers\ReportsController::class, 'lastLoginUser'])->middleware('can:reports-system')->name('last-login-user');
     Route::get('last-login-user-list-excel',[Controllers\ReportsController::class, 'exportLastLoginUserExcel'])->middleware('any_permission:user-export-data')->name('last-login-user.excel');
 
+    Route::get('/reports-active-users', [Controllers\ReportsController::class, 'activeUsers'])->middleware('can:reports-system')->name('active-users');
+    Route::get('active-users-list-excel',[Controllers\ReportsController::class, 'exportActiveUsersExcel'])->middleware('any_permission:user-export-data')->name('active-user.excel');
+
     Route::get('/reports-working-user', [Controllers\ReportsController::class, 'workingUser'])->middleware('can:reports-system')->name('working-user');
     Route::get('working-user-list-excel',[Controllers\ReportsController::class, 'workingUserExcel'])->middleware('any_permission:user-export-data')->name('working-user.excel');
 
