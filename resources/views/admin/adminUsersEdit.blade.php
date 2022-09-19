@@ -204,7 +204,7 @@
                                                                             alt="">
                                                                     @else
                                                                         @if ($user->fileName != null)
-                                                                            <img src="{{ asset('uploads/' . $user->fileName) }}"
+                                                                            <img src="{{ asset('uploads/profilephotos/' . $user->fileName) }}"
                                                                                 width="70" height="70"
                                                                                 class="img-responsive img-circle"
                                                                                 alt="">

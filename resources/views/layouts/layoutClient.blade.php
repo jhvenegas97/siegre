@@ -134,7 +134,7 @@
                                 <img src="{{Auth::user()->avatar}}" width="70" height="70" class="img-responsive img-circle" alt="">
                             @else
                                 @if (Auth::user()->fileName!=null)
-                                <img src="{{asset('uploads/'.Auth::user()->fileName)}}" width="70" height="70" class="img-responsive img-circle" alt="">
+                                <img src="{{asset('uploads/profilephotos/'.Auth::user()->fileName)}}" width="70" height="70" class="img-responsive img-circle" alt="">
                                 @else
                                 <img src="{{asset('images/admin.svg')}}" width="70" height="70" class="img-responsive img-circle" alt="">
                                 @endif

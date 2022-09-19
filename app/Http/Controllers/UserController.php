@@ -193,7 +193,7 @@ class UserController extends Controller
                         $imagePath = $request->file('file');
                         $imageName = $imagePath->getClientOriginalName();
                         $name = time().'.'.request()->file->getClientOriginalExtension();
-                        $path = $request->file->move(public_path('uploads'), $imageName);
+                        $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
     
                         $user   =   User::updateOrCreate(
                             [
@@ -278,7 +278,7 @@ class UserController extends Controller
                     $imagePath = $request->file('file');
                     $imageName = $imagePath->getClientOriginalName();
                     $name = time().'.'.request()->file->getClientOriginalExtension();
-                    $path = $request->file->move(public_path('uploads'), $imageName);
+                    $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
 
                     $user   =   User::updateOrCreate(
                         [
