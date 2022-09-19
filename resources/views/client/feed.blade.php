@@ -212,7 +212,7 @@
                             <div class="row flex-column d-flex justify-content-center">
                                 <div class="col-12 d-flex align-items-center justify-content-center">
                                     @if (Auth::user()->avatar != null)
-                                        <img src="{{ $publication->user->avatar }}" width="35" height="35"
+                                        <img src="{{ Auth::user()->avatar }}" width="35" height="35"
                                             class="img-responsive img-circle" alt="">
                                     @else
                                         @if (Auth::user()->fileName != null)
