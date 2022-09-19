@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AcademicController extends Controller
 {
@@ -42,7 +43,7 @@ class AcademicController extends Controller
                 $academicId = $request->id;
                 if ($request->has('file_academic')) {
                     $pdfPath = $request->file('file_academic');
-                    $pdfName = $pdfPath->getClientOriginalName();
+                    $pdfName = uniqid().'.'.File::extension($pdfPath->getClientOriginalName());
                     $name = time().'.'.request()->file_academic->getClientOriginalExtension();
                     $path = $request->file_academic->move(public_path('uploads/academics'), $pdfName);
                     

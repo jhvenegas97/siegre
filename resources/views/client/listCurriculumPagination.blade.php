@@ -39,7 +39,7 @@
                                     class="img-responsive img-circle" alt="">
                             @else
                                 @if ($userCurriculum->fileName != null)
-                                    <img src="{{ asset('uploads/' . $userCurriculum->fileName) }}" width="100"
+                                    <img src="{{ asset('uploads/profilephotos/' . $userCurriculum->fileName) }}" width="100"
                                         height="100" class="img-responsive img-circle" alt="">
                                 @else
                                     <img src="{{ asset('images/admin.svg') }}" width="100" height="100"

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Pusher\Pusher;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PublicationFeedController extends Controller
 {
@@ -76,7 +77,7 @@ class PublicationFeedController extends Controller
                     }
     
                     $pdfPath = $request->file('file_publication');
-                    $pdfName = $pdfPath->getClientOriginalName();
+                    $pdfName = uniqid().'.'.File::extension($pdfPath->getClientOriginalName());
                     $name = time() . '.' . request()->file_publication->getClientOriginalExtension();
                     $path = $request->file_publication->move(public_path('uploads/publications'), $pdfName);
     

@@ -14,6 +14,7 @@ use App\Exports\UsersExport;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -191,7 +192,7 @@ class UserController extends Controller
                 if ($request->password == $request->password_confirmation) {
                     if ($request->has('file')) {
                         $imagePath = $request->file('file');
-                        $imageName = $imagePath->getClientOriginalName();
+                        $imageName = uniqid().'.'.File::extension($imagePath->getClientOriginalName());
                         $name = time().'.'.request()->file->getClientOriginalExtension();
                         $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
     
@@ -276,7 +277,7 @@ class UserController extends Controller
                 $userId = $request->id;
                 if ($request->has('file')) {
                     $imagePath = $request->file('file');
-                    $imageName = $imagePath->getClientOriginalName();
+                    $imageName = uniqid().'.'.File::extension($imagePath->getClientOriginalName());
                     $name = time().'.'.request()->file->getClientOriginalExtension();
                     $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
 

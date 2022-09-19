@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class WorkController extends Controller
 {
@@ -42,7 +43,7 @@ class WorkController extends Controller
                 $workId = $request->id;
                 if ($request->has('file_work')) {
                     $pdfPath = $request->file('file_work');
-                    $pdfName = $pdfPath->getClientOriginalName();
+                    $pdfName = uniqid().'.'.File::extension($pdfPath->getClientOriginalName());
                     $name = time().'.'.request()->file_work->getClientOriginalExtension();
                     $path = $request->file_work->move(public_path('uploads/works'), $pdfName);
                     
