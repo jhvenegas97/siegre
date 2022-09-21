@@ -79,7 +79,7 @@ class PublicationFeedController extends Controller
                     $pdfPath = $request->file('file_publication');
                     $pdfName = uniqid().'.'.File::extension($pdfPath->getClientOriginalName());
                     $name = time() . '.' . request()->file_publication->getClientOriginalExtension();
-                    $path = $request->file_publication->move(public_path('uploads/publications'), $pdfName);
+                    $path = $request->file_publication->move(public_path('uploads/publications'), $name);
     
                     $publication   =   Publication::updateOrCreate(
                         [
@@ -92,7 +92,7 @@ class PublicationFeedController extends Controller
                             'text_publication' => $request->text_publication,
                             'init_date_publication' => $request->init_date_publication,
                             'end_date_publication' => $request->end_date_publication,
-                            'fileName_publication' => $pdfName,
+                            'fileName_publication' => $name,
                             'path_publication' => $path,
                         ]
                     );

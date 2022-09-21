@@ -194,7 +194,7 @@ class UserController extends Controller
                         $imagePath = $request->file('file');
                         $imageName = uniqid().'.'.File::extension($imagePath->getClientOriginalName());
                         $name = time().'.'.request()->file->getClientOriginalExtension();
-                        $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
+                        $path = $request->file->move(public_path('uploads/profilephotos'), $name);
     
                         $user   =   User::updateOrCreate(
                             [
@@ -211,7 +211,7 @@ class UserController extends Controller
                                 'gender_id' => $request->gender_id,
                                 'state' => $request->state,
                                 'direction' => $request->direction,
-                                'fileName'=> $imageName,
+                                'fileName'=> $name,
                                 'path'=>$path,
                                 'password' => bcrypt($request->password),
                             ]
@@ -279,7 +279,7 @@ class UserController extends Controller
                     $imagePath = $request->file('file');
                     $imageName = uniqid().'.'.File::extension($imagePath->getClientOriginalName());
                     $name = time().'.'.request()->file->getClientOriginalExtension();
-                    $path = $request->file->move(public_path('uploads/profilephotos'), $imageName);
+                    $path = $request->file->move(public_path('uploads/profilephotos'), $name);
 
                     $user   =   User::updateOrCreate(
                         [
@@ -294,7 +294,7 @@ class UserController extends Controller
                             'program_id' => $request->program_id,
                             'gender_id' => $request->gender_id,
                             'direction' => $request->direction,
-                            'fileName'=> $imageName,
+                            'fileName'=> $name,
                             'path'=>$path,
                         ]
                     );

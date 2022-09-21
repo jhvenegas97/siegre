@@ -45,7 +45,7 @@ class AcademicController extends Controller
                     $pdfPath = $request->file('file_academic');
                     $pdfName = uniqid().'.'.File::extension($pdfPath->getClientOriginalName());
                     $name = time().'.'.request()->file_academic->getClientOriginalExtension();
-                    $path = $request->file_academic->move(public_path('uploads/academics'), $pdfName);
+                    $path = $request->file_academic->move(public_path('uploads/academics'), $name);
                     
                     $academic   =   Academic::updateOrCreate(
                         [
@@ -57,7 +57,7 @@ class AcademicController extends Controller
                             'title_academic' => $request->title_academic,
                             'init_date_academic' => $request->init_date_academic,
                             'end_date_academic' => $request->end_date_academic,
-                            'fileName_academic'=> $pdfName,
+                            'fileName_academic'=> $name,
                             'path_academic'=>$path,
                         ]
                     );
